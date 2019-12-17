@@ -1,0 +1,61 @@
+# Parameters
+
+# Demographic parameters ----
+
+min.age <- 50
+max.age <- 75
+percent.alters.black <- 0.95
+percent.alters.nonblack <- 1-percent.alters.black
+
+# Network Parameters ----
+
+n.ego <- 500 #non-derived
+n.alter <- 4500 #non-derived
+n <- n.ego+n.alter #derived
+
+ego.alter.deg.dis <- c(1.7, 3.9, 7.8, 10.7, 13.6, 37.2, 25.1)/100 #non-derived
+ego.alter.deg <- 0:(length(ego.alter.deg.dis) - 1) #derived
+
+ego.alter.deg.nodes <- n.ego*ego.alter.deg.dis #derived
+n.edges <- sum(ego.alter.deg.nodes*ego.alter.deg) #derived
+mean.deg <- n.edges/(n*2) #derived
+
+b1.deg.min <- 0
+b1.deg.max <- 6
+
+# Disease Risk Parameters ----
+
+## base risk by age (from SEER reports)
+bc.risk.50to60 <- 2.35/100 #nonderived
+bc.risk.60to70 <- 3.26/100 #nonderived
+bc.risk.70to75 <- 12*100/100 #nonderived  # 3.39
+
+## proportion hormone positive
+prop.hormone.positive <- 77/100 #SEER data from Yami
+
+## age at postmenopause
+age.at.postmp <- 60 #ASSUMPTION
+
+## bmi and disease risk (Munsell et al)
+obesity_hpos_premp <- 0.78 #nonderived
+obesity_hpos_postmp<- 1.39 #nonderived
+obesity_hneg_premp <- 1.06 #nonderived
+obesity_hneg_postmp <- 0.98 #nonderived
+
+## obesity 
+prop.bmi.ge.30 <- 0.50 #ASSUMPTION
+
+## relative risk for obesity, pre and post menopausal
+obesity_post <- 1.11 # rr of obesity in post menopausal women
+obesity_pre <- 0.99 # rr of obesity in pre menopausal women
+
+## Cancer subtype distribution
+hpos_risk <- .77    #77 percent of cancers among AA were hormone positive
+
+## First degree relative history
+prop.fd.rel <- .124   # 12.4% of women had a first degree relative with breast cancer, Braithwite
+fd.rel.risk <- 1.49  # relative risk of women who had first degree relative with breast cancer 
+
+## Screening parameters
+prop.pcp.visitor <- .84
+
