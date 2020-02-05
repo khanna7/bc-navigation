@@ -21,30 +21,34 @@ source("parameters.R")
 n0 <- network.initialize(n, directed=F, bipartite=FALSE)
 
 # network parameters
-deg.spec <- c(0, 5)
+deg.spec <- c(0:5)
 formation <- ~edges+degree(deg.spec)
+#formation <- ~edges
 target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1]) 
 
 formation.n0 <- update.formula(formation, n0~.)
 constraints <- ~.
 
+fit_n0 <- ergm(formation.n0,
+               target.stats=target.stats,
+               constraints=constraints,
+               eval.loglik=FALSE,
+               verbose=FALSE,
+               control=control.ergm(MCMLE.maxit=500))
 
-deg.spec <- c(0:5)
-formation <- ~edges+b1degree(deg.spec)
-target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1]) 
 
+#size.of.timestep<-30 #30 days.
+#duration.1000 <- (2221+1000)/size.of.timestep
+duration<-999999999
+dissolution <- ~offset(edges)
+theta.diss <- log(duration-1)
 
-formation.n_bip <- update.formula(formation, n_bip~.)
-constraints <- ~.
+theta.form <- fit_n0$coef
+theta.form[1] <- theta.form[1] - theta.diss
 
-fit_bip <- ergm(formation.n_bip, 
-            target.stats=target.stats, 
-            constraints=constraints,
-            eval.loglik=FALSE,
-            verbose=FALSE,
-            control=control.ergm(MCMLE.maxit=500))
-
-net0_bip <- simulate(fit_bip)
+net0_bip <- simulate(fit_n0,
+                     formation=formation, dissolution=dissolution,
+                     coef.form=theta.form, coef.diss=theta.diss)
 
 # gof tests
 ego.alter.deg.dis*100
@@ -52,7 +56,6 @@ ego.alter.deg.dis*100
 degdist.net0_bip <- degreedist(net0_bip)
 length(degdist.net0_bip)
 names(degdist.net0_bip)
-
 
 deg.seq <- degree(net0_bip, gmode = "graph")
 deg.seq.ego <- deg.seq[1:n.ego] #degrees of egos
@@ -65,17 +68,16 @@ table(deg.seq.alter)/sum(table(deg.seq.alter))*100
 
 ## set attributes for egos and alters
 net0_bip %v% "type" <- rep(c("ego", "alter"),
-                     c(n.ego, n.alter)
-)
+                           c(n.ego, n.alter))
 
 ##age
-net0_bip %v% "age" <- sample(c(min.age, max.age), n, replace = TRUE)  
+net0_bip %v% "age" <- sample(min.age:max.age, n, replace = TRUE)  
 
 ## race: 100% of egos are black (=1); 95% of alters are black, 5% are other (=1) 
 set.vertex.attribute(net0_bip, "race", 1, (1:n.ego))
 set.vertex.attribute(net0_bip, "race", rbinom(n.alter, 1, percent.alters.black), 
                      ((n.ego+1):n)
-                     )
+)
 table(net0_bip %v% "race")
 
 #obesity
@@ -101,7 +103,7 @@ set.vertex.attribute(net0_bip, "bc_hpos_risk", 0)
 set.vertex.attribute(net0_bip, "bc_hneg_risk", 0)
 
 # populate breast cancer status
-  #create an attribute "bc.status": populate it based on the initial risk estimates
+#create an attribute "bc.status": populate it based on the initial risk estimates
 set.vertex.attribute(net0_bip, "bc_status", 0) 
 
 # set vertex attribute for bc subtype
@@ -109,7 +111,7 @@ set.vertex.attribute(net0_bip, "subtype", 0)
 
 # classify the BC states = 1 as hormone positive or hormone negative
 # for (bc_status == 1){
-    # horm.post based on menopause and obesity
+# horm.post based on menopause and obesity
 #}
 
 #Set vertex attribute for symptom severity
@@ -117,7 +119,7 @@ set.vertex.attribute(net0_bip, "symptom.severity", 0) #All people initially non-
 
 #Set vertex attribute for time since disease development
 set.vertex.attribute(net0_bip, "disease.time", 0) #initially 0, includes agents without breast cancer
-                                                              #have to populate initial breast cancer population with some distribution
+#have to populate initial breast cancer population with some distribution
 
 #Set vertex attribute for regular pcp visits
 set.vertex.attribute(net0_bip, "reg.pcp.visitor", 0)
@@ -144,8 +146,9 @@ set.vertex.attribute(net0_bip, "screen_result", 0)
 
 #set vertex attribute for whether or not a patient has been navigated
 set.vertex.attribute(net0_bip, "navigated", 0)
+#net0_bip %v% "navigated"<- rbinom(length(net0_bip %v% "navigated"),1,0.02)
 
-set.vertex.attribute(net0_bip, "neighbornav", 0)
+set.vertex.attribute(net0_bip, "neighbor_navigated", 0)
 set.vertex.attribute(net0_bip, "neighborfp", 0)
 set.vertex.attribute(net0_bip, "antinavigated", 0)
 set.vertex.attribute(net0_bip, "screen_complete", 0)
@@ -160,8 +163,9 @@ set.vertex.attribute(net0_bip, "diagnosis_time", 0)
 #set vertex attribute for disease time at diagnosis
 set.vertex.attribute(net0_bip, "diagnosis_referral_time", 0)
 
+#set vertex attribute for death due to cancer stage
+set.vertex.attribute(net0_bip, "cancer_death", 0)
+
 # Save object -----
 
 save(net0_bip, file = "estimation_net.RData")
-
-
