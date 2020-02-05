@@ -10,10 +10,6 @@ library(ergm)
 
 source("parameters.R")
 
-#parameter_file <- "test_parameters.R" #comment out for test
-#source(parameter_file, echo=T)
-
-
 
 # Estimate unipartite ERGM ----
 
@@ -21,9 +17,8 @@ source("parameters.R")
 n0 <- network.initialize(n, directed=F, bipartite=FALSE)
 
 # network parameters
-deg.spec <- c(0:5)
+deg.spec <- 0
 formation <- ~edges+degree(deg.spec)
-#formation <- ~edges
 target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1]) 
 
 formation.n0 <- update.formula(formation, n0~.)
@@ -34,7 +29,9 @@ fit_n0 <- ergm(formation.n0,
                constraints=constraints,
                eval.loglik=FALSE,
                verbose=FALSE,
-               control=control.ergm(MCMLE.maxit=500))
+               control=control.ergm(MCMLE.maxit=500)
+               )
+                                    
 
 
 #size.of.timestep<-30 #30 days.
