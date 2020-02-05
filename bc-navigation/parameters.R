@@ -3,7 +3,7 @@
 # Demographic parameters ----
 
 min.age <- 50
-max.age <- 75
+max.age <- 74
 percent.alters.black <- 0.95
 percent.alters.nonblack <- 1-percent.alters.black
 
@@ -11,7 +11,7 @@ percent.alters.nonblack <- 1-percent.alters.black
 
 n.ego <- 500 #non-derived
 n.alter <- 4500 #non-derived
-n <- n.ego+n.alter #derived
+n <- 5000 #derived
 
 ego.alter.deg.dis <- c(1.7, 3.9, 7.8, 10.7, 13.6, 37.2, 25.1)/100 #non-derived
 ego.alter.deg <- 0:(length(ego.alter.deg.dis) - 1) #derived
@@ -58,7 +58,7 @@ prop.fd.rel <- .124   # 12.4% of women had a first degree relative with breast c
 fd.rel.risk <- 1.49  # relative risk of women who had first degree relative with breast cancer 
 
 ## Screening parameters
-prop.pcp.visitor <- .84 
+prop.pcp.visitor <- .84
 
 #All cause mortality rates by age, per time step 
 ac.mort.50 <- .06146/12 
