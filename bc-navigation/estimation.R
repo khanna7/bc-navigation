@@ -3,15 +3,18 @@
 # Top Matter ----
 
 rm(list=ls())
+
 library(network)
 library(sna)
 library(ergm)
 
+source("parameters.R")
+
 #parameter_file <- "test_parameters.R" #comment out for test
 #source(parameter_file, echo=T)
 
-main_estimation <- function(parameter_file){
-source(parameter_file)
+
+
 # Estimate unipartite ERGM ----
 
 #initalize network
@@ -25,37 +28,7 @@ target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1])
 formation.n0 <- update.formula(formation, n0~.)
 constraints <- ~.
 
-# fit ergm 
-## (
-## specifications that converged
-##unipartite 
-## 0,5 (unconstrained degrees)
-## 1,5 (unconstrained)
-## )
 
-## Code below does not always converge
-
-# fit <- ergm(formation.n0, 
-#                target.stats=target.stats, 
-#                constraints=constraints,
-#                eval.loglik=FALSE,
-#                verbose=FALSE,
-#                control=control.ergm(MCMLE.maxit=500)
-#                )
-# 
-# sim <- simulate(fit)
-# sim <- simulate(fit, nsim=1)
-# 
-# nsim.edges <- lapply(sim, network.edgecount) 
-# summary(unlist(nsim.edges)) 
-# degreedist(sim[[1]])
-# 
-# Estimate bipartite ERGM ----
-
-#initalize network
-n_bip <- network.initialize(n, directed=F, bipartite=n.ego)
-
-# network parameters
 deg.spec <- c(0:5)
 formation <- ~edges+b1degree(deg.spec)
 target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1]) 
@@ -190,6 +163,5 @@ set.vertex.attribute(net0_bip, "diagnosis_referral_time", 0)
 # Save object -----
 
 save(net0_bip, file = "estimation_net.RData")
-return(net0_bip)
 
-}
+
