@@ -32,7 +32,7 @@ fit_n0 <- ergm(formation.n0,
                control=control.ergm(MCMLE.maxit=500)
                )
                                     
-
+mcmc.diagnostics(fit_n0)
 
 #size.of.timestep<-30 #30 days.
 #duration.1000 <- (2221+1000)/size.of.timestep
