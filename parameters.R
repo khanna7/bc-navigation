@@ -13,17 +13,16 @@ n.ego <- 500 #non-derived
 n.alter <- 4500 #non-derived
 n <- 5000 #derived
 
-#ego.alter.deg.dis <- (c(1.7, 3.9, 7.8, 10.7, 13.6, 37.2, 25.1)/100)*10 #non-derived
-ego.alter.deg.dis <- c(4,17,25,21,16,7,0)/100 #from the alter data  
+#ego.alter.deg.dis <- c(1.7, 3.9, 7.8, 10.7, 13.6, 37.2, 25.1)/100 #non-derived
+ego.alter.deg.dis <- c(4,17,25,21,16,7)/100 #from the alter data
 ego.alter.deg <- 0:(length(ego.alter.deg.dis) - 1) #derived
 
 ego.alter.deg.nodes <- n*ego.alter.deg.dis #derived
-
 n.edges <- sum(ego.alter.deg.nodes*ego.alter.deg) #derived
 mean.deg <- n.edges/(n*2) #derived
 
 b1.deg.min <- 0
-b1.deg.max <- 6
+b1.deg.max <- 5
 
 # Disease Risk Parameters ----
 
