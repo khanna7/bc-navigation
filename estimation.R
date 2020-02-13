@@ -3,23 +3,26 @@
 # Top Matter ----
 
 rm(list=ls())
-
 library(network)
 library(sna)
 library(ergm)
+library(networkDynamic)
 
-source("parameters.R")
+#parameter_file <- "test_parameters.R" #comment out for test
+#source(parameter_file, echo=T)
 
-
+main_estimation <- function(parameter_file){
+source(parameter_file)
 # Estimate unipartite ERGM ----
 
 #initalize network
 n0 <- network.initialize(n, directed=F, bipartite=FALSE)
 
 # network parameters
-deg.spec <- 0
+deg.spec <- 2:5
 formation <- ~edges+degree(deg.spec)
-target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1]) 
+#formation <- ~edges
+target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1])
 
 formation.n0 <- update.formula(formation, n0~.)
 constraints <- ~.
@@ -31,8 +34,12 @@ fit_n0 <- ergm(formation.n0,
                verbose=FALSE,
                control=control.ergm(MCMLE.maxit=500)
                )
-                                    
-mcmc.diagnostics(fit_n0)
+
+#save(fit_n0, file = "fit_n0_exp.RData")
+#save(fit_n0, file = "fit_n0_exp3.RData")
+#save(fit_n0, file = "fit_n0_exp4.RData")
+
+#mcmc.diagnostics(fit_n0)
 
 #size.of.timestep<-30 #30 days.
 #duration.1000 <- (2221+1000)/size.of.timestep
@@ -41,12 +48,12 @@ dissolution <- ~offset(edges)
 theta.diss <- log(duration-1)
 
 theta.form <- fit_n0$coef
-theta.form[1] <- theta.form[1] - theta.diss
+#theta.form[1] <- theta.form[1] - theta.diss
 
 net0_bip <- simulate(fit_n0,
                      formation=formation, dissolution=dissolution,
                      coef.form=theta.form, coef.diss=theta.diss)
-
+summary(net0_bip ~ degree(0:5))
 # gof tests
 ego.alter.deg.dis*100
 
@@ -74,7 +81,7 @@ net0_bip %v% "age" <- sample(min.age:max.age, n, replace = TRUE)
 set.vertex.attribute(net0_bip, "race", 1, (1:n.ego))
 set.vertex.attribute(net0_bip, "race", rbinom(n.alter, 1, percent.alters.black), 
                      ((n.ego+1):n)
-)
+                    )
 table(net0_bip %v% "race")
 
 #obesity
@@ -86,7 +93,7 @@ meno.status <- rep(0, n)
 
 meno.age <- which(net0_bip %v% "age" >= 60)
 for (i in meno.age){
-  meno.status[i] = 1
+  meno.status[i] <- 1
 }
 
 set.vertex.attribute(net0_bip, "meno.status", meno.status)
@@ -108,7 +115,7 @@ set.vertex.attribute(net0_bip, "subtype", 0)
 
 # classify the BC states = 1 as hormone positive or hormone negative
 # for (bc_status == 1){
-# horm.post based on menopause and obesity
+    # horm.post based on menopause and obesity
 #}
 
 #Set vertex attribute for symptom severity
@@ -116,7 +123,7 @@ set.vertex.attribute(net0_bip, "symptom.severity", 0) #All people initially non-
 
 #Set vertex attribute for time since disease development
 set.vertex.attribute(net0_bip, "disease.time", 0) #initially 0, includes agents without breast cancer
-#have to populate initial breast cancer population with some distribution
+                                                           #have to populate initial breast cancer population with some distribution
 
 #Set vertex attribute for regular pcp visits
 set.vertex.attribute(net0_bip, "reg.pcp.visitor", 0)
@@ -166,3 +173,6 @@ set.vertex.attribute(net0_bip, "cancer_death", 0)
 # Save object -----
 
 save(net0_bip, file = "estimation_net.RData")
+return(net0_bip)
+
+}
