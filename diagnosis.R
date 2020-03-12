@@ -43,64 +43,69 @@ diagnosis <- function(net.f){
                      reg.pcp.visitor,
                      navigated,
                      antinavigated,
-                     neighbornav,
+                     neighbor_navigated,
                      neighborfp)
   
-  all_agents<-which(net.f %v% "diagnosis" == 0)
+  all_agents<-which(diagnosis==0)
+  navigated_agents<-which(navigated==1)
+  
   for (agent in all_agents){
     agent_data<-attrib_mtrx[agent,]
-    #cat("diagnosis agent #:", agent, '\n')
+    
     #first deal with navigated and unnavigated screening mammogram patients
     #second deal with navigated diagnostic test patients
     if(screening_referral[agent]==1){
      
-        screen_complete[agent]<-rbinom(1,1,prob(agent_data,"sm"))
+      screen_complete[agent]<-rbinom(1,1,prob(agent_data,"sm"))
+      
+      if(screen_complete[agent]==1){
+        screening_referral[agent]<-0 #reset the referral
+        if(bc_status[agent]==1){
+          screen_result[agent]<-rbinom(1,1,(1-p_false_negative_sm))
+        }
+        else if(bc_status[agent]==0){
+          screen_result[agent]<-rbinom(1,1,p_false_positive_sm)
+        }
         
-        if(screen_complete[agent]==1){
-          screening_referral[agent]<-0 #reset the referral
-          if(bc_status[agent]==1){
-            screen_result[agent]<-rbinom(1,1,(1-p_false_negative_sm))
-          }
-          else if(bc_status[agent]==0){
-            screen_result[agent]<-rbinom(1,1,p_false_positive_sm)
+        #inputting diagnostic test referrals to positive screening mammogram pts.
+        if(screen_result[agent]==1){
+          diagnostic_referral[agent]<-1
+        }
+      }
+    }
+ 
+    if(diagnostic_referral[agent]==1){
+    
+      dt_complete[agent]<-rbinom(1,1,prob(agent_data,"dt"))
+      
+      if(dt_complete[agent]==1){
+        diagnostic_referral[agent]<-0 #reset the referral
+        if(bc_status[agent]==1){
+          diagnosis[agent]<-1
+          diagnosis_time[agent]<-disease.time[agent]
+        }
+        else if(bc_status[agent]==0){
+          antinavigated[agent]<-1
+          neighbors<-get.neighborhood(net.f,agent)
+          for(neighbor in neighbors){
+              neighborfp[neighbor]<-rbinom(1,1,0.5)
           }
         }
       }
-    
-    if (diagnostic_referral[agent]==1){
-        dt_complete[agent]<-rbinom(1,1,prob(agent_data,"dt"))
-        diagnostic_referral[agent]<-0
-        if(dt_complete[agent]==1){
-          if(bc_status[agent]==1){
-            diagnosis[agent]<-1
-            diagnosis_time[agent]<-disease.time[agent]
-          }
-        }
-        #social effect of navigation
-        if(dt_complete[agent]==1){
-          if(bc_status[agent]==0){
-            antinavigated[agent]<-1
-              neighbors<-get.neighborhood(net.f,agent)
-              for (neighbor in neighbors){
-                neighborfp[neighbor]<-rbinom(1,1,0.5)
-              }
-          }
-        }
-    }
-  
-  #inputting diagnostic test referrals to positive screening mammogram pts.
-    if(screen_result[agent]==1){
-      diagnostic_referral[agent]<-1
     }
   }
   
-  navigated_agents<-which(navigated==1)
-  for (agent in navigated_agents){
-    neighbors<-get.neighborhood(net.f,agent)
-    for (neighbor in neighbors){
-      neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
-    }
-  }
+  #commented out for burnin------------
+  
+  #for (agent in navigated_agents){
+  #  neighbors<-get.neighborhood(net.f,agent)
+  #  for (neighbor in neighbors){
+  #    neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+  #  }
+  #}
+  
+  #commented out for burnin------------
+  
   net.f %v% "navigated" <- navigated
   
   net.f %v% "diagnosis" <- diagnosis
