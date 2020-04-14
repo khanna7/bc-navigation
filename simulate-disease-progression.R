@@ -8,7 +8,7 @@ disease_progression <- function(net.f){
   # for an agent to develop breast cancer at that time
   # and updates breast cancer statuses based on that time.
 
-# Compute individual risk of disease ---------------------------
+# Compute individual risk of disease ---------------------
 
   ## assign base risk
   pop_size <- network.size(net.f)
@@ -23,6 +23,7 @@ disease_progression <- function(net.f){
   fd.rel <- net.f %v% "fd.rel" #first-degree relative
   disease.time <- net.f %v% "disease.time" #time of BC onset
   symptom.severity <- net.f %v% "symptom.severity"
+  cancer_death <- net.f %v% "cancer_death"
 
   # update menopausal status based on age
      for (agent in 1:pop_size){
@@ -75,7 +76,7 @@ disease_progression <- function(net.f){
      net.f %v% "bc_hpos_risk" <- bc_hpos_risk # we should compute this attribute at time 0
      net.f %v% "bc_hneg_risk" <- bc_hneg_risk
      
-     cat("H-positive risk: ", 
+     cat("H-positive risk: ",
          table(net.f %v% "bc_hpos_risk"), "\n")
      cat("H-negative risk: ",
          table(net.f %v% "bc_hneg_risk"), "\n")
@@ -89,10 +90,11 @@ disease_progression <- function(net.f){
           symptom.severity[agent] <- 1
          } else if (disease.time[agent] >= 24 & disease.time[agent] < 36){
            symptom.severity[agent] <- 2
-         } else if(disease.time[agent] >= 36 ){
+           if(cancer_death[agent]==0){cancer_death[agent] <- rbinom(1,1,0.00120878)} #stage 2 cancer death
+         } else if(disease.time[agent] >= 36){
            symptom.severity[agent] <- 3
+           if(cancer_death[agent]==0){cancer_death[agent] <- rbinom(1,1,0.0249197)} #stage 4 cancer death
          }
-        
        }
      }
      
@@ -116,6 +118,7 @@ disease_progression <- function(net.f){
      net.f %v% "symptom.severity"<-  symptom.severity
      net.f %v% "bc_status" <- bc_status # assign new breast cancer status 
      net.f %v% "subtype" <- subtype   # assign breast cancer subtype for newly developed cases
+     net.f %v% "cancer_death"<-cancer_death
 
      cat("New BC onsets: ", length(which(net.f %v% "bc_status" == 1)))
      cat("\n")
