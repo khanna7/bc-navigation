@@ -14,14 +14,16 @@ source("parameters.R")
 #initalize network
 n0 <- network.initialize(n, directed=F, bipartite=FALSE)
 
-# network parameters
+#network parameters
 deg.spec <- 2:5 #expanding further will lead to excessive model correlation.
 formation <- ~edges+degree(deg.spec)
 target.stats <- c(n.edges,ego.alter.deg.nodes[deg.spec+1])
 
 formation.n0 <- update.formula(formation, n0~.)
 constraints <- ~.
+##############################
 
+#Launching the network
 fit_n0 <- ergm(formation.n0,
                target.stats=target.stats,
                constraints=constraints,
@@ -31,10 +33,10 @@ fit_n0 <- ergm(formation.n0,
                )
 
 net0_bip <- simulate(fit_n0)
+############################
+
+#Summary stats and degree distribution of the network
 summary(net0_bip ~ degree(0:20))
-
-#ego.alter.deg.dis*100
-
 degdist.net0_bip <- degreedist(net0_bip)
 length(degdist.net0_bip)
 names(degdist.net0_bip)
@@ -45,8 +47,35 @@ table(deg.seq.ego)/sum(table(deg.seq.ego))*100
 
 deg.seq.alter <- deg.seq[(n.ego+1):n] #degrees of egos
 table(deg.seq.alter)/sum(table(deg.seq.alter))*100
+#######################################################
 
-# Initialize Population ----
+#Initialize Population ----
+
+#modify edge distribution to fit data better
+set.edge.attribute(net0_bip, "primary edge",  0)
+primary_edge <- net0_bip %e% "primary edge"
+
+edges_vector<-c()
+for(i in 1:network.size(net0_bip)){
+  edges_vector<-append(edges_vector,length(get.edges(net0_bip,v=i)))
+}
+
+normally_connected_nodes<-which(edges_vector<=5)
+normal_edges<-get.edgeIDs(net0_bip, v=normally_connected_nodes)
+set.edge.attribute(net0_bip, 
+                   e=normal_edges,
+                   attrname = "primary edge", 1)
+
+over_connected_nodes<-which(edges_vector>6)
+for (node in over_connected_nodes){
+  node_edges<-get.edgeIDs(net0_bip,v=node)
+  chosen_edge_index<-sample(node_edges,1)
+  set.edge.attribute(net0_bip, 
+                     e=chosen_edge_index,
+                     attrname = "primary edge", 1)
+}
+############
+
 
 ## set attributes for egos and alters
 net0_bip %v% "type" <- rep(c("ego", "alter"),c(n.ego, n.alter))
@@ -116,13 +145,19 @@ set.vertex.attribute(net0_bip, "screen_result", 0)
 
 #set vertex attribute for whether or not a patient has been navigated
 set.vertex.attribute(net0_bip, "navigated", 0)
-#net0_bip %v% "navigated"<- rbinom(length(net0_bip %v% "navigated"),1,0.02)
+net0_bip %v% "navigated"<- rbinom(length(net0_bip %v% "navigated"),1,0.02)
 
 set.vertex.attribute(net0_bip, "neighbor_navigated", 0)
 set.vertex.attribute(net0_bip, "neighborfp", 0)
 set.vertex.attribute(net0_bip, "antinavigated", 0)
 set.vertex.attribute(net0_bip, "screen_complete", 0)
 set.vertex.attribute(net0_bip, "diagnostic_test_complete", 0)
+set.vertex.attribute(net0_bip, "screen_result_roll", 0)
+set.vertex.attribute(net0_bip, "neighborfp_roll", 0)
+set.vertex.attribute(net0_bip, "diagnostic_referral_counter", 0)
+set.vertex.attribute(net0_bip, "screening_referral_counter", 0)
+set.vertex.attribute(net0_bip, "diagnostic_visit_counter", 0)
+set.vertex.attribute(net0_bip, "screening_visit_counter", 0)
 
 #set vertex attribute for whether a patient has been diagnosed
 set.vertex.attribute(net0_bip, "diagnosis", 0)
