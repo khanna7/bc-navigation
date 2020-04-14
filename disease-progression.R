@@ -22,20 +22,21 @@ disease_progression <- function(net.f){
   subtype <- net.f %v% "subtype" #cancer subtype
   fd.rel <- net.f %v% "fd.rel" #first-degree relative
   disease.time <- net.f %v% "disease.time" #time of BC onset
-  symptom.severity <- net.f %v% "symptom.severity"
-  cancer_death <- net.f %v% "cancer_death"
+  symptom.severity <- net.f %v% "symptom.severity" #severity of breast cancer
+  cancer_death <- net.f %v% "cancer_death" #whether or not the agent has died of breast cancer
 
   # update menopausal status based on age
      for (agent in 1:pop_size){
-       if (age[agent] >= 60)
+       if (age[agent] >= 60){
          meno.status[agent] <- 1
+       }
      }
   
   net.f %v% "meno.status" <- meno.status
      
      # based on age, assign risk
      for (agent in 1:pop_size){
-       # risk for hormone+ and - cancers is computed 
+       # risk for hormone+ and - cancers is computed
        # across three age categories: <60, 60-70, >70
        if (age[agent] < 60) {
          bc_hpos_risk[agent] <- bc.risk.50to60 * hpos_risk
@@ -72,7 +73,7 @@ disease_progression <- function(net.f){
           }
         }
       }
-  
+
      net.f %v% "bc_hpos_risk" <- bc_hpos_risk
      net.f %v% "bc_hneg_risk" <- bc_hneg_risk
      
@@ -80,7 +81,7 @@ disease_progression <- function(net.f){
      cat("H-negative risk: ", table(net.f %v% "bc_hneg_risk"), "\n")
      
      #Update time since development of disease
-     
+   
      for (agent in 1:pop_size){
        if (bc_status[agent] == 1){
          disease.time[agent] <- disease.time[agent] + 1 
@@ -102,7 +103,7 @@ disease_progression <- function(net.f){
        if (bc_status[agent] == 0){
          bc_status_update <- rmultinom(1, 1, 
                   c(bc_hpos_risk[agent],
-                    bc_hneg_risk[agent], 
+                    bc_hneg_risk[agent],
                     max(0, 1-(bc_hpos_risk[agent] + bc_hneg_risk[agent]))))
          #multinomial roll for hpos cancer, hneg cancer, and not hpos or hneg cancer
          if (bc_status_update[3] == 0) {    # if agent got breast cancer of either type
