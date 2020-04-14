@@ -31,6 +31,10 @@ diagnosis <- function(net.f){
   neighborfp <- net.f %v% "neighborfp"
   antinavigated <- net.f %v% "antinavigated"
   neighbornav <- net.f %v% "neighbornav"
+  screen_result_roll <- net.f %v% "screen_result_roll"
+  neighborfp_roll <- net.f %v% "neighborfp_roll"
+  diagnostic_visit_counter <- net.f %v% "diagnostic_visit_counter"
+  screening_visit_counter <- net.f %v% "screening_visit_counter"
   
   #probability list
   p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result
@@ -54,17 +58,25 @@ diagnosis <- function(net.f){
     
     #first deal with navigated and unnavigated screening mammogram patients
     #second deal with navigated diagnostic test patients
-    if(screening_referral[agent]==1){
+    if(screening_referral[agent]==1 &
+       screen_complete[agent]==0){
      
       screen_complete[agent]<-rbinom(1,1,prob(agent_data,"sm"))
+      screening_visit_counter[agent]<-screen_complete[agent]+screening_visit_counter[agent]
       
       if(screen_complete[agent]==1){
         screening_referral[agent]<-0 #reset the referral
-        if(bc_status[agent]==1){
+        screen_complete[agent]<-0 #reset the screen appointment
+        
+        if(bc_status[agent]==1 &
+           screen_result_roll[agent]==0){
           screen_result[agent]<-rbinom(1,1,(1-p_false_negative_sm))
+          screen_result_roll[agent]<-1
         }
-        else if(bc_status[agent]==0){
+        else if(bc_status[agent]==0 &
+                screen_result_roll[agent]==0){
           screen_result[agent]<-rbinom(1,1,p_false_positive_sm)
+          screen_result_roll[agent]<-1
         }
         
         #inputting diagnostic test referrals to positive screening mammogram pts.
@@ -74,12 +86,15 @@ diagnosis <- function(net.f){
       }
     }
  
-    if(diagnostic_referral[agent]==1){
+    if(diagnostic_referral[agent]==1 &
+       dt_complete[agent]==0){
     
       dt_complete[agent]<-rbinom(1,1,prob(agent_data,"dt"))
+      diagnostic_visit_counter[agent]<-dt_complete[agent]+diagnostic_visit_counter[agent]
       
       if(dt_complete[agent]==1){
         diagnostic_referral[agent]<-0 #reset the referral
+        dt_complete[agent]<-0 #reset the dx test appointment
         if(bc_status[agent]==1){
           diagnosis[agent]<-1
           diagnosis_time[agent]<-disease.time[agent]
@@ -88,7 +103,9 @@ diagnosis <- function(net.f){
           antinavigated[agent]<-1
           neighbors<-get.neighborhood(net.f,agent)
           for(neighbor in neighbors){
+            if(neighborfp_roll[agent]==0)
               neighborfp[neighbor]<-rbinom(1,1,0.5)
+              neighborfp_roll[agent]<-1
           }
         }
       }
@@ -97,14 +114,28 @@ diagnosis <- function(net.f){
   
   #commented out for burnin------------
   
-  #for (agent in navigated_agents){
-  #  neighbors<-get.neighborhood(net.f,agent)
-  #  for (neighbor in neighbors){
-  #    neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
-  #  }
-  #}
+  primary_edge<- net.f %e% "primary edge"
+  
+  for (agent in navigated_agents){
+    agent_edges<-get.edgeIDs(net.f, v=agent)
+    primary_edge_indices<-which(primary_edge[agent_edges]==1)
+    primary_edges<-get.edges(net.f,v=agent)[1:length(primary_edge_indices)]
+    neighbors<-c()
+    
+    for(i in 1:length(primary_edge_indices)){
+      neighbors<-append(neighbors,primary_edges[[i]][[1]])
+    }
+    #neighbors<-get.neighborhood(net.f,agent)
+    for (neighbor in neighbors){
+      neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+    }
+  }
   
   #commented out for burnin------------
+  
+  net.f %v% "neighborfp_roll" <- neighborfp_roll
+  
+  net.f %v% "screen_result_roll" <- screen_result_roll
   
   net.f %v% "navigated" <- navigated
   
@@ -121,6 +152,9 @@ diagnosis <- function(net.f){
   
   net.f %v% "neighbor_navigated" <- neighbor_navigated
   net.f %v% "neighborfp" <- neighborfp
+  
+  net.f %v% "diagnostic_visit_counter" <- diagnostic_visit_counter
+  net.f %v% "screening_visit_counter" <- screening_visit_counter
   
 return(net.f)
 }
