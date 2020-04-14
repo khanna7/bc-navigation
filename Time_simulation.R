@@ -39,8 +39,3 @@ for (time in 1:sim_time){
 
 end_time <- Sys.time()
 end_time - start_time
-  
-vec<-c()
-for(i in 1:network.size(net.f)){
-  vec<-append(vec,length(get.edges(net.f,v=i)))
-}
