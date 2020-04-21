@@ -1,22 +1,33 @@
+source("parameters.R")
+
 prob<-function(agent_data,test){
   
   probability<-0.0034 #time component
   
-  if(agent_data[1]>=2 & test=="sm"){probability<-probability*3}
+  agent_symptom_severity<-agent_data[1]
+  agent_regular_pcp_visitor<-agent_data[2]
+  agent_navigated<-agent_data[3]
+  agent_antinavigated<-agent_data[4]
+  agent_neighbor_navigated<-agent_data[5]
+  agent_neighbor_false_positive<-agent_data[6]
+
+  if(agent_symptom_severity>=2 & test=="sm"){probability<-probability*screening_mammogram_symptomatic_assumption}
   
-  if(agent_data[1]==1 & test=="dt"){probability<-probability*5}
-  else if(agent_data[1]==2 & test=="dt"){probability<-probability*10.2}
-  else if(agent_data[1]==3 & test=="dt"){probability<-probability*11.5}
+  if(agent_symptom_severity==1 & test=="dt"){probability<-probability*diagnostic_testing_SS1_assumption}
+  else if(agent_symptom_severity==2 & test=="dt"){probability<-probability*diagnostic_testing_SS2_calculation}
+  else if(agent_symptom_severity==3 & test=="dt"){probability<-probability*diagnostic_testing_SS3_calculation}
   
-  if(agent_data[2]==1){probability<-probability*14} #same as adherence
+  if(agent_regular_pcp_visitor==1){probability<-probability*regular_pcp_visitor_oddsratio} 
+  #same as being up to date on mammograms in paper
   
-  if(agent_data[3]==1){probability<-probability*(3.63-2.04*agent_data[2])}
+  if(agent_navigated==1){probability<-probability*(navigation_and_not_rpcpv_oddsratio
+                                                 -subtraction_due_to_rpcpv_oddsratio*agent_data[2])}
   
-  if(agent_data[4]==1){probability<-probability*0.07142857}
+  if(agent_antinavigated==1){probability<-probability*antinavigation_assumption}
   
-  if(agent_data[5]==1){probability<-probability*3.8}
+  if(agent_neighbor_navigated==1){probability<-probability*neighbor_navigation_oddsratio}
   
-  if(agent_data[6]==1){probability<-probability*0.2631579}
+  if(agent_neighbor_false_positive==1){probability<-probability*neighbor_false_positive_assumption}
   
   return(min(probability,1))
 }
