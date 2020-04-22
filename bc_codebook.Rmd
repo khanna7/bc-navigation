@@ -1,0 +1,124 @@
+---
+title: "bc_navigation_codebook"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Codebook for R21 Breast Cancer Navigation Model
+Date Created: 4/21/2020
+Date Last Modified: 4/21/2020
+Author: Michael Cronin
+
+```{r}
+install.packages('excelR')
+library(excelR)
+
+source("parameters.R")
+
+variable_data<-cbind(
+  #parameters.R variables
+  c("min.age", min.age, "minimum age of agents in model"),
+  c("max.age", max.age, "maximum age of agents in model"),
+  c("percent.alters.black", percent.alters.black, "percentage of alters black"),
+  c("percent.alters.nonblack", percent.alters.nonblack, "percentage of nonblack alters"),
+  c("n.ego", n.ego, "number of egos"),
+  c("n.alter", n.alter, "number of alters"),
+  c("n", n, "number of agents"),
+  c("ego.alter.deg.dis", ego.alter.deg.dis, "degree distribution coefficients"),
+  c("ego.alter.deg", ego.alter.deg, "corresponding degrees to match coefficients"),
+  c("ego.alter.deg.nodes", ego.alter.deg.nodes, "degree distributions by agent count"),
+  c("n.edges", n.edges, "number of total edges"),
+  c("mean.deg", mean.deg, "mean degree of a random agent"),
+  c("deg.min", deg.min, "minimum degree"),
+  c("deg.max", deg.max, "maximumm degree"),
+  c("bc.risk.50to60", bc.risk.50to60, "risk of bc for agents aged 50-60"),
+  c("bc.risk.60to70", bc.risk.60to70, "risk of bc for agents aged 60-70"),
+  c("bc.risk.70to75", bc.risk.70to75, "risk of bc for agents aged 70-75"),
+  c("prop.hormone.positive", prop.hormone.positive, "proportion of hormone positive breast cancer"),
+  c("age.at.postmp", age.at.postmp, "age of an agent at postmenopause"),
+  c("obesity_hpos_premp", obesity_hpos_premp, "obesity + premenopausal risk factor coefficient for hormone + bc"),
+  c("obesity_hpos_postmp", obesity_hpos_postmp, "obesity + postmenopausal risk factor coefficient for hormone + bc"),
+  c("obesity_hneg_premp", obesity_hneg_premp, "obesity + premenopausal risk factor coefficient for hormone - bc"),
+  c("obesity_hneg_postmp", obesity_hneg_postmp, "obesity + postmenopausal risk factor coefficient for hormone - bc"),
+  c("prop.bmi.ge.30", prop.bmi.ge.30, "proportion of agents w/bmi>30 (obese)"),
+  c("hpos_risk", hpos_risk, "baseline risk of developing hormone+ bc relative to total bc risk"),
+  c("prop.fd.rel", prop.fd.rel, "proportion with first-degree relative risk factor"),
+  c("fd.rel.risk", fd.rel.risk, "relative risk for first degree-relative risk factor"),
+  c("prop.pcp.visitor", prop.pcp.visitor, "proportion of agents that are regular pcp visitors"),
+  c("ac.mort.50", ac.mort.50, "all cause mortality probability for agents aged 50-54"),
+  c("ac.mort.55", ac.mort.55, "all cause mortality probability for agents aged 55-59"),
+  c("ac.mort.60", ac.mort.60, "all cause mortality probability for agents aged 60-64"),
+  c("ac.mort.65", ac.mort.65, "all cause mortality probability for agents aged 65-69"),
+  c("ac.mort.70", ac.mort.70, "all cause mortality probability for agents aged 70-74"),
+  c("screening_mammogram_symptomatic_assumpton", screening_mammogram_symptomatic_assumption, "coefficient for increase in screening mammogram likelihood due to symptom severity levels 2 and 3"),
+  c("diagnostic_testing_SS1_assumption", diagnostic_testing_SS1_assumption, "coefficient for increase in diagnostic test likelihood due to symptom severity level 1"),
+  c("diagnostic_testing_SS2_calculation", diagnostic_testing_SS2_calculation, "coefficient for increase in diagnostic test likelihood due to symptom severity level 2"),
+  c("diagnostic_testing_SS3_calculation", diagnostic_testing_SS3_calculation, "coefficient for increase in diagnostic test likelihood due to symptom severity level 3"),
+  c("regular_pcp_visitor_oddsratio", regular_pcp_visitor_oddsratio, "coefficient for increase in screening mammogram and diagnostic testing likelihood due to regularly visiting a primary care provider"),
+  c("navigation_and_not_rpcpv_oddsratio", navigation_and_not_rpcpv_oddsratio, "coefficient for increase in screening mammogram and diagnostic testing likelihood due to being both navigated and not a regular pcp visitor"),
+  c("subtraction_due_to_rpcpv_oddsratio", subtraction_due_to_rpcpv_oddsratio, "modification to navigaton coefficient due to being a regular pcp visitor"),
+  c("antinavigation_assumption", antinavigation_assumption, "assumed coefficient for decreasing screening mammogram and diagnostic testing likelihood due to getting a false positive result"),
+  c("neighbor_navigation_oddsratio", neighbor_navigation_oddsratio, "coefficient for increasing screening mammogram and diagnostic testing likelihood due to having been influenced by a navigated neighbor"),
+  c("neighbor_false_positive_assumption", neighbor_false_positive_assumption, "assumed coefficient for decreasing screening mammogram and diagnostic testing likelihood due to having a neighbor getting a false positive"),
+  c("p_false_negative_sm", p_false_negative_sm, "the probability of a false negative screening mammogram result"),
+  c("p_false_positive_sm", p_false_positive_sm, "the probability of a false negative screening mammogram result"),
+  
+  #prob.R variables
+  c("constant", 0.0034, "estimated value for the base probability of getting any visit or referral"),
+  
+  #disease-progression.R variables
+  c("constant", 60, "assumed age at which any agent is now postmenopausal"), #menopausal assumption
+  c("constant", 2.00,"assumed coefficient for increase in diagnostic test likelihood due to symptom severity level 1"),
+  c("constant", 2.25,"estimated coefficient for increase in diagnostic test likelihood due to symptom severity level 1"),
+  c("constant", 2.70, "estimated coefficient for increase in diagnostic test likelihood due to symptom severity level 1"),
+  c("constant", 0.00120878, "estimated chance of dying each month due to BC at symptom severity level 2"),
+  c("constant", 0.02491970, "estimated chance of dying each month due to BC at symptom severity level 2")
+)
+
+
+#data = data.frame(Country = c('India', 'India', 'US','US'), 
+ #         City = c('Bangalore', 'Mumbai', 'NY', 'SA'))
+ 
+data = data.frame(Name = variable_data[1,],
+                  Value = variable_data[2,],
+                  Definition = variable_data[3,]
+                  #Basis = variable_data[4,],
+                  #Source = variable_data[5,],
+                  #Commments= variable_data[6,]
+                  )
+
+#columns = data.frame(title=c('Country', 'City'),
+#                      width= c(300, 300),
+#                      type=c('text', 'dropdown'),
+#                      source=I(list(0,c('Bangalore', 'Mumbai', 'NY', 'SA','Delhi','Washington'))))
+
+columns = data.frame(title=c('Name', 'Value', 'Definition'),
+                      width= c(300, 300),
+                      type=c('text', 'dropdown'))
+                      #source=I(list(0,c('Bangalore', 'Mumbai', 'NY', 'SA','Delhi','Washington'))))
+
+excelTable(data=data, columns = columns)
+```
