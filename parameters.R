@@ -62,8 +62,28 @@ fd.rel.risk <- 1.49  # relative risk of women who had first degree relative with
 prop.pcp.visitor <- .84
 
 #All cause mortality rates by age, per time step 
-ac.mort.50 <- .06146/12 
+ac.mort.50 <- .06146/12
 ac.mort.55 <- .09755/12
 ac.mort.60 <- .13294/12
 ac.mort.65 <- .17714/12
 ac.mort.70 <- .25317/12
+
+#prob.R parameters
+screening_mammogram_symptomatic_assumption<-3
+
+diagnostic_testing_SS1_assumption<-2
+diagnostic_testing_SS2_calculation<-2.25
+diagnostic_testing_SS3_calculation<-2.70
+
+regular_pcp_visitor_oddsratio<-14
+navigation_and_not_rpcpv_oddsratio<-3.63
+subtraction_due_to_rpcpv_oddsratio<-2.04
+antinavigation_assumption<-1/14
+neighbor_navigation_oddsratio<-3.8
+neighbor_false_positive_assumption<-1/3.8
+
+#diagnosis.R parameters
+p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result
+p_false_positive_sm <- 0.0815 #the probability of a false positive screening mammogram result
+
+  
