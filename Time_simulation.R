@@ -26,11 +26,12 @@ sim_time <-360 #length of simulation in months
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
-setting<-"intervention"
-setting2<-"social effect on"
+#setting<-"intervention"
+#setting<-"intervention + social effects"
+#setting2<-"social effect on"
 
-#setting<-"burnin"
-#setting2<-"social effect off"
+setting<-"burnin"
+setting2<-"social effect off"
 
 for (time in 1:sim_time){
   cat(time, '\n')
