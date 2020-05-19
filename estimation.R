@@ -60,13 +60,13 @@ for(i in 1:network.size(net0_bip)){
   edges_vector<-append(edges_vector,length(get.edges(net0_bip,v=i)))
 }
 
-normally_connected_nodes<-which(edges_vector<=5)
+normally_connected_nodes<-which(edges_vector<6)
 normal_edges<-get.edgeIDs(net0_bip, v=normally_connected_nodes)
 set.edge.attribute(net0_bip, 
                    e=normal_edges,
                    attrname = "primary edge", 1)
 
-over_connected_nodes<-which(edges_vector>6)
+over_connected_nodes<-which(edges_vector>5)
 for (node in over_connected_nodes){
   node_edges<-get.edgeIDs(net0_bip,v=node)
   chosen_edge_index<-sample(node_edges,1)
@@ -145,7 +145,6 @@ set.vertex.attribute(net0_bip, "screen_result", 0)
 
 #set vertex attribute for whether or not a patient has been navigated
 set.vertex.attribute(net0_bip, "navigated", 0)
-net0_bip %v% "navigated"<- rbinom(length(net0_bip %v% "navigated"),1,0.02)
 
 set.vertex.attribute(net0_bip, "neighbor_navigated", 0)
 set.vertex.attribute(net0_bip, "neighborfp", 0)
