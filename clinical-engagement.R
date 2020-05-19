@@ -7,7 +7,7 @@ library(ergm)
 
 #Initialize function
 
-clinical_engagement <- function(net.f){
+clinical_engagement <- function(net.f, settings){
   #this function simulates clinic visits
   
   ## get individual attributes 
@@ -31,6 +31,10 @@ clinical_engagement <- function(net.f){
   dt_complete <- net.f %v% "diagnostic_test_complete"
   diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
   screening_referral_counter <- net.f %v% "screening_referral_counter"
+  
+  if((time==1)&(settings=="intervention")){
+    net.f %v% "navigated"<- rbinom(length(net.f %v% "navigated"),1,0.02)
+  }
   
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -57,17 +61,29 @@ clinical_engagement <- function(net.f){
       screening_referral[agent]<-rbinom(1,1,prob(agent_data,"sm"))
       screening_referral_counter[agent]<-screening_referral_counter[agent]+screening_referral[agent]
     }
-    
-    #simulate navigation
-   else if((navigated[agent]==0) &
+   
+    if((settings=="intervention")|(settings=="intervention + social effects")){
+       #simulate navigation
+      if((navigated[agent]==0) &
+         (dt_complete[agent]==0) &
+         (screen_complete[agent]==0) &
+         (diagnostic_referral[agent]==1 |
+          screening_referral[agent]==1)
+         ){
+        navigated[agent]<-rbinom(1,1,0.2) #random institutional navigation
+      }
+      if(settings=="intervention + social effects"){ 
+        if((navigated[agent]==0) &
            (dt_complete[agent]==0) &
            (screen_complete[agent]==0) &
            (diagnostic_referral[agent]==1 |
             screening_referral[agent]==1) &
-           (neighbor_navigated[agent]==1)
-           ){
-     navigated[agent]<-rbinom(1,1,0.37) #currently default value
-   }
+           (neighbor_navigated[agent]==1) #key component
+        ){
+          navigated[agent]<-rbinom(1,1,0.514) #social navigation
+        }
+      }
+    }
   }
   net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter
   net.f %v% "screening_referral_counter" <- screening_referral_counter
