@@ -54,7 +54,7 @@ disease_progression <- function(net.f){
      
      #Based on having first degree relatives with BC, update risk 
      for (agent in 1:pop_size){
-       if (fd.rel[agent] ==1){
+       if (fd.rel[agent]==1){
          bc_hpos_risk[agent] <- bc_hpos_risk[agent] * fd.rel.risk
          bc_hneg_risk[agent] <- bc_hneg_risk[agent] * fd.rel.risk
        }
@@ -106,7 +106,7 @@ disease_progression <- function(net.f){
                     bc_hneg_risk[agent],
                     max(0, 1-(bc_hpos_risk[agent] + bc_hneg_risk[agent]))))
          #multinomial roll for hpos cancer, hneg cancer, and not hpos or hneg cancer
-         if (bc_status_update[3] == 0) {    # if agent got breast cancer of either type
+         if (bc_status_update[3] == 0){    # if agent got breast cancer of either type
            bc_status[agent] <- 1
            subtype[agent] <- which(bc_status_update ==1) #1 = hpos, 2 = hneg
          }
