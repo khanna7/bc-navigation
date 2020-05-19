@@ -7,7 +7,9 @@ library(ergm)
 
 #Initialize function
 
-diagnosis <- function(net.f){
+source("parameters.R")
+
+diagnosis <- function(net.f, settings){
   
   ## get individual attributes 
   pop_size <- network.size(net.f)
@@ -35,10 +37,6 @@ diagnosis <- function(net.f){
   neighborfp_roll <- net.f %v% "neighborfp_roll"
   diagnostic_visit_counter <- net.f %v% "diagnostic_visit_counter"
   screening_visit_counter <- net.f %v% "screening_visit_counter"
-  
-  #probability list
-  p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result
-  p_false_positive_sm <- 0.0815 #the probability of a false positive screening mammogram result
   
   #screen_delay <- 2 #the amount of months delay for a screening mammogram.
                      #Yami says it will vary, for now setting it to two months.
@@ -113,21 +111,24 @@ diagnosis <- function(net.f){
   }
   
   #commented out for burnin------------
-  
-  primary_edge<- net.f %e% "primary edge"
-  
-  for (agent in navigated_agents){
-    agent_edges<-get.edgeIDs(net.f, v=agent)
-    primary_edge_indices<-which(primary_edge[agent_edges]==1)
-    primary_edges<-get.edges(net.f,v=agent)[1:length(primary_edge_indices)]
-    neighbors<-c()
+  if(settings=="social effect on"){
+    primary_edge<- net.f %e% "primary edge"
     
-    for(i in 1:length(primary_edge_indices)){
-      neighbors<-append(neighbors,primary_edges[[i]][[1]])
-    }
-    #neighbors<-get.neighborhood(net.f,agent)
-    for (neighbor in neighbors){
-      neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+    for (agent in navigated_agents){
+      agent_edges<-get.edgeIDs(net.f, v=agent)
+      primary_edge_indices<-which(primary_edge[agent_edges]==1)
+      if(length(primary_edge_indices)>0){
+        primary_edges<-get.edges(net.f,v=agent)[1:length(primary_edge_indices)]
+        neighbors<-c()
+        
+        for(i in 1:length(primary_edge_indices)){
+          neighbors<-append(neighbors,primary_edges[[i]][[1]])
+        }
+        #neighbors<-get.neighborhood(net.f,agent)
+        for (neighbor in neighbors){
+          neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+        }
+      }
     }
   }
   
