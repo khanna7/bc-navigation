@@ -13,7 +13,8 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
-load("estimation_net.RData")
+#load("estimation_net.RData")
+#load("burnin.RData")
 net.f <- net0_bip
 
 activate.edges(net.f)
@@ -25,17 +26,25 @@ sim_time <-360 #length of simulation in months
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
+setting<-"intervention"
+setting2<-"social effect on"
+
+#setting<-"burnin"
+#setting2<-"social effect off"
+
 for (time in 1:sim_time){
   cat(time, '\n')
   cat("disease_progression", '\n')
   net.f <- disease_progression(net.f)
   cat("clinical_engagement", '\n')
-  net.f <- clinical_engagement(net.f)
+  net.f <- clinical_engagement(net.f, setting)
   cat("diagnosis", '\n')
-  net.f <- diagnosis(net.f)
+  net.f <- diagnosis(net.f, setting2)
   cat("demography", '\n')
   net.f <- demography(net.f)
 }
+
+save(net.f, file = "burnin.RData")
 
 end_time <- Sys.time()
 end_time - start_time
