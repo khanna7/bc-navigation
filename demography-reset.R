@@ -65,7 +65,7 @@ demography <- function(net.f){
     reset_ages<-sample(50:74,length(nodes.to.reset),replace=T) #basic randomization.
     set.vertex.attribute(net.f, "age", reset_ages, nodes.to.reset)
     
-    ## race: 100% of egos are black (=1); 95% of alters are black, 5% are other (=1) 
+    ## race: 100% of egos are black (=1); 95% of alters are black, 5% are other (=1)
     set.vertex.attribute(net.f, "race", 1,nodes.to.reset)
     set.vertex.attribute(net.f, "race", rbinom(n.alter, 1, percent.alters.black), nodes.to.reset)
     
@@ -185,7 +185,7 @@ demography <- function(net.f){
                     
                     time.with.cancer,
                     time.until.diagnosis),
-              file="2bc.dem.burnin.fixed5000.for360.social_off.unipartite.data", ## to note total number of new infections
+              file="burnin.360.05192020.data",
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
