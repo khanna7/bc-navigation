@@ -7,17 +7,16 @@ library(ergm)
 
 #Initialize function
 
-clinical_engagement <- function(net.f, settings){
+clinical_engagement <- function(net.f, settings1, settings2){
   #this function simulates clinic visits
   
   ## get individual attributes 
-  pop_size <- network.size(net.f)
+  pop_size <- 5000
   age <- net.f %v% "age"
   symptom.severity <- net.f %v% "symptom.severity"
   ss <- net.f %v% "symptom.severity"
   time_since_pcp <- net.f %v% "time_since_pcp"
   reg.pcp.visitor <- net.f %v% "reg.pcp.visitor"
-  disease.time <- net.f %v% "disease.time"
   diagnostic_referral <- net.f %v% "diagnostic_referral"
   screening_referral <- net.f %v% "screening_referral"
   diagnosis <- net.f %v% "diagnosis"
@@ -32,8 +31,8 @@ clinical_engagement <- function(net.f, settings){
   diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
   screening_referral_counter <- net.f %v% "screening_referral_counter"
   
-  if((time==1)&(settings=="intervention")){
-    net.f %v% "navigated"<- rbinom(length(net.f %v% "navigated"),1,0.02)
+  if((time==1)&(settings1!="burnin")){
+    navigated <- rbinom(length(net.f %v% "navigated"),1,0.02)
   }
   
   attrib_mtrx<-cbind(symptom.severity,
@@ -62,7 +61,7 @@ clinical_engagement <- function(net.f, settings){
       screening_referral_counter[agent]<-screening_referral_counter[agent]+screening_referral[agent]
     }
    
-    if((settings=="intervention")|(settings=="intervention + social effects")){
+    if(settings1=="institutional"){
        #simulate navigation
       if((navigated[agent]==0) &
          (dt_complete[agent]==0) &
@@ -72,16 +71,17 @@ clinical_engagement <- function(net.f, settings){
          ){
         navigated[agent]<-rbinom(1,1,0.2) #random institutional navigation
       }
-      if(settings=="intervention + social effects"){ 
-        if((navigated[agent]==0) &
-           (dt_complete[agent]==0) &
-           (screen_complete[agent]==0) &
-           (diagnostic_referral[agent]==1 |
-            screening_referral[agent]==1) &
-           (neighbor_navigated[agent]==1) #key component
-        ){
-          navigated[agent]<-rbinom(1,1,0.514) #social navigation
-        }
+    }
+    
+    if(settings2=="social"){ 
+      if((navigated[agent]==0) &
+         (dt_complete[agent]==0) &
+         (screen_complete[agent]==0) &
+         (diagnostic_referral[agent]==1 |
+          screening_referral[agent]==1) &
+         (neighbor_navigated[agent]==1) #key component
+      ){
+        navigated[agent]<-rbinom(1,1,0.514) #social navigation
       }
     }
   }
