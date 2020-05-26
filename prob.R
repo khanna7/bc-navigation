@@ -20,8 +20,8 @@ prob<-function(agent_data,test){
   if(agent_regular_pcp_visitor==1){probability<-probability*regular_pcp_visitor_oddsratio} 
   #same as being up to date on mammograms in paper
   
-  if(agent_navigated==1){probability<-probability*(navigation_and_not_rpcpv_oddsratio
-                                                 -subtraction_due_to_rpcpv_oddsratio*agent_data[2])}
+  if(agent_navigated==1 & test=="sm"){probability<-probability*screening_mammogram_navigated_oddsratio}
+  if(agent_navigated==1 & test=="dt"){probability<-probability*diagnostic_test_navigated_oddsratio}
   
   if(agent_antinavigated==1){probability<-probability*antinavigation_assumption}
   
