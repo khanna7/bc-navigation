@@ -12,7 +12,7 @@ source("parameters.R")
 diagnosis <- function(net.f, settings){
   
   ## get individual attributes 
-  pop_size <- network.size(net.f)
+  pop_size <- 5000
   age <- net.f %v% "age"
   symptom.severity <- net.f %v% "symptom.severity"
   time_since_pcp <- net.f %v% "time_since_pcp"
@@ -111,7 +111,7 @@ diagnosis <- function(net.f, settings){
   }
   
   #commented out for burnin------------
-  if(settings=="social effect on"){
+  if(settings=="social"){
     primary_edge<- net.f %e% "primary edge"
     
     for (agent in navigated_agents){
@@ -130,6 +130,7 @@ diagnosis <- function(net.f, settings){
         }
       }
     }
+    cat(length(which(net.f %v% "navigated"==1)))
   }
   
   #commented out for burnin------------
