@@ -163,9 +163,18 @@ demography <- function(net.f){
   positives<-which(net.f %v% "bc_status"==1)
   diagnosed<-which(net.f %v% "diagnosis"==1)
   disease.time<-net.f %v% "disease.time"
-  time.with.cancer<-mean(disease.time[positives])
-  diagnosis_time<-net.f %v% "disease.time"
-  time.until.diagnosis<-mean(diagnosis_time[diagnosed])
+  time.with.cancer<-median(disease.time[positives])
+  diagnosis_time<-net.f %v% "diagnosis_time"
+  time.until.diagnosis<-median(diagnosis_time[diagnosed])
+  
+  navigated<-which(net.f %v% "navigated"==1)
+  unnavigated<-which(net.f %v% "navigated"==0)
+  diagnosed_and_navigated<-intersect(navigated,diagnosed)
+  time.until.diagnosis.navigated<-median(diagnosis_time[diagnosed_and_navigated])
+  
+  diagnosed_and_unnavigated<-intersect(unnavigated,diagnosed)
+  time.until.diagnosis.unnavigated<-median(diagnosis_time[diagnosed_and_unnavigated])
+
   
   write.table(cbind(time,
                     nintros, #deaths
@@ -184,8 +193,10 @@ demography <- function(net.f){
                     number.of.navigated.agents,
                     
                     time.with.cancer,
-                    time.until.diagnosis),
-              file="burnin.360.05192020.data",
+                    time.until.diagnosis,
+                    time.until.diagnosis.navigated,
+                    time.until.diagnosis.unnavigated),
+              file="highsocial.navigation.intervention.120.05192020.data",
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
