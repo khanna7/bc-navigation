@@ -11,7 +11,7 @@ disease_progression <- function(net.f){
 # Compute individual risk of disease ---------------------
 
   ## assign base risk
-  pop_size <- network.size(net.f)
+  pop_size <- 5000
 
   age <- net.f %v% "age" #age
   bc_hpos_risk <- net.f %v% "bc_hpos_risk" #hormone+ risk 
