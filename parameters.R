@@ -76,12 +76,12 @@ diagnostic_testing_SS2_calculation<-2.25
 diagnostic_testing_SS3_calculation<-2.70
 
 regular_pcp_visitor_oddsratio<-14
-screening_mammogram_navigated_oddsratio<-2.5
-diagnostic_test_navigated_oddsratio<-1.6
+screening_mammogram_navigated_oddsratio<-2.5 #completion
+diagnostic_test_navigated_oddsratio<-1.6 #completion
 antinavigation_assumption<-1/2.6
 neighbor_navigation_oddsratio<-2.6
 neighbor_false_positive_assumption<-1/2.6
 
 #diagnosis.R parameters
 p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result
-p_false_positive_sm <- 0.0815 #the probability of a false positive screening mammogram result
+p_false_positive_sm <- 0.11 #the probability of a false positive screening mammogram result
