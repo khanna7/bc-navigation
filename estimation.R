@@ -56,7 +56,7 @@ set.edge.attribute(net0_bip, "primary edge",  0)
 primary_edge <- net0_bip %e% "primary edge"
 
 edges_vector<-c()
-for(i in 1:network.size(net0_bip)){
+for(i in 1:5000){
   edges_vector<-append(edges_vector,length(get.edges(net0_bip,v=i)))
 }
 
