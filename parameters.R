@@ -76,9 +76,9 @@ diagnostic_testing_SS2_calculation<-2.25
 diagnostic_testing_SS3_calculation<-2.70
 
 regular_pcp_visitor_oddsratio<-14
-navigation_and_not_rpcpv_oddsratio<-3.63
-subtraction_due_to_rpcpv_oddsratio<-2.04
-antinavigation_assumption<-1/2.6 #changed 4/25/20 change to 2.6
+screening_mammogram_navigated_oddsratio<-2.5
+diagnostic_test_navigated_oddsratio<-1.6
+antinavigation_assumption<-1/2.6
 neighbor_navigation_oddsratio<-2.6
 neighbor_false_positive_assumption<-1/2.6
 
