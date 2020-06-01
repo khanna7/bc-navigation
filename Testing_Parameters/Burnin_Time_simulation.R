@@ -26,8 +26,8 @@ sim_time <-360 #length of simulation in months
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
-setting1<-"institutional"
-setting2<-"social"
+setting1<-"burnin"
+setting2<-"no social"
 
 #setting1<-"burnin"
 #setting2<-"social effect off"
