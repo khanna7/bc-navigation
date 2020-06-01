@@ -21,7 +21,7 @@ activate.edges(net.f)
 activate.vertices(net.f)
 
 #parameter_file <- "parameters.R"
-sim_time <-120 #length of simulation in months
+sim_time <-360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
