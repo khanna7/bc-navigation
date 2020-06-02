@@ -1,0 +1,4439 @@
+Note that the current default version of R is 3.6.1.
+Loading required package: network
+network: Classes for Relational Data
+Version 1.15 created on 2019-04-01.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+
+networkDynamic: version 0.10.0, created on 2019-04-04
+Copyright (c) 2019, Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll, University of Washington
+                    with contributions from
+                    Zack Almquist, University of California -- Irvine
+                    David R. Hunter, Penn State University
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Steven M. Goodreau, University of Washington
+                    Jeffrey Horner
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("networkDynamic").
+
+Loading required package: statnet.common
+
+Attaching package: ‘statnet.common’
+
+The following object is masked from ‘package:base’:
+
+    order
+
+sna: Tools for Social Network Analysis
+Version 2.4 created on 2016-07-23.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+
+ergm: version 3.10.4, created on 2019-06-10
+Copyright (c) 2019, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+                    Chad Klumb
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: Versions before 3.6.1 had a bug in the implementation of the bd()
+constriant which distorted the sampled distribution somewhat. In
+addition, Sampson's Monks datasets had mislabeled vertices. See the
+NEWS and the documentation for more details.
+
+NOTE: Some common term arguments pertaining to vertex attribute and
+level selection have changed in 3.10.0. See terms help for more
+details. Use ‘options(ergm.term=list(version="3.9.4"))’ to use old
+behavior.
+
+
+tergm: version 3.6.1, created on 2019-06-12
+Copyright (c) 2019, Pavel N. Krivitsky, University of Wollongong
+                    Mark S. Handcock, University of California -- Los Angeles
+                    with contributions from
+                    David R. Hunter, Penn State University
+                    Steven M. Goodreau, University of Washington
+                    Martina Morris, University of Washington
+                    Nicole Bohme Carnegie, New York University
+                    Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Skye Bender-deMoll
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("tergm").
+
+Starting maximum pseudolikelihood estimation (MPLE):
+Evaluating the predictor and response matrix.
+Maximizing the pseudolikelihood.
+Finished MPLE.
+Starting Monte Carlo maximum likelihood estimation (MCMLE):
+Iteration 1 of at most 500:
+Optimizing with step length 0.397256593755835.
+The log-likelihood improved by 3.024.
+Iteration 2 of at most 500:
+Optimizing with step length 0.754446031847311.
+The log-likelihood improved by 3.464.
+Iteration 3 of at most 500:
+Optimizing with step length 1.
+The log-likelihood improved by 0.3545.
+Step length converged once. Increasing MCMC sample size.
+Iteration 4 of at most 500:
+Optimizing with step length 1.
+The log-likelihood improved by 0.93.
+Step length converged twice. Stopping.
+Finished MCMLE.
+This model was fit using MCMC.  To examine model diagnostics and check
+for degeneracy, use the mcmc.diagnostics() function.
+ degree0  degree1  degree2  degree3  degree4  degree5  degree6  degree7 
+       3       23     1173     1023      786      376      350      366 
+ degree8  degree9 degree10 degree11 degree12 degree13 degree14 degree15 
+     310      245      151       94       52       29       10        5 
+degree16 degree17 
+       3        1 
+1 
+disease_progression 
+H-positive risk:  881 900 119 902 431 126 854 436 98 57 121 75 
+H-negative risk:  900 881 854 902 436 431 126 119 121 98 75 57 
+New BC onsets:  1
+BC status:  4999 1 
+BC subtype:  4999 1 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+2 
+disease_progression 
+H-positive risk:  880 902 121 904 428 125 860 428 98 55 124 75 
+H-negative risk:  902 880 860 904 428 428 125 121 124 98 75 55 
+New BC onsets:  5
+BC status:  4995 5 
+BC subtype:  4995 5 
+
+clinical_engagement 
+diagnosis 
+demography 
+58 new agents 
+3 
+disease_progression 
+H-positive risk:  883 912 120 906 423 125 860 422 94 56 125 74 
+H-negative risk:  912 883 860 906 422 423 125 120 125 94 74 56 
+New BC onsets:  8
+BC status:  4992 8 
+BC subtype:  4992 8 
+
+clinical_engagement 
+diagnosis 
+demography 
+55 new agents 
+4 
+disease_progression 
+H-positive risk:  889 913 123 901 422 127 863 415 91 56 125 75 
+H-negative risk:  913 889 863 901 415 422 127 123 125 91 75 56 
+New BC onsets:  10
+BC status:  4990 10 
+BC subtype:  4990 10 
+
+clinical_engagement 
+diagnosis 
+demography 
+57 new agents 
+5 
+disease_progression 
+H-positive risk:  886 919 124 905 418 126 866 408 90 57 126 75 
+H-negative risk:  919 886 866 905 408 418 126 124 126 90 75 57 
+New BC onsets:  11
+BC status:  4989 11 
+BC subtype:  4989 11 
+
+clinical_engagement 
+diagnosis 
+demography 
+56 new agents 
+6 
+disease_progression 
+H-positive risk:  900 917 125 909 419 126 861 404 84 57 125 73 
+H-negative risk:  917 900 861 909 404 419 126 125 125 84 73 57 
+New BC onsets:  14
+BC status:  4986 14 
+BC subtype:  4986 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+7 
+disease_progression 
+H-positive risk:  911 916 127 910 414 127 856 404 84 55 127 69 
+H-negative risk:  916 911 856 910 404 414 127 127 127 84 69 55 
+New BC onsets:  16
+BC status:  4984 16 
+BC subtype:  4984 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+8 
+disease_progression 
+H-positive risk:  914 927 129 907 411 127 849 402 85 55 127 67 
+H-negative risk:  927 914 849 907 402 411 127 129 127 85 67 55 
+New BC onsets:  17
+BC status:  4983 17 
+BC subtype:  4983 16 1 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+9 
+disease_progression 
+H-positive risk:  919 935 131 903 404 127 852 394 87 53 128 67 
+H-negative risk:  935 919 852 903 394 404 127 131 128 87 67 53 
+New BC onsets:  18
+BC status:  4982 18 
+BC subtype:  4982 17 1 
+
+clinical_engagement 
+diagnosis 
+demography 
+46 new agents 
+10 
+disease_progression 
+H-positive risk:  925 932 130 900 407 126 865 383 87 52 129 64 
+H-negative risk:  932 925 865 900 383 407 126 130 129 87 64 52 
+New BC onsets:  20
+BC status:  4980 20 
+BC subtype:  4980 19 1 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+11 
+disease_progression 
+H-positive risk:  929 935 131 902 400 127 867 376 88 50 131 64 
+H-negative risk:  935 929 867 902 376 400 127 131 131 88 64 50 
+New BC onsets:  21
+BC status:  4979 21 
+BC subtype:  4979 19 2 
+
+clinical_engagement 
+diagnosis 
+demography 
+58 new agents 
+12 
+disease_progression 
+H-positive risk:  935 943 132 904 396 127 856 373 88 50 132 64 
+H-negative risk:  943 935 856 904 373 396 127 132 132 88 64 50 
+New BC onsets:  24
+BC status:  4976 24 
+BC subtype:  4976 22 2 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+13 
+disease_progression 
+H-positive risk:  875 885 123 975 392 118 919 363 94 52 143 61 
+H-negative risk:  885 875 919 975 363 392 118 123 143 94 61 52 
+New BC onsets:  25
+BC status:  4975 25 
+BC subtype:  4975 23 2 
+
+clinical_engagement 
+diagnosis 
+demography 
+211 new agents 
+14 
+disease_progression 
+H-positive risk:  909 925 130 929 398 121 863 380 95 49 138 63 
+H-negative risk:  925 909 863 929 380 398 121 130 138 95 63 49 
+New BC onsets:  25
+BC status:  4975 25 
+BC subtype:  4975 23 2 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+15 
+disease_progression 
+H-positive risk:  918 921 133 929 393 121 861 382 95 48 138 61 
+H-negative risk:  921 918 861 929 382 393 121 133 138 95 61 48 
+New BC onsets:  26
+BC status:  4974 26 
+BC subtype:  4974 24 2 
+
+clinical_engagement 
+diagnosis 
+demography 
+59 new agents 
+16 
+disease_progression 
+H-positive risk:  933 923 131 920 391 121 860 380 94 46 140 61 
+H-negative risk:  923 933 860 920 380 391 121 131 140 94 61 46 
+New BC onsets:  26
+BC status:  4974 26 
+BC subtype:  4974 24 2 
+
+clinical_engagement 
+diagnosis 
+demography 
+60 new agents 
+17 
+disease_progression 
+H-positive risk:  933 936 134 924 387 122 853 375 94 45 138 59 
+H-negative risk:  936 933 853 924 375 387 122 134 138 94 59 45 
+New BC onsets:  31
+BC status:  4969 31 
+BC subtype:  4969 23 8 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+18 
+disease_progression 
+H-positive risk:  935 940 138 918 386 123 856 366 98 44 137 59 
+H-negative risk:  940 935 856 918 366 386 123 138 137 98 59 44 
+New BC onsets:  31
+BC status:  4969 31 
+BC subtype:  4969 23 8 
+
+clinical_engagement 
+diagnosis 
+demography 
+52 new agents 
+19 
+disease_progression 
+H-positive risk:  939 943 138 912 378 125 852 372 100 43 138 60 
+H-negative risk:  943 939 852 912 372 378 125 138 138 100 60 43 
+New BC onsets:  30
+BC status:  4970 30 
+BC subtype:  4970 22 8 
+
+clinical_engagement 
+diagnosis 
+demography 
+51 new agents 
+20 
+disease_progression 
+H-positive risk:  939 939 137 917 375 125 855 370 99 46 138 60 
+H-negative risk:  939 939 855 917 370 375 125 137 138 99 60 46 
+New BC onsets:  32
+BC status:  4968 32 
+BC subtype:  4968 23 9 
+
+clinical_engagement 
+diagnosis 
+demography 
+63 new agents 
+21 
+disease_progression 
+H-positive risk:  944 947 136 916 373 127 851 363 101 44 137 61 
+H-negative risk:  947 944 851 916 363 373 127 136 137 101 61 44 
+New BC onsets:  34
+BC status:  4966 34 
+BC subtype:  4966 24 10 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+22 
+disease_progression 
+H-positive risk:  959 952 134 914 364 129 843 362 101 45 138 59 
+H-negative risk:  952 959 843 914 362 364 129 134 138 101 59 45 
+New BC onsets:  33
+BC status:  4967 33 
+BC subtype:  4967 24 9 
+
+clinical_engagement 
+diagnosis 
+demography 
+49 new agents 
+23 
+disease_progression 
+H-positive risk:  958 956 137 907 362 132 844 362 100 44 139 59 
+H-negative risk:  956 958 844 907 362 362 132 137 139 100 59 44 
+New BC onsets:  36
+BC status:  4964 36 
+BC subtype:  4964 26 10 
+
+clinical_engagement 
+diagnosis 
+demography 
+53 new agents 
+24 
+disease_progression 
+H-positive risk:  965 949 137 906 361 134 844 360 102 45 139 58 
+H-negative risk:  949 965 844 906 360 361 134 137 139 102 58 45 
+New BC onsets:  39
+BC status:  4961 39 
+BC subtype:  4961 29 10 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+25 
+disease_progression 
+H-positive risk:  888 867 129 993 357 125 924 356 111 43 147 60 
+H-negative risk:  867 888 924 993 356 357 125 129 147 111 60 43 
+New BC onsets:  39
+BC status:  4961 39 
+BC subtype:  4961 29 10 
+
+clinical_engagement 
+diagnosis 
+demography 
+186 new agents 
+26 
+disease_progression 
+H-positive risk:  906 884 130 960 381 126 892 357 114 42 146 62 
+H-negative risk:  884 906 892 960 357 381 126 130 146 114 62 42 
+New BC onsets:  42
+BC status:  4958 42 
+BC subtype:  4958 29 13 
+
+clinical_engagement 
+diagnosis 
+demography 
+58 new agents 
+27 
+disease_progression 
+H-positive risk:  913 888 130 956 383 125 885 353 116 43 146 62 
+H-negative risk:  888 913 885 956 353 383 125 130 146 116 62 43 
+New BC onsets:  46
+BC status:  4954 46 
+BC subtype:  4954 32 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+53 new agents 
+28 
+disease_progression 
+H-positive risk:  921 893 129 953 381 124 887 350 114 42 144 62 
+H-negative risk:  893 921 887 953 350 381 124 129 144 114 62 42 
+New BC onsets:  48
+BC status:  4952 48 
+BC subtype:  4952 33 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+29 
+disease_progression 
+H-positive risk:  923 900 130 955 384 123 879 348 113 43 142 60 
+H-negative risk:  900 923 879 955 348 384 123 130 142 113 60 43 
+New BC onsets:  49
+BC status:  4951 49 
+BC subtype:  4951 35 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+30 
+disease_progression 
+H-positive risk:  921 900 132 953 382 125 881 346 115 44 141 60 
+H-negative risk:  900 921 881 953 346 382 125 132 141 115 60 44 
+New BC onsets:  49
+BC status:  4951 49 
+BC subtype:  4951 35 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+31 
+disease_progression 
+H-positive risk:  923 904 132 943 378 123 881 350 116 46 143 61 
+H-negative risk:  904 923 881 943 350 378 123 132 143 116 61 46 
+New BC onsets:  50
+BC status:  4950 50 
+BC subtype:  4950 35 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+32 
+disease_progression 
+H-positive risk:  921 907 133 937 373 124 885 348 119 47 146 60 
+H-negative risk:  907 921 885 937 348 373 124 133 146 119 60 47 
+New BC onsets:  55
+BC status:  4945 55 
+BC subtype:  4945 39 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+59 new agents 
+33 
+disease_progression 
+H-positive risk:  921 907 133 934 374 124 891 346 119 46 143 62 
+H-negative risk:  907 921 891 934 346 374 124 133 143 119 62 46 
+New BC onsets:  55
+BC status:  4945 55 
+BC subtype:  4945 39 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+34 
+disease_progression 
+H-positive risk:  922 916 134 926 378 122 890 344 120 43 141 64 
+H-negative risk:  916 922 890 926 344 378 122 134 141 120 64 43 
+New BC onsets:  55
+BC status:  4945 55 
+BC subtype:  4945 40 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+48 new agents 
+35 
+disease_progression 
+H-positive risk:  928 917 134 917 373 122 889 348 121 42 144 65 
+H-negative risk:  917 928 889 917 348 373 122 134 144 121 65 42 
+New BC onsets:  54
+BC status:  4946 54 
+BC subtype:  4946 40 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+36 
+disease_progression 
+H-positive risk:  927 920 134 919 369 119 886 354 124 42 140 66 
+H-negative risk:  920 927 886 919 354 369 119 134 140 124 66 42 
+New BC onsets:  54
+BC status:  4946 54 
+BC subtype:  4946 40 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+60 new agents 
+37 
+disease_progression 
+H-positive risk:  883 848 122 995 363 111 931 354 130 42 156 65 
+H-negative risk:  848 883 931 995 354 363 111 122 156 130 65 42 
+New BC onsets:  58
+BC status:  4942 58 
+BC subtype:  4942 43 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+156 new agents 
+38 
+disease_progression 
+H-positive risk:  897 870 126 954 394 111 901 365 126 40 151 65 
+H-negative risk:  870 897 901 954 365 394 111 126 151 126 65 40 
+New BC onsets:  60
+BC status:  4940 60 
+BC subtype:  4940 45 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+39 
+disease_progression 
+H-positive risk:  900 868 125 957 393 113 902 365 127 43 145 62 
+H-negative risk:  868 900 902 957 365 393 113 125 145 127 62 43 
+New BC onsets:  65
+BC status:  4935 65 
+BC subtype:  4935 50 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+40 
+disease_progression 
+H-positive risk:  902 867 124 960 389 112 907 364 128 40 146 61 
+H-negative risk:  867 902 907 960 364 389 112 124 146 128 61 40 
+New BC onsets:  65
+BC status:  4935 65 
+BC subtype:  4935 50 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+41 
+disease_progression 
+H-positive risk:  903 873 125 959 382 112 910 365 127 40 145 59 
+H-negative risk:  873 903 910 959 365 382 112 125 145 127 59 40 
+New BC onsets:  66
+BC status:  4934 66 
+BC subtype:  4934 51 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+42 
+disease_progression 
+H-positive risk:  905 871 126 962 382 111 915 362 125 34 147 60 
+H-negative risk:  871 905 915 962 362 382 111 126 147 125 60 34 
+New BC onsets:  72
+BC status:  4928 72 
+BC subtype:  4928 56 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+43 
+disease_progression 
+H-positive risk:  901 877 127 955 383 113 918 361 124 35 147 59 
+H-negative risk:  877 901 918 955 361 383 113 127 147 124 59 35 
+New BC onsets:  75
+BC status:  4925 75 
+BC subtype:  4925 59 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+44 
+disease_progression 
+H-positive risk:  903 880 122 957 380 111 932 355 124 33 146 57 
+H-negative risk:  880 903 932 957 355 380 111 122 146 124 57 33 
+New BC onsets:  79
+BC status:  4921 79 
+BC subtype:  4921 63 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+47 new agents 
+45 
+disease_progression 
+H-positive risk:  905 882 123 949 382 109 932 355 125 33 147 58 
+H-negative risk:  882 905 932 949 355 382 109 123 147 125 58 33 
+New BC onsets:  82
+BC status:  4918 82 
+BC subtype:  4918 63 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+51 new agents 
+46 
+disease_progression 
+H-positive risk:  907 882 123 947 383 110 931 353 125 33 147 59 
+H-negative risk:  882 907 931 947 353 383 110 123 147 125 59 33 
+New BC onsets:  83
+BC status:  4917 83 
+BC subtype:  4917 64 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+63 new agents 
+47 
+disease_progression 
+H-positive risk:  915 886 125 943 376 109 940 346 126 31 145 58 
+H-negative risk:  886 915 940 943 346 376 109 125 145 126 58 31 
+New BC onsets:  85
+BC status:  4915 85 
+BC subtype:  4915 65 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+48 
+disease_progression 
+H-positive risk:  915 882 125 949 373 108 940 349 125 30 145 59 
+H-negative risk:  882 915 940 949 349 373 108 125 145 125 59 30 
+New BC onsets:  85
+BC status:  4915 85 
+BC subtype:  4915 63 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+49 
+disease_progression 
+H-positive risk:  860 835 116 996 372 98 1002 342 133 30 157 59 
+H-negative risk:  835 860 1002 996 342 372 98 116 157 133 59 30 
+New BC onsets:  86
+BC status:  4914 86 
+BC subtype:  4914 65 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+145 new agents 
+50 
+disease_progression 
+H-positive risk:  868 849 116 962 393 101 979 361 127 33 148 63 
+H-negative risk:  849 868 979 962 361 393 101 116 148 127 63 33 
+New BC onsets:  85
+BC status:  4915 85 
+BC subtype:  4915 64 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+63 new agents 
+51 
+disease_progression 
+H-positive risk:  866 852 120 958 394 99 979 361 129 31 143 68 
+H-negative risk:  852 866 979 958 361 394 99 120 143 129 68 31 
+New BC onsets:  86
+BC status:  4914 86 
+BC subtype:  4914 66 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+54 new agents 
+52 
+disease_progression 
+H-positive risk:  861 854 118 961 391 101 985 359 129 31 141 69 
+H-negative risk:  854 861 985 961 359 391 101 118 141 129 69 31 
+New BC onsets:  86
+BC status:  4914 86 
+BC subtype:  4914 66 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+53 
+disease_progression 
+H-positive risk:  868 849 116 963 382 104 990 361 128 30 143 66 
+H-negative risk:  849 868 990 963 361 382 104 116 143 128 66 30 
+New BC onsets:  88
+BC status:  4912 88 
+BC subtype:  4912 68 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+54 
+disease_progression 
+H-positive risk:  864 850 116 960 378 106 1006 350 129 31 145 65 
+H-negative risk:  850 864 1006 960 350 378 106 116 145 129 65 31 
+New BC onsets:  87
+BC status:  4913 87 
+BC subtype:  4913 67 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+47 new agents 
+55 
+disease_progression 
+H-positive risk:  865 856 116 962 381 103 1003 351 128 30 142 63 
+H-negative risk:  856 865 1003 962 351 381 103 116 142 128 63 30 
+New BC onsets:  87
+BC status:  4913 87 
+BC subtype:  4913 67 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+92 new agents 
+56 
+disease_progression 
+H-positive risk:  866 864 120 963 377 104 996 352 124 28 143 63 
+H-negative risk:  864 866 996 963 352 377 104 120 143 124 63 28 
+New BC onsets:  87
+BC status:  4913 87 
+BC subtype:  4913 66 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+57 
+disease_progression 
+H-positive risk:  864 864 119 964 383 103 994 355 124 29 141 60 
+H-negative risk:  864 864 994 964 355 383 103 119 141 124 60 29 
+New BC onsets:  86
+BC status:  4914 86 
+BC subtype:  4914 65 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+48 new agents 
+58 
+disease_progression 
+H-positive risk:  854 865 120 962 385 103 994 360 127 31 140 59 
+H-negative risk:  865 854 994 962 360 385 103 120 140 127 59 31 
+New BC onsets:  87
+BC status:  4913 87 
+BC subtype:  4913 65 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+59 
+disease_progression 
+H-positive risk:  861 869 120 959 379 104 992 362 126 31 138 59 
+H-negative risk:  869 861 992 959 362 379 104 120 138 126 59 31 
+New BC onsets:  87
+BC status:  4913 87 
+BC subtype:  4913 65 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+55 new agents 
+60 
+disease_progression 
+H-positive risk:  864 867 120 954 377 106 994 368 124 31 137 58 
+H-negative risk:  867 864 994 954 368 377 106 120 137 124 58 31 
+New BC onsets:  89
+BC status:  4911 89 
+BC subtype:  4911 67 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+61 
+disease_progression 
+H-positive risk:  803 810 115 1012 382 99 1051 367 128 32 145 56 
+H-negative risk:  810 803 1051 1012 367 382 99 115 145 128 56 32 
+New BC onsets:  88
+BC status:  4912 88 
+BC subtype:  4912 66 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+126 new agents 
+62 
+disease_progression 
+H-positive risk:  810 817 115 990 394 102 1029 389 130 32 137 55 
+H-negative risk:  817 810 1029 990 389 394 102 115 137 130 55 32 
+New BC onsets:  88
+BC status:  4912 88 
+BC subtype:  4912 67 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+63 
+disease_progression 
+H-positive risk:  817 823 116 992 387 105 1026 381 126 33 141 53 
+H-negative risk:  823 817 1026 992 381 387 105 116 141 126 53 33 
+New BC onsets:  87
+BC status:  4913 87 
+BC subtype:  4913 67 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+64 
+disease_progression 
+H-positive risk:  819 823 116 990 394 105 1029 374 126 34 138 52 
+H-negative risk:  823 819 1029 990 374 394 105 116 138 126 52 34 
+New BC onsets:  89
+BC status:  4911 89 
+BC subtype:  4911 68 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+65 
+disease_progression 
+H-positive risk:  818 822 118 989 392 107 1036 367 124 36 137 54 
+H-negative risk:  822 818 1036 989 367 392 107 118 137 124 54 36 
+New BC onsets:  90
+BC status:  4910 90 
+BC subtype:  4910 69 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+66 
+disease_progression 
+H-positive risk:  827 831 116 980 388 107 1040 360 125 38 137 51 
+H-negative risk:  831 827 1040 980 360 388 107 116 137 125 51 38 
+New BC onsets:  90
+BC status:  4910 90 
+BC subtype:  4910 69 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+67 
+disease_progression 
+H-positive risk:  834 841 114 983 380 107 1040 354 124 34 135 54 
+H-negative risk:  841 834 1040 983 354 380 107 114 135 124 54 34 
+New BC onsets:  90
+BC status:  4910 90 
+BC subtype:  4910 70 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+54 new agents 
+68 
+disease_progression 
+H-positive risk:  833 843 114 980 381 107 1047 352 123 33 133 54 
+H-negative risk:  843 833 1047 980 352 381 107 114 133 123 54 33 
+New BC onsets:  89
+BC status:  4911 89 
+BC subtype:  4911 71 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+69 
+disease_progression 
+H-positive risk:  841 845 115 977 379 107 1044 352 118 34 134 54 
+H-negative risk:  845 841 1044 977 352 379 107 115 134 118 54 34 
+New BC onsets:  88
+BC status:  4912 88 
+BC subtype:  4912 71 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+70 
+disease_progression 
+H-positive risk:  834 848 114 974 381 105 1042 355 123 33 132 59 
+H-negative risk:  848 834 1042 974 355 381 105 114 132 123 59 33 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 72 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+71 
+disease_progression 
+H-positive risk:  842 850 111 975 375 103 1038 352 126 33 135 60 
+H-negative risk:  850 842 1038 975 352 375 103 111 135 126 60 33 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 73 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+72 
+disease_progression 
+H-positive risk:  843 855 112 966 375 103 1037 354 128 34 135 58 
+H-negative risk:  855 843 1037 966 354 375 103 112 135 128 58 34 
+New BC onsets:  93
+BC status:  4907 93 
+BC subtype:  4907 74 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+63 new agents 
+73 
+disease_progression 
+H-positive risk:  787 797 104 1026 372 100 1095 354 128 36 142 59 
+H-negative risk:  797 787 1095 1026 354 372 100 104 142 128 59 36 
+New BC onsets:  95
+BC status:  4905 95 
+BC subtype:  4905 75 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+112 new agents 
+74 
+disease_progression 
+H-positive risk:  779 795 105 1009 396 103 1080 365 124 42 142 60 
+H-negative risk:  795 779 1080 1009 365 396 103 105 142 124 60 42 
+New BC onsets:  94
+BC status:  4906 94 
+BC subtype:  4906 74 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+75 
+disease_progression 
+H-positive risk:  783 800 105 1000 404 104 1077 362 121 45 142 57 
+H-negative risk:  800 783 1077 1000 362 404 104 105 142 121 57 45 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 72 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+58 new agents 
+76 
+disease_progression 
+H-positive risk:  782 797 106 1006 402 104 1069 367 120 43 146 58 
+H-negative risk:  797 782 1069 1006 367 402 104 106 146 120 58 43 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 73 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+63 new agents 
+77 
+disease_progression 
+H-positive risk:  779 799 106 1008 405 101 1068 374 122 39 142 57 
+H-negative risk:  799 779 1068 1008 374 405 101 106 142 122 57 39 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 71 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+78 
+disease_progression 
+H-positive risk:  777 804 109 1010 395 101 1074 376 121 39 142 52 
+H-negative risk:  804 777 1074 1010 376 395 101 109 142 121 52 39 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 72 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+79 
+disease_progression 
+H-positive risk:  776 812 112 1004 389 100 1081 373 121 40 140 52 
+H-negative risk:  812 776 1081 1004 373 389 100 112 140 121 52 40 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 72 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+80 
+disease_progression 
+H-positive risk:  784 805 114 1004 389 99 1086 371 121 39 140 48 
+H-negative risk:  805 784 1086 1004 371 389 99 114 140 121 48 39 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 73 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+81 
+disease_progression 
+H-positive risk:  784 801 115 1008 385 102 1084 372 122 38 142 47 
+H-negative risk:  801 784 1084 1008 372 385 102 115 142 122 47 38 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 72 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+82 
+disease_progression 
+H-positive risk:  789 797 117 1011 379 101 1086 374 122 36 141 47 
+H-negative risk:  797 789 1086 1011 374 379 101 117 141 122 47 36 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 72 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+83 
+disease_progression 
+H-positive risk:  794 796 120 1009 380 101 1086 365 122 38 141 48 
+H-negative risk:  796 794 1086 1009 365 380 101 120 141 122 48 38 
+New BC onsets:  93
+BC status:  4907 93 
+BC subtype:  4907 73 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+84 
+disease_progression 
+H-positive risk:  793 804 118 1010 377 100 1085 366 122 37 140 48 
+H-negative risk:  804 793 1085 1010 366 377 100 118 140 122 48 37 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 73 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+85 
+disease_progression 
+H-positive risk:  742 746 111 1070 372 96 1134 366 130 37 148 48 
+H-negative risk:  746 742 1134 1070 366 372 96 111 148 130 48 37 
+New BC onsets:  90
+BC status:  4910 90 
+BC subtype:  4910 72 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+100 new agents 
+86 
+disease_progression 
+H-positive risk:  738 753 110 1052 393 96 1116 376 122 42 148 54 
+H-negative risk:  753 738 1116 1052 376 393 96 110 148 122 54 42 
+New BC onsets:  93
+BC status:  4907 93 
+BC subtype:  4907 75 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+87 
+disease_progression 
+H-positive risk:  749 755 110 1056 388 96 1103 379 118 44 150 52 
+H-negative risk:  755 749 1103 1056 379 388 96 110 150 118 52 44 
+New BC onsets:  93
+BC status:  4907 93 
+BC subtype:  4907 76 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+88 
+disease_progression 
+H-positive risk:  747 755 111 1057 387 98 1100 385 118 42 149 51 
+H-negative risk:  755 747 1100 1057 385 387 98 111 149 118 51 42 
+New BC onsets:  94
+BC status:  4906 94 
+BC subtype:  4906 77 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+89 
+disease_progression 
+H-positive risk:  753 747 109 1062 377 100 1103 391 117 41 150 50 
+H-negative risk:  747 753 1103 1062 391 377 100 109 150 117 50 41 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 77 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+90 
+disease_progression 
+H-positive risk:  751 753 108 1066 373 98 1105 388 118 41 148 51 
+H-negative risk:  753 751 1105 1066 388 373 98 108 148 118 51 41 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 76 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+91 
+disease_progression 
+H-positive risk:  759 752 109 1071 371 95 1106 379 119 40 148 51 
+H-negative risk:  752 759 1106 1071 379 371 95 109 148 119 51 40 
+New BC onsets:  94
+BC status:  4906 94 
+BC subtype:  4906 79 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+92 
+disease_progression 
+H-positive risk:  769 755 109 1079 367 95 1098 374 118 40 146 50 
+H-negative risk:  755 769 1098 1079 374 367 95 109 146 118 50 40 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 77 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+93 
+disease_progression 
+H-positive risk:  767 759 104 1077 366 95 1104 370 121 40 146 51 
+H-negative risk:  759 767 1104 1077 370 366 95 104 146 121 51 40 
+New BC onsets:  94
+BC status:  4906 94 
+BC subtype:  4906 76 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+94 
+disease_progression 
+H-positive risk:  764 763 103 1080 365 97 1093 376 122 38 149 50 
+H-negative risk:  763 764 1093 1080 376 365 97 103 149 122 50 38 
+New BC onsets:  93
+BC status:  4907 93 
+BC subtype:  4907 75 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+95 
+disease_progression 
+H-positive risk:  756 764 101 1081 359 98 1101 376 125 36 151 52 
+H-negative risk:  764 756 1101 1081 376 359 98 101 151 125 52 36 
+New BC onsets:  96
+BC status:  4904 96 
+BC subtype:  4904 76 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+96 
+disease_progression 
+H-positive risk:  759 773 105 1068 360 100 1100 372 126 37 149 51 
+H-negative risk:  773 759 1100 1068 372 360 100 105 149 126 51 37 
+New BC onsets:  96
+BC status:  4904 96 
+BC subtype:  4904 76 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+97 
+disease_progression 
+H-positive risk:  712 734 101 1108 358 93 1146 376 134 37 150 51 
+H-negative risk:  734 712 1146 1108 376 358 93 101 150 134 51 37 
+New BC onsets:  95
+BC status:  4905 95 
+BC subtype:  4905 75 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+84 new agents 
+98 
+disease_progression 
+H-positive risk:  707 731 99 1097 377 88 1137 388 131 42 151 52 
+H-negative risk:  731 707 1137 1097 388 377 88 99 151 131 52 42 
+New BC onsets:  93
+BC status:  4907 93 
+BC subtype:  4907 74 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+99 
+disease_progression 
+H-positive risk:  703 732 99 1100 380 90 1135 392 131 42 147 49 
+H-negative risk:  732 703 1135 1100 392 380 90 99 147 131 49 42 
+New BC onsets:  91
+BC status:  4909 91 
+BC subtype:  4909 71 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+100 
+disease_progression 
+H-positive risk:  699 734 102 1099 374 91 1137 391 133 43 148 49 
+H-negative risk:  734 699 1137 1099 391 374 91 102 148 133 49 43 
+New BC onsets:  90
+BC status:  4910 90 
+BC subtype:  4910 70 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+101 
+disease_progression 
+H-positive risk:  697 731 101 1099 376 92 1134 390 133 44 154 49 
+H-negative risk:  731 697 1134 1099 390 376 92 101 154 133 49 44 
+New BC onsets:  88
+BC status:  4912 88 
+BC subtype:  4912 68 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+102 
+disease_progression 
+H-positive risk:  698 727 101 1106 374 94 1138 387 130 43 151 51 
+H-negative risk:  727 698 1138 1106 387 374 94 101 151 130 51 43 
+New BC onsets:  89
+BC status:  4911 89 
+BC subtype:  4911 68 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+103 
+disease_progression 
+H-positive risk:  696 728 100 1107 377 93 1126 391 130 46 153 53 
+H-negative risk:  728 696 1126 1107 391 377 93 100 153 130 53 46 
+New BC onsets:  92
+BC status:  4908 92 
+BC subtype:  4908 71 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+60 new agents 
+104 
+disease_progression 
+H-positive risk:  693 725 102 1112 373 94 1129 392 128 46 152 54 
+H-negative risk:  725 693 1129 1112 392 373 94 102 152 128 54 46 
+New BC onsets:  96
+BC status:  4904 96 
+BC subtype:  4904 76 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+105 
+disease_progression 
+H-positive risk:  698 728 102 1110 367 96 1127 394 126 45 152 55 
+H-negative risk:  728 698 1127 1110 394 367 96 102 152 126 55 45 
+New BC onsets:  100
+BC status:  4900 100 
+BC subtype:  4900 78 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+106 
+disease_progression 
+H-positive risk:  705 724 106 1107 365 98 1124 384 133 46 152 56 
+H-negative risk:  724 705 1124 1107 384 365 98 106 152 133 56 46 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 79 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+107 
+disease_progression 
+H-positive risk:  707 727 105 1105 362 96 1126 385 133 47 151 56 
+H-negative risk:  727 707 1126 1105 385 362 96 105 151 133 56 47 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 80 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+108 
+disease_progression 
+H-positive risk:  714 719 103 1111 359 96 1126 385 133 49 154 51 
+H-negative risk:  719 714 1126 1111 385 359 96 103 154 133 51 49 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 80 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+109 
+disease_progression 
+H-positive risk:  669 673 99 1161 358 93 1170 380 136 49 161 51 
+H-negative risk:  673 669 1170 1161 380 358 93 99 161 136 51 49 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 79 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+98 new agents 
+110 
+disease_progression 
+H-positive risk:  666 678 98 1147 368 91 1156 397 135 52 164 48 
+H-negative risk:  678 666 1156 1147 397 368 91 98 164 135 48 52 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 78 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+111 
+disease_progression 
+H-positive risk:  671 681 100 1135 368 92 1151 405 130 55 164 48 
+H-negative risk:  681 671 1151 1135 405 368 92 100 164 130 48 55 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 80 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+112 
+disease_progression 
+H-positive risk:  667 683 100 1141 366 91 1151 401 134 54 165 47 
+H-negative risk:  683 667 1151 1141 401 366 91 100 165 134 47 54 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 78 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+113 
+disease_progression 
+H-positive risk:  667 682 102 1146 358 91 1152 400 136 57 160 49 
+H-negative risk:  682 667 1152 1146 400 358 91 102 160 136 49 57 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 81 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+114 
+disease_progression 
+H-positive risk:  673 684 102 1138 358 94 1143 406 138 58 157 49 
+H-negative risk:  684 673 1143 1138 406 358 94 102 157 138 49 58 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 78 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+115 
+disease_progression 
+H-positive risk:  670 688 104 1143 356 96 1139 401 141 56 159 47 
+H-negative risk:  688 670 1139 1143 401 356 96 104 159 141 47 56 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 77 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+116 
+disease_progression 
+H-positive risk:  671 683 104 1149 358 96 1144 395 139 55 158 48 
+H-negative risk:  683 671 1144 1149 395 358 96 104 158 139 48 55 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 77 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+117 
+disease_progression 
+H-positive risk:  668 679 103 1153 354 95 1153 389 141 55 159 51 
+H-negative risk:  679 668 1153 1153 389 354 95 103 159 141 51 55 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 78 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+118 
+disease_progression 
+H-positive risk:  676 687 102 1153 347 94 1147 386 141 55 160 52 
+H-negative risk:  687 676 1147 1153 386 347 94 102 160 141 52 55 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 77 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+119 
+disease_progression 
+H-positive risk:  677 689 103 1158 342 92 1150 381 140 55 162 51 
+H-negative risk:  689 677 1150 1158 381 342 92 103 162 140 51 55 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 81 28 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+120 
+disease_progression 
+H-positive risk:  678 694 103 1150 345 91 1146 387 142 55 159 50 
+H-negative risk:  694 678 1146 1150 387 345 91 103 159 142 50 55 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 82 28 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+121 
+disease_progression 
+H-positive risk:  628 655 97 1181 352 83 1198 383 152 52 168 51 
+H-negative risk:  655 628 1198 1181 383 352 83 97 168 152 51 52 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 83 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+122 
+disease_progression 
+H-positive risk:  624 651 96 1171 372 83 1185 393 153 52 158 62 
+H-negative risk:  651 624 1185 1171 393 372 83 96 158 153 62 52 
+New BC onsets:  113
+BC status:  4887 113 
+BC subtype:  4887 86 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+123 
+disease_progression 
+H-positive risk:  623 659 96 1168 372 83 1183 396 149 52 158 61 
+H-negative risk:  659 623 1183 1168 396 372 83 96 158 149 61 52 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 82 28 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+124 
+disease_progression 
+H-positive risk:  624 663 97 1160 375 83 1184 400 144 53 156 61 
+H-negative risk:  663 624 1184 1160 400 375 83 97 156 144 61 53 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 85 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+125 
+disease_progression 
+H-positive risk:  629 664 94 1157 370 79 1186 403 142 58 156 62 
+H-negative risk:  664 629 1186 1157 403 370 79 94 156 142 62 58 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 82 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+84 new agents 
+126 
+disease_progression 
+H-positive risk:  631 662 94 1162 367 80 1191 399 144 56 153 61 
+H-negative risk:  662 631 1191 1162 399 367 80 94 153 144 61 56 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 82 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+127 
+disease_progression 
+H-positive risk:  633 667 92 1169 371 79 1179 399 142 57 152 60 
+H-negative risk:  667 633 1179 1169 399 371 79 92 152 142 60 57 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 83 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+128 
+disease_progression 
+H-positive risk:  635 668 89 1170 370 78 1187 393 143 55 151 61 
+H-negative risk:  668 635 1187 1170 393 370 78 89 151 143 61 55 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 83 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+50 new agents 
+129 
+disease_progression 
+H-positive risk:  633 666 88 1179 368 77 1187 399 140 54 148 61 
+H-negative risk:  666 633 1187 1179 399 368 77 88 148 140 61 54 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 81 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+130 
+disease_progression 
+H-positive risk:  633 679 90 1174 363 75 1184 398 139 55 147 63 
+H-negative risk:  679 633 1184 1174 398 363 75 90 147 139 63 55 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 83 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+131 
+disease_progression 
+H-positive risk:  633 678 87 1174 369 75 1185 391 139 55 149 65 
+H-negative risk:  678 633 1185 1174 391 369 75 87 149 139 65 55 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 81 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+80 new agents 
+132 
+disease_progression 
+H-positive risk:  634 677 90 1168 376 75 1192 382 140 55 148 63 
+H-negative risk:  677 634 1192 1168 382 376 75 90 148 140 63 55 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 82 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+133 
+disease_progression 
+H-positive risk:  638 675 87 1173 380 78 1182 378 141 54 151 63 
+H-negative risk:  675 638 1182 1173 378 380 78 87 151 141 63 54 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 84 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+102 new agents 
+134 
+disease_progression 
+H-positive risk:  640 673 89 1161 380 79 1181 386 142 55 151 63 
+H-negative risk:  673 640 1181 1161 386 380 79 89 151 142 63 55 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 86 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+135 
+disease_progression 
+H-positive risk:  639 672 88 1161 376 78 1184 391 142 59 147 63 
+H-negative risk:  672 639 1184 1161 391 376 78 88 147 142 63 59 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 87 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+136 
+disease_progression 
+H-positive risk:  651 674 91 1144 380 78 1179 392 144 58 146 63 
+H-negative risk:  674 651 1179 1144 392 380 78 91 146 144 63 58 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 89 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+137 
+disease_progression 
+H-positive risk:  649 676 90 1149 379 79 1180 388 138 61 147 64 
+H-negative risk:  676 649 1180 1149 388 379 79 90 147 138 64 61 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 88 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+138 
+disease_progression 
+H-positive risk:  649 675 91 1157 374 81 1176 390 133 60 150 64 
+H-negative risk:  675 649 1176 1157 390 374 81 91 150 133 64 60 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 89 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+139 
+disease_progression 
+H-positive risk:  648 662 95 1162 375 84 1181 390 128 61 149 65 
+H-negative risk:  662 648 1181 1162 390 375 84 95 149 128 65 61 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 90 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+140 
+disease_progression 
+H-positive risk:  642 667 95 1159 377 83 1193 381 128 61 149 65 
+H-negative risk:  667 642 1193 1159 381 377 83 95 149 128 65 61 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 90 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+141 
+disease_progression 
+H-positive risk:  642 660 97 1164 380 86 1190 383 128 59 146 65 
+H-negative risk:  660 642 1190 1164 383 380 86 97 146 128 65 59 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 93 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+142 
+disease_progression 
+H-positive risk:  644 652 97 1167 382 86 1194 382 126 57 146 67 
+H-negative risk:  652 644 1194 1167 382 382 86 97 146 126 67 57 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 91 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+143 
+disease_progression 
+H-positive risk:  648 654 100 1153 387 88 1196 379 130 53 145 67 
+H-negative risk:  654 648 1196 1153 379 387 88 100 145 130 67 53 
+New BC onsets:  113
+BC status:  4887 113 
+BC subtype:  4887 91 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+144 
+disease_progression 
+H-positive risk:  658 656 99 1156 374 92 1194 373 132 53 148 65 
+H-negative risk:  656 658 1194 1156 373 374 92 99 148 132 65 53 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 91 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+145 
+disease_progression 
+H-positive risk:  661 652 101 1163 378 94 1184 369 130 56 147 65 
+H-negative risk:  652 661 1184 1163 369 378 94 101 147 130 65 56 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 92 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+94 new agents 
+146 
+disease_progression 
+H-positive risk:  654 656 102 1154 391 96 1172 380 133 53 146 63 
+H-negative risk:  656 654 1172 1154 380 391 96 102 146 133 63 53 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 97 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+147 
+disease_progression 
+H-positive risk:  657 645 104 1160 395 98 1170 378 134 52 147 60 
+H-negative risk:  645 657 1170 1160 378 395 98 104 147 134 60 52 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 94 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+148 
+disease_progression 
+H-positive risk:  660 643 105 1155 398 98 1169 380 137 49 147 59 
+H-negative risk:  643 660 1169 1155 380 398 98 105 147 137 59 49 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 95 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+149 
+disease_progression 
+H-positive risk:  659 646 103 1153 395 95 1167 383 137 51 152 59 
+H-negative risk:  646 659 1167 1153 383 395 95 103 152 137 59 51 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 94 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+150 
+disease_progression 
+H-positive risk:  659 645 106 1160 389 96 1174 373 138 51 149 60 
+H-negative risk:  645 659 1174 1160 373 389 96 106 149 138 60 51 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 94 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+151 
+disease_progression 
+H-positive risk:  659 647 105 1161 393 96 1159 383 137 52 146 62 
+H-negative risk:  647 659 1159 1161 383 393 96 105 146 137 62 52 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 95 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+152 
+disease_progression 
+H-positive risk:  657 650 106 1149 399 97 1161 385 133 54 146 63 
+H-negative risk:  650 657 1161 1149 385 399 97 106 146 133 63 54 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 96 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+153 
+disease_progression 
+H-positive risk:  660 648 107 1155 393 93 1154 390 134 54 146 66 
+H-negative risk:  648 660 1154 1155 390 393 93 107 146 134 66 54 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 98 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+154 
+disease_progression 
+H-positive risk:  659 652 108 1145 393 93 1156 391 132 56 149 66 
+H-negative risk:  652 659 1156 1145 391 393 93 108 149 132 66 56 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 98 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+155 
+disease_progression 
+H-positive risk:  661 653 105 1143 395 94 1154 393 132 54 151 65 
+H-negative risk:  653 661 1154 1143 393 395 94 105 151 132 65 54 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 99 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+156 
+disease_progression 
+H-positive risk:  661 647 104 1138 401 97 1161 385 131 55 153 67 
+H-negative risk:  647 661 1161 1138 385 401 97 104 153 131 67 55 
+New BC onsets:  120
+BC status:  4880 120 
+BC subtype:  4880 102 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+157 
+disease_progression 
+H-positive risk:  667 654 104 1135 395 99 1156 386 132 54 150 68 
+H-negative risk:  654 667 1156 1135 386 395 99 104 150 132 68 54 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 100 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+94 new agents 
+158 
+disease_progression 
+H-positive risk:  672 653 102 1132 402 98 1153 388 131 53 146 70 
+H-negative risk:  653 672 1153 1132 388 402 98 102 146 131 70 53 
+New BC onsets:  119
+BC status:  4881 119 
+BC subtype:  4881 101 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+159 
+disease_progression 
+H-positive risk:  679 655 101 1120 412 96 1147 393 133 50 149 65 
+H-negative risk:  655 679 1147 1120 393 412 96 101 149 133 65 50 
+New BC onsets:  121
+BC status:  4879 121 
+BC subtype:  4879 104 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+160 
+disease_progression 
+H-positive risk:  682 653 99 1107 412 97 1144 402 137 50 152 65 
+H-negative risk:  653 682 1144 1107 402 412 97 99 152 137 65 50 
+New BC onsets:  123
+BC status:  4877 123 
+BC subtype:  4877 105 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+161 
+disease_progression 
+H-positive risk:  683 650 99 1107 408 98 1147 403 136 50 152 67 
+H-negative risk:  650 683 1147 1107 403 408 98 99 152 136 67 50 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 97 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+162 
+disease_progression 
+H-positive risk:  678 655 102 1099 403 97 1155 403 142 49 152 65 
+H-negative risk:  655 678 1155 1099 403 403 97 102 152 142 65 49 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 100 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+163 
+disease_progression 
+H-positive risk:  674 663 101 1096 390 97 1160 410 142 50 154 63 
+H-negative risk:  663 674 1160 1096 410 390 97 101 154 142 63 50 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 99 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+164 
+disease_progression 
+H-positive risk:  680 674 102 1092 394 96 1149 409 141 51 151 61 
+H-negative risk:  674 680 1149 1092 409 394 96 102 151 141 61 51 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 98 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+165 
+disease_progression 
+H-positive risk:  684 683 102 1091 388 99 1152 401 144 51 148 57 
+H-negative risk:  683 684 1152 1091 401 388 99 102 148 144 57 51 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 99 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+166 
+disease_progression 
+H-positive risk:  683 681 102 1089 395 99 1149 403 142 49 151 57 
+H-negative risk:  681 683 1149 1089 403 395 99 102 151 142 57 49 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 95 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+167 
+disease_progression 
+H-positive risk:  675 681 106 1095 396 97 1153 399 143 50 148 57 
+H-negative risk:  681 675 1153 1095 399 396 97 106 148 143 57 50 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 94 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+168 
+disease_progression 
+H-positive risk:  673 683 107 1094 392 93 1150 404 146 49 147 62 
+H-negative risk:  683 673 1150 1094 404 392 93 107 147 146 62 49 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 92 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+169 
+disease_progression 
+H-positive risk:  687 675 104 1100 394 91 1142 399 146 48 150 64 
+H-negative risk:  675 687 1142 1100 399 394 91 104 150 146 64 48 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 91 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+91 new agents 
+170 
+disease_progression 
+H-positive risk:  686 677 102 1090 401 93 1126 413 145 48 156 63 
+H-negative risk:  677 686 1126 1090 413 401 93 102 156 145 63 48 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 87 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+171 
+disease_progression 
+H-positive risk:  695 675 101 1088 396 94 1116 417 146 50 158 64 
+H-negative risk:  675 695 1116 1088 417 396 94 101 158 146 64 50 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 89 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+172 
+disease_progression 
+H-positive risk:  694 677 103 1081 396 93 1123 413 147 52 157 64 
+H-negative risk:  677 694 1123 1081 413 396 93 103 157 147 64 52 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 87 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+87 new agents 
+173 
+disease_progression 
+H-positive risk:  688 682 105 1079 398 92 1124 412 146 52 159 63 
+H-negative risk:  682 688 1124 1079 412 398 92 105 159 146 63 52 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 88 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+174 
+disease_progression 
+H-positive risk:  685 684 103 1077 403 93 1120 415 151 51 157 61 
+H-negative risk:  684 685 1120 1077 415 403 93 103 157 151 61 51 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 83 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+175 
+disease_progression 
+H-positive risk:  681 687 103 1082 404 90 1118 417 153 49 157 59 
+H-negative risk:  687 681 1118 1082 417 404 90 103 157 153 59 49 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 84 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+176 
+disease_progression 
+H-positive risk:  680 685 102 1083 403 89 1126 416 154 49 156 57 
+H-negative risk:  685 680 1126 1083 416 403 89 102 156 154 57 49 
+New BC onsets:  95
+BC status:  4905 95 
+BC subtype:  4905 81 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+177 
+disease_progression 
+H-positive risk:  677 684 101 1094 403 88 1125 411 158 49 153 57 
+H-negative risk:  684 677 1125 1094 411 403 88 101 153 158 57 49 
+New BC onsets:  95
+BC status:  4905 95 
+BC subtype:  4905 80 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+178 
+disease_progression 
+H-positive risk:  677 677 97 1105 403 90 1120 412 161 48 154 56 
+H-negative risk:  677 677 1120 1105 412 403 90 97 154 161 56 48 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 83 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+84 new agents 
+179 
+disease_progression 
+H-positive risk:  680 675 98 1110 395 93 1119 412 162 48 156 52 
+H-negative risk:  675 680 1119 1110 412 395 93 98 156 162 52 48 
+New BC onsets:  100
+BC status:  4900 100 
+BC subtype:  4900 83 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+180 
+disease_progression 
+H-positive risk:  678 677 98 1103 402 95 1114 415 159 53 152 54 
+H-negative risk:  677 678 1114 1103 415 402 95 98 152 159 54 53 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 84 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+181 
+disease_progression 
+H-positive risk:  669 670 98 1102 406 91 1120 422 165 52 151 54 
+H-negative risk:  670 669 1120 1102 422 406 91 98 151 165 54 52 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 85 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+93 new agents 
+182 
+disease_progression 
+H-positive risk:  672 673 97 1091 415 95 1116 420 162 53 153 53 
+H-negative risk:  673 672 1116 1091 420 415 95 97 153 162 53 53 
+New BC onsets:  100
+BC status:  4900 100 
+BC subtype:  4900 85 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+104 new agents 
+183 
+disease_progression 
+H-positive risk:  680 675 96 1091 406 91 1111 418 164 55 161 52 
+H-negative risk:  675 680 1111 1091 418 406 91 96 161 164 52 55 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 85 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+184 
+disease_progression 
+H-positive risk:  678 679 97 1091 404 92 1114 418 160 54 162 51 
+H-negative risk:  679 678 1114 1091 418 404 92 97 162 160 51 54 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 86 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+185 
+disease_progression 
+H-positive risk:  681 682 97 1088 407 92 1106 421 158 52 164 52 
+H-negative risk:  682 681 1106 1088 421 407 92 97 164 158 52 52 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 88 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+186 
+disease_progression 
+H-positive risk:  679 684 95 1086 415 92 1104 424 158 49 163 51 
+H-negative risk:  684 679 1104 1086 424 415 92 95 163 158 51 49 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 89 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+187 
+disease_progression 
+H-positive risk:  677 688 94 1083 414 94 1100 424 160 51 163 52 
+H-negative risk:  688 677 1100 1083 424 414 94 94 163 160 52 51 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 90 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+188 
+disease_progression 
+H-positive risk:  671 695 96 1084 419 95 1099 420 158 49 161 53 
+H-negative risk:  695 671 1099 1084 420 419 95 96 161 158 53 49 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 88 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+189 
+disease_progression 
+H-positive risk:  668 700 95 1089 415 96 1101 412 155 50 165 54 
+H-negative risk:  700 668 1101 1089 412 415 96 95 165 155 54 50 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 91 14 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+190 
+disease_progression 
+H-positive risk:  674 696 99 1085 422 95 1093 417 154 49 162 54 
+H-negative risk:  696 674 1093 1085 417 422 95 99 162 154 54 49 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 91 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+191 
+disease_progression 
+H-positive risk:  672 705 97 1085 426 96 1085 416 152 51 161 54 
+H-negative risk:  705 672 1085 1085 416 426 96 97 161 152 54 51 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 92 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+192 
+disease_progression 
+H-positive risk:  671 707 99 1074 426 98 1089 419 150 51 161 55 
+H-negative risk:  707 671 1089 1074 419 426 98 99 161 150 55 51 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 94 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+193 
+disease_progression 
+H-positive risk:  671 713 100 1070 427 98 1089 418 145 49 164 56 
+H-negative risk:  713 671 1089 1070 418 427 98 100 164 145 56 49 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 95 13 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+194 
+disease_progression 
+H-positive risk:  671 705 102 1070 429 101 1086 424 141 50 164 57 
+H-negative risk:  705 671 1086 1070 424 429 101 102 164 141 57 50 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 98 13 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+195 
+disease_progression 
+H-positive risk:  666 708 104 1059 439 102 1089 426 135 50 162 60 
+H-negative risk:  708 666 1089 1059 426 439 102 104 162 135 60 50 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 99 12 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+196 
+disease_progression 
+H-positive risk:  660 703 107 1066 437 103 1091 427 132 51 163 60 
+H-negative risk:  703 660 1091 1066 427 437 103 107 163 132 60 51 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 98 12 
+
+clinical_engagement 
+diagnosis 
+demography 
+80 new agents 
+197 
+disease_progression 
+H-positive risk:  657 711 107 1060 439 100 1092 435 131 49 163 56 
+H-negative risk:  711 657 1092 1060 435 439 100 107 163 131 56 49 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 100 12 
+
+clinical_engagement 
+diagnosis 
+demography 
+96 new agents 
+198 
+disease_progression 
+H-positive risk:  653 714 109 1064 433 98 1098 431 131 49 166 54 
+H-negative risk:  714 653 1098 1064 431 433 98 109 166 131 54 49 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 101 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+199 
+disease_progression 
+H-positive risk:  655 720 107 1058 432 96 1099 426 134 49 171 53 
+H-negative risk:  720 655 1099 1058 426 432 96 107 171 134 53 49 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 102 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+200 
+disease_progression 
+H-positive risk:  663 714 104 1068 430 98 1091 422 134 46 176 54 
+H-negative risk:  714 663 1091 1068 422 430 98 104 176 134 54 46 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 101 15 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+201 
+disease_progression 
+H-positive risk:  670 713 104 1075 423 97 1078 425 135 44 181 55 
+H-negative risk:  713 670 1078 1075 425 423 97 104 181 135 55 44 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 101 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+202 
+disease_progression 
+H-positive risk:  672 706 102 1091 418 96 1076 418 139 44 184 54 
+H-negative risk:  706 672 1076 1091 418 418 96 102 184 139 54 44 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 99 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+91 new agents 
+203 
+disease_progression 
+H-positive risk:  672 704 98 1099 419 97 1080 414 133 47 184 53 
+H-negative risk:  704 672 1080 1099 414 419 97 98 184 133 53 47 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 97 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+204 
+disease_progression 
+H-positive risk:  673 698 97 1106 411 97 1083 419 131 49 184 52 
+H-negative risk:  698 673 1083 1106 419 411 97 97 184 131 52 49 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 94 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+205 
+disease_progression 
+H-positive risk:  673 701 96 1097 410 97 1084 429 129 48 184 52 
+H-negative risk:  701 673 1084 1097 429 410 97 96 184 129 52 48 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 93 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+206 
+disease_progression 
+H-positive risk:  683 702 95 1088 413 95 1080 425 135 49 182 53 
+H-negative risk:  702 683 1080 1088 425 413 95 95 182 135 53 49 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 91 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+84 new agents 
+207 
+disease_progression 
+H-positive risk:  677 706 97 1093 402 97 1069 437 139 50 176 57 
+H-negative risk:  706 677 1069 1093 437 402 97 97 176 139 57 50 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 87 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+208 
+disease_progression 
+H-positive risk:  671 698 97 1113 397 95 1066 439 140 52 176 56 
+H-negative risk:  698 671 1066 1113 439 397 95 97 176 140 56 52 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 89 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+209 
+disease_progression 
+H-positive risk:  668 695 97 1110 412 93 1062 440 142 52 174 55 
+H-negative risk:  695 668 1062 1110 440 412 93 97 174 142 55 52 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 87 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+210 
+disease_progression 
+H-positive risk:  663 690 98 1110 421 91 1058 445 147 48 174 55 
+H-negative risk:  690 663 1058 1110 445 421 91 98 174 147 55 48 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 84 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+211 
+disease_progression 
+H-positive risk:  665 689 99 1104 427 89 1061 440 148 45 176 57 
+H-negative risk:  689 665 1061 1104 440 427 89 99 176 148 57 45 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 83 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+212 
+disease_progression 
+H-positive risk:  661 690 99 1118 422 90 1059 440 145 45 175 56 
+H-negative risk:  690 661 1059 1118 440 422 90 99 175 145 56 45 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 79 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+213 
+disease_progression 
+H-positive risk:  660 677 102 1132 418 88 1071 436 144 42 175 55 
+H-negative risk:  677 660 1071 1132 436 418 88 102 175 144 55 42 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 80 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+214 
+disease_progression 
+H-positive risk:  657 676 101 1133 420 87 1075 434 144 44 174 55 
+H-negative risk:  676 657 1075 1133 434 420 87 101 174 144 55 44 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 79 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+215 
+disease_progression 
+H-positive risk:  653 677 99 1127 426 85 1084 429 145 45 178 52 
+H-negative risk:  677 653 1084 1127 429 426 85 99 178 145 52 45 
+New BC onsets:  96
+BC status:  4904 96 
+BC subtype:  4904 75 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+89 new agents 
+216 
+disease_progression 
+H-positive risk:  658 681 95 1132 414 85 1080 430 148 45 176 56 
+H-negative risk:  681 658 1080 1132 430 414 85 95 176 148 56 45 
+New BC onsets:  96
+BC status:  4904 96 
+BC subtype:  4904 76 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+217 
+disease_progression 
+H-positive risk:  658 681 96 1111 428 83 1080 436 150 47 176 54 
+H-negative risk:  681 658 1080 1111 436 428 83 96 176 150 54 47 
+New BC onsets:  100
+BC status:  4900 100 
+BC subtype:  4900 79 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+218 
+disease_progression 
+H-positive risk:  660 677 96 1128 426 83 1078 425 150 46 177 54 
+H-negative risk:  677 660 1078 1128 425 426 83 96 177 150 54 46 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 80 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+219 
+disease_progression 
+H-positive risk:  652 681 92 1136 418 86 1083 425 151 47 175 54 
+H-negative risk:  681 652 1083 1136 425 418 86 92 175 151 54 47 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 81 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+220 
+disease_progression 
+H-positive risk:  657 684 95 1130 419 88 1078 425 147 49 173 55 
+H-negative risk:  684 657 1078 1130 425 419 88 95 173 147 55 49 
+New BC onsets:  100
+BC status:  4900 100 
+BC subtype:  4900 81 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+221 
+disease_progression 
+H-positive risk:  668 684 96 1122 419 90 1074 424 147 50 173 53 
+H-negative risk:  684 668 1074 1122 424 419 90 96 173 147 53 50 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 78 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+222 
+disease_progression 
+H-positive risk:  669 682 95 1131 413 90 1072 428 147 49 170 54 
+H-negative risk:  682 669 1072 1131 428 413 90 95 170 147 54 49 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 78 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+223 
+disease_progression 
+H-positive risk:  678 681 96 1133 414 91 1061 426 147 52 170 51 
+H-negative risk:  681 678 1061 1133 426 414 91 96 170 147 51 52 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 81 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+224 
+disease_progression 
+H-positive risk:  675 680 98 1130 410 92 1060 432 148 54 170 51 
+H-negative risk:  680 675 1060 1130 432 410 92 98 170 148 51 54 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 82 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+225 
+disease_progression 
+H-positive risk:  671 688 95 1142 408 88 1062 421 150 56 170 49 
+H-negative risk:  688 671 1062 1142 421 408 88 95 170 150 49 56 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 85 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+226 
+disease_progression 
+H-positive risk:  676 687 91 1144 417 89 1058 416 148 54 170 50 
+H-negative risk:  687 676 1058 1144 416 417 89 91 170 148 50 54 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 86 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+87 new agents 
+227 
+disease_progression 
+H-positive risk:  671 684 91 1154 418 88 1060 409 150 53 170 52 
+H-negative risk:  684 671 1060 1154 409 418 88 91 170 150 52 53 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 86 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+228 
+disease_progression 
+H-positive risk:  665 691 91 1149 417 91 1063 407 151 54 171 50 
+H-negative risk:  691 665 1063 1149 407 417 91 91 171 151 50 54 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 87 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+229 
+disease_progression 
+H-positive risk:  670 693 90 1130 425 88 1056 415 153 58 166 56 
+H-negative risk:  693 670 1056 1130 415 425 88 90 166 153 56 58 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 90 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+230 
+disease_progression 
+H-positive risk:  672 697 90 1125 423 87 1053 418 158 55 167 55 
+H-negative risk:  697 672 1053 1125 418 423 87 90 167 158 55 55 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 93 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+231 
+disease_progression 
+H-positive risk:  666 698 87 1120 429 86 1062 419 161 53 167 52 
+H-negative risk:  698 666 1062 1120 419 429 86 87 167 161 52 53 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 92 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+232 
+disease_progression 
+H-positive risk:  666 691 87 1116 434 87 1067 418 161 50 170 53 
+H-negative risk:  691 666 1067 1116 418 434 87 87 170 161 53 50 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 92 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+233 
+disease_progression 
+H-positive risk:  667 688 88 1114 434 89 1076 416 156 47 169 56 
+H-negative risk:  688 667 1076 1114 416 434 89 88 169 156 56 47 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 96 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+234 
+disease_progression 
+H-positive risk:  666 685 88 1106 437 90 1070 426 155 50 170 57 
+H-negative risk:  685 666 1070 1106 426 437 90 88 170 155 57 50 
+New BC onsets:  120
+BC status:  4880 120 
+BC subtype:  4880 101 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+235 
+disease_progression 
+H-positive risk:  659 686 90 1107 437 90 1075 421 157 52 167 59 
+H-negative risk:  686 659 1075 1107 421 437 90 90 167 157 59 52 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 99 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+53 new agents 
+236 
+disease_progression 
+H-positive risk:  653 679 91 1111 440 89 1086 418 156 51 167 59 
+H-negative risk:  679 653 1086 1111 418 440 89 91 167 156 59 51 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 98 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+237 
+disease_progression 
+H-positive risk:  654 682 92 1099 442 87 1087 420 159 52 165 61 
+H-negative risk:  682 654 1087 1099 420 442 87 92 165 159 61 52 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 99 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+238 
+disease_progression 
+H-positive risk:  653 684 92 1096 444 87 1082 420 159 55 166 62 
+H-negative risk:  684 653 1082 1096 420 444 87 92 166 159 62 55 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 97 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+59 new agents 
+239 
+disease_progression 
+H-positive risk:  657 682 92 1093 445 89 1074 427 159 55 166 61 
+H-negative risk:  682 657 1074 1093 427 445 89 92 166 159 61 55 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 94 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+87 new agents 
+240 
+disease_progression 
+H-positive risk:  658 684 90 1107 441 88 1076 422 155 54 166 59 
+H-negative risk:  684 658 1076 1107 422 441 88 90 166 155 59 54 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 93 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+241 
+disease_progression 
+H-positive risk:  663 681 93 1099 449 87 1072 422 155 54 164 61 
+H-negative risk:  681 663 1072 1099 422 449 87 93 164 155 61 54 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 90 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+242 
+disease_progression 
+H-positive risk:  654 676 91 1101 450 90 1088 416 154 53 166 61 
+H-negative risk:  676 654 1088 1101 416 450 90 91 166 154 61 53 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 87 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+243 
+disease_progression 
+H-positive risk:  649 677 91 1100 459 88 1086 411 156 54 168 61 
+H-negative risk:  677 649 1086 1100 411 459 88 91 168 156 61 54 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 91 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+244 
+disease_progression 
+H-positive risk:  647 684 87 1092 460 89 1084 415 154 53 172 63 
+H-negative risk:  684 647 1084 1092 415 460 89 87 172 154 63 53 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 90 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+59 new agents 
+245 
+disease_progression 
+H-positive risk:  648 682 85 1092 463 87 1078 420 155 57 172 61 
+H-negative risk:  682 648 1078 1092 420 463 87 85 172 155 61 57 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 90 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+246 
+disease_progression 
+H-positive risk:  651 684 85 1094 468 86 1078 410 155 57 169 63 
+H-negative risk:  684 651 1078 1094 410 468 86 85 169 155 63 57 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 90 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+247 
+disease_progression 
+H-positive risk:  658 684 83 1090 467 88 1065 421 152 57 170 65 
+H-negative risk:  684 658 1065 1090 421 467 88 83 170 152 65 57 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 88 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+248 
+disease_progression 
+H-positive risk:  657 691 81 1083 460 84 1069 424 157 58 172 64 
+H-negative risk:  691 657 1069 1083 424 460 84 81 172 157 64 58 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 89 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+249 
+disease_progression 
+H-positive risk:  651 696 84 1081 465 86 1072 418 153 60 171 63 
+H-negative risk:  696 651 1072 1081 418 465 86 84 171 153 63 60 
+New BC onsets:  113
+BC status:  4887 113 
+BC subtype:  4887 90 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+250 
+disease_progression 
+H-positive risk:  649 690 86 1085 460 87 1082 424 150 62 168 57 
+H-negative risk:  690 649 1082 1085 424 460 87 86 168 150 57 62 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 88 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+251 
+disease_progression 
+H-positive risk:  642 691 89 1094 451 86 1093 422 153 59 166 54 
+H-negative risk:  691 642 1093 1094 422 451 86 89 166 153 54 59 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 90 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+252 
+disease_progression 
+H-positive risk:  639 694 91 1087 452 82 1097 427 151 60 163 57 
+H-negative risk:  694 639 1097 1087 427 452 82 91 163 151 57 60 
+New BC onsets:  119
+BC status:  4881 119 
+BC subtype:  4881 93 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+253 
+disease_progression 
+H-positive risk:  637 694 92 1078 455 84 1098 436 143 58 163 62 
+H-negative risk:  694 637 1098 1078 436 455 84 92 163 143 62 58 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 91 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+92 new agents 
+254 
+disease_progression 
+H-positive risk:  636 698 95 1074 451 81 1106 430 149 57 161 62 
+H-negative risk:  698 636 1106 1074 430 451 81 95 161 149 62 57 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 91 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+255 
+disease_progression 
+H-positive risk:  636 699 97 1075 445 81 1108 431 151 55 164 58 
+H-negative risk:  699 636 1108 1075 431 445 81 97 164 151 58 55 
+New BC onsets:  119
+BC status:  4881 119 
+BC subtype:  4881 94 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+77 new agents 
+256 
+disease_progression 
+H-positive risk:  642 697 99 1069 444 80 1107 427 151 57 166 61 
+H-negative risk:  697 642 1107 1069 427 444 80 99 166 151 61 57 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 92 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+64 new agents 
+257 
+disease_progression 
+H-positive risk:  643 697 99 1070 446 81 1103 427 146 58 168 62 
+H-negative risk:  697 643 1103 1070 427 446 81 99 168 146 62 58 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 92 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+258 
+disease_progression 
+H-positive risk:  643 711 95 1063 437 80 1107 429 143 60 168 64 
+H-negative risk:  711 643 1107 1063 429 437 80 95 168 143 64 60 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 90 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+68 new agents 
+259 
+disease_progression 
+H-positive risk:  646 709 95 1055 429 83 1113 432 140 64 169 65 
+H-negative risk:  709 646 1113 1055 432 429 83 95 169 140 65 64 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 90 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+260 
+disease_progression 
+H-positive risk:  643 714 97 1053 431 84 1115 434 142 62 160 65 
+H-negative risk:  714 643 1115 1053 434 431 84 97 160 142 65 62 
+New BC onsets:  115
+BC status:  4885 115 
+BC subtype:  4885 89 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+261 
+disease_progression 
+H-positive risk:  653 705 92 1057 431 85 1118 433 141 63 157 65 
+H-negative risk:  705 653 1118 1057 433 431 85 92 157 141 65 63 
+New BC onsets:  120
+BC status:  4880 120 
+BC subtype:  4880 94 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+80 new agents 
+262 
+disease_progression 
+H-positive risk:  660 704 94 1063 429 88 1115 424 140 64 156 63 
+H-negative risk:  704 660 1115 1063 424 429 88 94 156 140 63 64 
+New BC onsets:  122
+BC status:  4878 122 
+BC subtype:  4878 94 28 
+
+clinical_engagement 
+diagnosis 
+demography 
+98 new agents 
+263 
+disease_progression 
+H-positive risk:  664 708 97 1054 421 91 1119 419 142 64 157 64 
+H-negative risk:  708 664 1119 1054 419 421 91 97 157 142 64 64 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 91 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+264 
+disease_progression 
+H-positive risk:  656 714 97 1053 420 90 1127 421 143 63 156 60 
+H-negative risk:  714 656 1127 1053 421 420 90 97 156 143 60 63 
+New BC onsets:  116
+BC status:  4884 116 
+BC subtype:  4884 90 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+265 
+disease_progression 
+H-positive risk:  662 712 96 1043 426 89 1132 421 145 59 156 59 
+H-negative risk:  712 662 1132 1043 421 426 89 96 156 145 59 59 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 91 27 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+266 
+disease_progression 
+H-positive risk:  657 715 96 1047 430 86 1130 423 146 57 155 58 
+H-negative risk:  715 657 1130 1047 423 430 86 96 155 146 58 57 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 89 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+267 
+disease_progression 
+H-positive risk:  659 716 98 1049 429 82 1133 419 146 55 157 57 
+H-negative risk:  716 659 1133 1049 419 429 82 98 157 146 57 55 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 89 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+268 
+disease_progression 
+H-positive risk:  654 719 97 1051 419 82 1141 416 148 56 160 57 
+H-negative risk:  719 654 1141 1051 416 419 82 97 160 148 57 56 
+New BC onsets:  117
+BC status:  4883 117 
+BC subtype:  4883 92 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+269 
+disease_progression 
+H-positive risk:  646 725 93 1058 416 81 1146 414 148 56 161 56 
+H-negative risk:  725 646 1146 1058 414 416 81 93 161 148 56 56 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 93 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+270 
+disease_progression 
+H-positive risk:  641 720 90 1063 419 81 1149 413 147 56 164 57 
+H-negative risk:  720 641 1149 1063 413 419 81 90 164 147 57 56 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 94 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+271 
+disease_progression 
+H-positive risk:  638 719 89 1061 412 79 1151 420 150 57 168 56 
+H-negative risk:  719 638 1151 1061 420 412 79 89 168 150 56 57 
+New BC onsets:  120
+BC status:  4880 120 
+BC subtype:  4880 97 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+272 
+disease_progression 
+H-positive risk:  640 714 93 1061 420 79 1152 411 149 57 170 54 
+H-negative risk:  714 640 1152 1061 411 420 79 93 170 149 54 57 
+New BC onsets:  120
+BC status:  4880 120 
+BC subtype:  4880 97 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+90 new agents 
+273 
+disease_progression 
+H-positive risk:  640 703 93 1063 428 79 1159 406 146 58 169 56 
+H-negative risk:  703 640 1159 1063 406 428 79 93 169 146 56 58 
+New BC onsets:  118
+BC status:  4882 118 
+BC subtype:  4882 96 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+274 
+disease_progression 
+H-positive risk:  647 698 93 1066 422 82 1157 412 143 56 168 56 
+H-negative risk:  698 647 1157 1066 412 422 82 93 168 143 56 56 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 92 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+275 
+disease_progression 
+H-positive risk:  646 699 91 1066 437 80 1152 403 145 56 169 56 
+H-negative risk:  699 646 1152 1066 403 437 80 91 169 145 56 56 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 91 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+276 
+disease_progression 
+H-positive risk:  656 710 89 1064 434 79 1145 397 145 56 169 56 
+H-negative risk:  710 656 1145 1064 397 434 79 89 169 145 56 56 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 88 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+277 
+disease_progression 
+H-positive risk:  656 703 90 1072 429 78 1149 399 145 58 164 57 
+H-negative risk:  703 656 1149 1072 399 429 78 90 164 145 57 58 
+New BC onsets:  114
+BC status:  4886 114 
+BC subtype:  4886 92 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+278 
+disease_progression 
+H-positive risk:  659 695 93 1067 432 77 1148 405 146 58 164 56 
+H-negative risk:  695 659 1148 1067 405 432 77 93 164 146 56 58 
+New BC onsets:  113
+BC status:  4887 113 
+BC subtype:  4887 90 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+279 
+disease_progression 
+H-positive risk:  657 695 92 1058 436 77 1153 403 147 61 164 57 
+H-negative risk:  695 657 1153 1058 403 436 77 92 164 147 57 61 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 89 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+280 
+disease_progression 
+H-positive risk:  659 702 93 1061 433 78 1144 408 146 59 159 58 
+H-negative risk:  702 659 1144 1061 408 433 78 93 159 146 58 59 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 86 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+281 
+disease_progression 
+H-positive risk:  654 704 94 1063 430 79 1153 410 148 56 153 56 
+H-negative risk:  704 654 1153 1063 410 430 79 94 153 148 56 56 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 84 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+282 
+disease_progression 
+H-positive risk:  658 701 92 1068 428 79 1150 411 148 56 154 55 
+H-negative risk:  701 658 1150 1068 411 428 79 92 154 148 55 56 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 88 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+283 
+disease_progression 
+H-positive risk:  661 703 95 1067 431 78 1150 407 143 56 155 54 
+H-negative risk:  703 661 1150 1067 407 431 78 95 155 143 54 56 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 88 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+284 
+disease_progression 
+H-positive risk:  657 706 96 1058 433 77 1156 409 144 54 155 55 
+H-negative risk:  706 657 1156 1058 409 433 77 96 155 144 55 54 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 88 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+285 
+disease_progression 
+H-positive risk:  657 708 98 1049 438 77 1141 425 143 56 154 54 
+H-negative risk:  708 657 1141 1049 425 438 77 98 154 143 54 56 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 88 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+286 
+disease_progression 
+H-positive risk:  665 698 97 1060 429 76 1138 431 144 56 153 53 
+H-negative risk:  698 665 1138 1060 431 429 76 97 153 144 53 56 
+New BC onsets:  112
+BC status:  4888 112 
+BC subtype:  4888 88 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+287 
+disease_progression 
+H-positive risk:  661 709 99 1056 424 74 1142 428 144 54 155 54 
+H-negative risk:  709 661 1142 1056 428 424 74 99 155 144 54 54 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 86 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+89 new agents 
+288 
+disease_progression 
+H-positive risk:  656 699 96 1069 427 75 1146 431 139 53 156 53 
+H-negative risk:  699 656 1146 1069 431 427 75 96 156 139 53 53 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 84 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+289 
+disease_progression 
+H-positive risk:  662 699 99 1073 426 76 1136 429 139 53 154 54 
+H-negative risk:  699 662 1136 1073 429 426 76 99 154 139 54 53 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 81 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+80 new agents 
+290 
+disease_progression 
+H-positive risk:  661 698 100 1074 415 75 1143 427 146 53 154 54 
+H-negative risk:  698 661 1143 1074 427 415 75 100 154 146 54 53 
+New BC onsets:  111
+BC status:  4889 111 
+BC subtype:  4889 86 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+291 
+disease_progression 
+H-positive risk:  662 696 98 1070 415 75 1145 429 145 53 154 58 
+H-negative risk:  696 662 1145 1070 429 415 75 98 154 145 58 53 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 85 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+292 
+disease_progression 
+H-positive risk:  667 698 100 1065 405 76 1152 429 146 51 154 57 
+H-negative risk:  698 667 1152 1065 429 405 76 100 154 146 57 51 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 84 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+293 
+disease_progression 
+H-positive risk:  678 698 98 1059 397 75 1151 430 151 51 151 61 
+H-negative risk:  698 678 1151 1059 430 397 75 98 151 151 61 51 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 83 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+294 
+disease_progression 
+H-positive risk:  679 697 98 1050 407 76 1145 435 150 47 154 62 
+H-negative risk:  697 679 1145 1050 435 407 76 98 154 150 62 47 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 81 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+295 
+disease_progression 
+H-positive risk:  682 688 105 1056 401 74 1143 430 154 47 157 63 
+H-negative risk:  688 682 1143 1056 430 401 74 105 157 154 63 47 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 78 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+296 
+disease_progression 
+H-positive risk:  684 683 104 1057 400 75 1153 424 152 50 154 64 
+H-negative risk:  683 684 1153 1057 424 400 75 104 154 152 64 50 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 85 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+297 
+disease_progression 
+H-positive risk:  685 685 103 1056 410 74 1143 428 148 51 152 65 
+H-negative risk:  685 685 1143 1056 428 410 74 103 152 148 65 51 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 84 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+298 
+disease_progression 
+H-positive risk:  673 689 105 1059 411 77 1141 435 146 51 148 65 
+H-negative risk:  689 673 1141 1059 435 411 77 105 148 146 65 51 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 85 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+299 
+disease_progression 
+H-positive risk:  677 687 106 1053 417 79 1137 433 147 50 147 67 
+H-negative risk:  687 677 1137 1053 433 417 79 106 147 147 67 50 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 85 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+300 
+disease_progression 
+H-positive risk:  677 685 106 1055 417 80 1136 433 146 53 145 67 
+H-negative risk:  685 677 1136 1055 433 417 80 106 145 146 67 53 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 84 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+301 
+disease_progression 
+H-positive risk:  675 693 107 1055 413 79 1133 435 146 53 146 65 
+H-negative risk:  693 675 1133 1055 435 413 79 107 146 146 65 53 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 85 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+302 
+disease_progression 
+H-positive risk:  668 692 103 1056 416 79 1142 434 146 50 150 64 
+H-negative risk:  692 668 1142 1056 434 416 79 103 150 146 64 50 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 85 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+303 
+disease_progression 
+H-positive risk:  673 701 101 1041 413 78 1143 437 148 50 149 66 
+H-negative risk:  701 673 1143 1041 437 413 78 101 149 148 66 50 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 84 22 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+304 
+disease_progression 
+H-positive risk:  674 699 97 1047 420 78 1139 431 148 51 149 67 
+H-negative risk:  699 674 1139 1047 431 420 78 97 149 148 67 51 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 81 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+305 
+disease_progression 
+H-positive risk:  681 700 95 1039 420 77 1143 429 149 52 149 66 
+H-negative risk:  700 681 1143 1039 429 420 77 95 149 149 66 52 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 82 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+306 
+disease_progression 
+H-positive risk:  689 701 93 1041 422 79 1131 436 144 51 149 64 
+H-negative risk:  701 689 1131 1041 436 422 79 93 149 144 64 51 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 82 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+307 
+disease_progression 
+H-positive risk:  685 707 93 1041 420 80 1131 436 144 52 148 63 
+H-negative risk:  707 685 1131 1041 436 420 80 93 148 144 63 52 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 85 24 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+308 
+disease_progression 
+H-positive risk:  686 694 94 1059 416 80 1128 436 144 53 144 66 
+H-negative risk:  694 686 1128 1059 436 416 80 94 144 144 66 53 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 83 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+87 new agents 
+309 
+disease_progression 
+H-positive risk:  686 694 89 1055 417 83 1136 434 142 53 146 65 
+H-negative risk:  694 686 1136 1055 434 417 83 89 146 142 65 53 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 81 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+310 
+disease_progression 
+H-positive risk:  688 695 91 1059 416 84 1135 430 143 51 145 63 
+H-negative risk:  695 688 1135 1059 430 416 84 91 145 143 63 51 
+New BC onsets:  109
+BC status:  4891 109 
+BC subtype:  4891 83 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+311 
+disease_progression 
+H-positive risk:  689 692 89 1061 421 84 1132 431 141 50 149 61 
+H-negative risk:  692 689 1132 1061 431 421 84 89 149 141 61 50 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 84 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+312 
+disease_progression 
+H-positive risk:  682 685 87 1077 419 81 1130 438 142 50 148 61 
+H-negative risk:  685 682 1130 1077 438 419 81 87 148 142 61 50 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 84 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+313 
+disease_progression 
+H-positive risk:  676 675 86 1085 419 83 1145 433 140 48 149 61 
+H-negative risk:  675 676 1145 1085 433 419 83 86 149 140 61 48 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 82 26 
+
+clinical_engagement 
+diagnosis 
+demography 
+94 new agents 
+314 
+disease_progression 
+H-positive risk:  675 678 86 1082 420 80 1149 433 139 48 151 59 
+H-negative risk:  678 675 1149 1082 433 420 80 86 151 139 59 48 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 80 25 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+315 
+disease_progression 
+H-positive risk:  669 677 85 1090 414 80 1151 437 140 47 148 62 
+H-negative risk:  677 669 1151 1090 437 414 80 85 148 140 62 47 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 84 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+316 
+disease_progression 
+H-positive risk:  670 681 83 1086 420 79 1139 442 142 45 150 63 
+H-negative risk:  681 670 1139 1086 442 420 79 83 150 142 63 45 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 84 23 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+317 
+disease_progression 
+H-positive risk:  672 680 83 1088 423 80 1134 445 137 45 150 63 
+H-negative risk:  680 672 1134 1088 445 423 80 83 150 137 63 45 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 84 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+318 
+disease_progression 
+H-positive risk:  674 677 83 1082 429 81 1128 445 139 47 149 66 
+H-negative risk:  677 674 1128 1082 445 429 81 83 149 139 66 47 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 83 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+99 new agents 
+319 
+disease_progression 
+H-positive risk:  681 681 80 1079 427 86 1124 438 136 50 153 65 
+H-negative risk:  681 681 1124 1079 438 427 86 80 153 136 65 50 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 80 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+95 new agents 
+320 
+disease_progression 
+H-positive risk:  690 682 77 1070 427 89 1112 443 138 51 155 66 
+H-negative risk:  682 690 1112 1070 443 427 89 77 155 138 66 51 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 78 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+321 
+disease_progression 
+H-positive risk:  690 684 78 1075 426 91 1102 447 137 51 155 64 
+H-negative risk:  684 690 1102 1075 447 426 91 78 155 137 64 51 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 79 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+322 
+disease_progression 
+H-positive risk:  686 686 78 1078 419 90 1099 452 140 52 157 63 
+H-negative risk:  686 686 1099 1078 452 419 90 78 157 140 63 52 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 78 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+99 new agents 
+323 
+disease_progression 
+H-positive risk:  692 676 78 1083 434 91 1098 438 140 55 153 62 
+H-negative risk:  676 692 1098 1083 438 434 91 78 153 140 62 55 
+New BC onsets:  94
+BC status:  4906 94 
+BC subtype:  4906 75 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+324 
+disease_progression 
+H-positive risk:  682 671 77 1093 430 91 1100 441 141 54 157 63 
+H-negative risk:  671 682 1100 1093 441 430 91 77 157 141 63 54 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 77 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+72 new agents 
+325 
+disease_progression 
+H-positive risk:  686 668 74 1086 428 93 1102 442 142 54 163 62 
+H-negative risk:  668 686 1102 1086 442 428 93 74 163 142 62 54 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 77 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+326 
+disease_progression 
+H-positive risk:  678 680 72 1090 412 96 1107 443 140 54 165 63 
+H-negative risk:  680 678 1107 1090 443 412 96 72 165 140 63 54 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 78 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+66 new agents 
+327 
+disease_progression 
+H-positive risk:  684 674 73 1097 404 99 1103 435 138 58 171 64 
+H-negative risk:  674 684 1103 1097 435 404 99 73 171 138 64 58 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 78 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+70 new agents 
+328 
+disease_progression 
+H-positive risk:  677 672 72 1094 408 97 1109 437 137 61 169 67 
+H-negative risk:  672 677 1109 1094 437 408 97 72 169 137 67 61 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 79 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+329 
+disease_progression 
+H-positive risk:  677 674 74 1103 407 97 1114 426 134 60 165 69 
+H-negative risk:  674 677 1114 1103 426 407 97 74 165 134 69 60 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 82 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+57 new agents 
+330 
+disease_progression 
+H-positive risk:  675 676 78 1105 401 97 1113 431 135 57 165 67 
+H-negative risk:  676 675 1113 1105 431 401 97 78 165 135 67 57 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 84 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+94 new agents 
+331 
+disease_progression 
+H-positive risk:  671 675 80 1097 413 97 1116 431 133 59 164 64 
+H-negative risk:  675 671 1116 1097 431 413 97 80 164 133 64 59 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 87 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+92 new agents 
+332 
+disease_progression 
+H-positive risk:  672 673 80 1087 411 99 1116 433 134 60 166 69 
+H-negative risk:  673 672 1116 1087 433 411 99 80 166 134 69 60 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 85 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+80 new agents 
+333 
+disease_progression 
+H-positive risk:  667 671 78 1093 404 102 1114 441 132 61 170 67 
+H-negative risk:  671 667 1114 1093 441 404 102 78 170 132 67 61 
+New BC onsets:  104
+BC status:  4896 104 
+BC subtype:  4896 86 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+78 new agents 
+334 
+disease_progression 
+H-positive risk:  671 672 76 1091 412 103 1106 440 130 62 169 68 
+H-negative risk:  672 671 1106 1091 440 412 103 76 169 130 68 62 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 87 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+76 new agents 
+335 
+disease_progression 
+H-positive risk:  673 678 77 1086 414 101 1101 434 131 63 171 71 
+H-negative risk:  678 673 1101 1086 434 414 101 77 171 131 71 63 
+New BC onsets:  106
+BC status:  4894 106 
+BC subtype:  4894 88 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+67 new agents 
+336 
+disease_progression 
+H-positive risk:  676 671 77 1085 418 101 1104 435 133 63 164 73 
+H-negative risk:  671 676 1104 1085 435 418 101 77 164 133 73 63 
+New BC onsets:  110
+BC status:  4890 110 
+BC subtype:  4890 91 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+337 
+disease_progression 
+H-positive risk:  679 671 76 1085 424 100 1102 432 136 61 161 73 
+H-negative risk:  671 679 1102 1085 432 424 100 76 161 136 73 61 
+New BC onsets:  108
+BC status:  4892 108 
+BC subtype:  4892 91 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+82 new agents 
+338 
+disease_progression 
+H-positive risk:  672 668 76 1086 425 102 1100 444 136 59 160 72 
+H-negative risk:  668 672 1100 1086 444 425 102 76 160 136 72 59 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 86 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+339 
+disease_progression 
+H-positive risk:  672 679 73 1089 408 105 1105 449 131 59 160 70 
+H-negative risk:  679 672 1105 1089 449 408 105 73 160 131 70 59 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 84 17 
+
+clinical_engagement 
+diagnosis 
+demography 
+65 new agents 
+340 
+disease_progression 
+H-positive risk:  667 681 75 1086 420 106 1102 445 129 59 160 70 
+H-negative risk:  681 667 1102 1086 445 420 106 75 160 129 70 59 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 87 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+341 
+disease_progression 
+H-positive risk:  661 680 74 1100 414 106 1107 441 127 61 163 66 
+H-negative risk:  680 661 1107 1100 441 414 106 74 163 127 66 61 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 86 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+342 
+disease_progression 
+H-positive risk:  657 683 73 1105 410 106 1115 436 127 61 163 64 
+H-negative risk:  683 657 1115 1105 436 410 106 73 163 127 64 61 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 86 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+81 new agents 
+343 
+disease_progression 
+H-positive risk:  656 677 74 1107 421 106 1115 430 129 59 163 63 
+H-negative risk:  677 656 1115 1107 430 421 106 74 163 129 63 59 
+New BC onsets:  105
+BC status:  4895 105 
+BC subtype:  4895 86 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+79 new agents 
+344 
+disease_progression 
+H-positive risk:  662 687 75 1105 422 107 1112 420 128 61 161 60 
+H-negative risk:  687 662 1112 1105 420 422 107 75 161 128 60 61 
+New BC onsets:  107
+BC status:  4893 107 
+BC subtype:  4893 87 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+345 
+disease_progression 
+H-positive risk:  664 692 76 1104 415 107 1109 419 128 62 164 60 
+H-negative risk:  692 664 1109 1104 419 415 107 76 164 128 60 62 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 83 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+75 new agents 
+346 
+disease_progression 
+H-positive risk:  656 685 72 1110 418 106 1123 413 129 61 167 60 
+H-negative risk:  685 656 1123 1110 413 418 106 72 167 129 60 61 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 84 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+61 new agents 
+347 
+disease_progression 
+H-positive risk:  650 684 73 1110 417 107 1120 421 131 61 165 61 
+H-negative risk:  684 650 1120 1110 421 417 107 73 165 131 61 61 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 82 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+80 new agents 
+348 
+disease_progression 
+H-positive risk:  650 681 77 1107 420 106 1123 422 132 61 161 60 
+H-negative risk:  681 650 1123 1107 422 420 106 77 161 132 60 61 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 81 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+88 new agents 
+349 
+disease_progression 
+H-positive risk:  652 693 80 1113 413 105 1109 425 128 62 158 62 
+H-negative risk:  693 652 1109 1113 425 413 105 80 158 128 62 62 
+New BC onsets:  102
+BC status:  4898 102 
+BC subtype:  4898 82 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+350 
+disease_progression 
+H-positive risk:  650 688 81 1114 415 105 1118 422 126 62 159 60 
+H-negative risk:  688 650 1118 1114 422 415 105 81 159 126 60 62 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 79 20 
+
+clinical_engagement 
+diagnosis 
+demography 
+96 new agents 
+351 
+disease_progression 
+H-positive risk:  660 687 80 1110 417 108 1119 410 125 62 164 58 
+H-negative risk:  687 660 1119 1110 410 417 108 80 164 125 58 62 
+New BC onsets:  97
+BC status:  4903 97 
+BC subtype:  4903 76 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+63 new agents 
+352 
+disease_progression 
+H-positive risk:  657 691 80 1115 417 109 1117 403 127 62 164 58 
+H-negative risk:  691 657 1117 1115 403 417 109 80 164 127 58 62 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 78 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+73 new agents 
+353 
+disease_progression 
+H-positive risk:  662 687 79 1119 414 109 1118 401 128 63 161 59 
+H-negative risk:  687 662 1118 1119 401 414 109 79 161 128 59 63 
+New BC onsets:  98
+BC status:  4902 98 
+BC subtype:  4902 77 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+83 new agents 
+354 
+disease_progression 
+H-positive risk:  662 691 79 1110 417 109 1118 401 128 64 159 62 
+H-negative risk:  691 662 1118 1110 401 417 109 79 159 128 62 64 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 78 21 
+
+clinical_engagement 
+diagnosis 
+demography 
+86 new agents 
+355 
+disease_progression 
+H-positive risk:  655 693 79 1102 410 113 1131 402 128 62 163 62 
+H-negative risk:  693 655 1131 1102 402 410 113 79 163 128 62 62 
+New BC onsets:  96
+BC status:  4904 96 
+BC subtype:  4904 77 19 
+
+clinical_engagement 
+diagnosis 
+demography 
+62 new agents 
+356 
+disease_progression 
+H-positive risk:  646 692 77 1100 417 110 1135 405 131 62 161 64 
+H-negative risk:  692 646 1135 1100 405 417 110 77 161 131 64 62 
+New BC onsets:  100
+BC status:  4900 100 
+BC subtype:  4900 82 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+85 new agents 
+357 
+disease_progression 
+H-positive risk:  645 688 76 1101 418 109 1145 405 134 61 158 60 
+H-negative risk:  688 645 1145 1101 405 418 109 76 158 134 60 61 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 81 18 
+
+clinical_engagement 
+diagnosis 
+demography 
+69 new agents 
+358 
+disease_progression 
+H-positive risk:  646 696 75 1101 417 108 1140 407 132 62 159 57 
+H-negative risk:  696 646 1140 1101 407 417 108 75 159 132 57 62 
+New BC onsets:  101
+BC status:  4899 101 
+BC subtype:  4899 85 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+71 new agents 
+359 
+disease_progression 
+H-positive risk:  652 690 78 1099 409 110 1141 416 132 59 158 56 
+H-negative risk:  690 652 1141 1099 416 409 110 78 158 132 56 59 
+New BC onsets:  103
+BC status:  4897 103 
+BC subtype:  4897 87 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+91 new agents 
+360 
+disease_progression 
+H-positive risk:  656 697 78 1091 413 112 1133 418 131 59 161 51 
+H-negative risk:  697 656 1133 1091 418 413 112 78 161 131 51 59 
+New BC onsets:  99
+BC status:  4901 99 
+BC subtype:  4901 83 16 
+
+clinical_engagement 
+diagnosis 
+demography 
+74 new agents 
+Time difference of 17.49238 mins
+This is task 9
