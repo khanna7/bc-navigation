@@ -13,7 +13,7 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
-load("estimation_net.RData")
+#load("estimation_net.RData")
 #load("burnin.RData")
 net.f <- net0_bip
 
