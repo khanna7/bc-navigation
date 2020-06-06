@@ -1,6 +1,5 @@
 ## module for clinical engagement
 
-#baseline screening
 # Load libraries ---------------------------
 
 library(ergm)
@@ -33,13 +32,10 @@ diagnosis <- function(net.f, settings){
   neighborfp <- net.f %v% "neighborfp"
   antinavigated <- net.f %v% "antinavigated"
   neighbornav <- net.f %v% "neighbornav"
-  screen_result_roll <- net.f %v% "screen_result_roll"
+  neighbor_navigated_roll <- net.f %v% "neighbor_navigated_roll"
   neighborfp_roll <- net.f %v% "neighborfp_roll"
   diagnostic_visit_counter <- net.f %v% "diagnostic_visit_counter"
   screening_visit_counter <- net.f %v% "screening_visit_counter"
-  
-  #screen_delay <- 2 #the amount of months delay for a screening mammogram.
-                     #Yami says it will vary, for now setting it to two months.
   
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -54,90 +50,97 @@ diagnosis <- function(net.f, settings){
   for (agent in all_agents){
     agent_data<-attrib_mtrx[agent,]
     
-    #first deal with navigated and unnavigated screening mammogram patients
-    #second deal with navigated diagnostic test patients
-    if(screening_referral[agent]==1 &
-       screen_complete[agent]==0){
+    ####1. Screening Mammograms##########################
+    
+    if(screening_referral[agent]==1){
      
+      #roll to see if they complete the visit
       screen_complete[agent]<-rbinom(1,1,prob(agent_data,"sm"))
       screening_visit_counter[agent]<-screen_complete[agent]+screening_visit_counter[agent]
       
+      #if they completed, process their results
       if(screen_complete[agent]==1){
-        screening_referral[agent]<-0 #reset the referral
-        screen_complete[agent]<-0 #reset the screen appointment
         
-        if(bc_status[agent]==1 &
-           screen_result_roll[agent]==0){
+        if(bc_status[agent]==1){
           screen_result[agent]<-rbinom(1,1,(1-p_false_negative_sm))
-          screen_result_roll[agent]<-1
         }
-        else if(bc_status[agent]==0 &
-                screen_result_roll[agent]==0){
+        else if(bc_status[agent]==0){
           screen_result[agent]<-rbinom(1,1,p_false_positive_sm)
-          screen_result_roll[agent]<-1
         }
         
         #inputting diagnostic test referrals to positive screening mammogram pts.
         if(screen_result[agent]==1){
           diagnostic_referral[agent]<-1
         }
+        screening_referral[agent]<-0 #reset the referral
       }
+      #conclude screening mammograms
     }
- 
-    if(diagnostic_referral[agent]==1 &
-       dt_complete[agent]==0){
     
+    
+    ####2. Diagnostic Tests##########################
+ 
+    if(diagnostic_referral[agent]==1){
+    
+      #roll to see if they complete the visit
       dt_complete[agent]<-rbinom(1,1,prob(agent_data,"dt"))
       diagnostic_visit_counter[agent]<-dt_complete[agent]+diagnostic_visit_counter[agent]
       
+      #if they completed, process their results
       if(dt_complete[agent]==1){
-        diagnostic_referral[agent]<-0 #reset the referral
-        dt_complete[agent]<-0 #reset the dx test appointment
+        
         if(bc_status[agent]==1){
           diagnosis[agent]<-1
           diagnosis_time[agent]<-disease.time[agent]
         }
+        
         else if(bc_status[agent]==0){
           antinavigated[agent]<-1
           neighbors<-get.neighborhood(net.f,agent)
           for(neighbor in neighbors){
-            if(neighborfp_roll[agent]==0)
+            if(neighborfp_roll[agent]==0){
               neighborfp[neighbor]<-rbinom(1,1,0.5)
               neighborfp_roll[agent]<-1
+            }
           }
         }
+        
       }
     }
+    #conclude diagnostic tests
   }
+  #conclude all appointments
   
-  #commented out for burnin------------
+  #introducing social navigation 
   if(settings=="social"){
     primary_edge<- net.f %e% "primary edge"
     
     for (agent in navigated_agents){
-      agent_edges<-get.edgeIDs(net.f, v=agent)
-      primary_edge_indices<-which(primary_edge[agent_edges]==1)
-      if(length(primary_edge_indices)>0){
-        primary_edges<-get.edges(net.f,v=agent)[1:length(primary_edge_indices)]
-        neighbors<-c()
+      if(neighbor_navigated_roll[agent]==0){
         
-        for(i in 1:length(primary_edge_indices)){
-          neighbors<-append(neighbors,primary_edges[[i]][[1]])
-        }
-        #neighbors<-get.neighborhood(net.f,agent)
-        for (neighbor in neighbors){
-          neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+        agent_edges<-get.edgeIDs(net.f, v=agent)
+        primary_edge_indices<-which(primary_edge[agent_edges]==1)
+        if(length(primary_edge_indices)>0){
+          primary_edges<-get.edges(net.f,v=agent)[1:length(primary_edge_indices)]
+          neighbors<-c()
+          
+          for(i in 1:length(primary_edge_indices)){
+            neighbors<-append(neighbors,primary_edges[[i]][[1]])
+          }
+          
+          for (neighbor in neighbors){
+            neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+          }
         }
       }
+      neighbor_navigated_roll[agent]<-1
+      cat(length(which(net.f %v% "navigated"==1)))
     }
-    cat(length(which(net.f %v% "navigated"==1)))
   }
-  
-  #commented out for burnin------------
   
   net.f %v% "neighborfp_roll" <- neighborfp_roll
   
-  net.f %v% "screen_result_roll" <- screen_result_roll
+  net.f %v% "neighbor_navigated_roll" <- neighbor_navigated_roll
   
   net.f %v% "navigated" <- navigated
   
