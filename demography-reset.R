@@ -125,7 +125,7 @@ demography <- function(net.f){
     set.vertex.attribute(net.f, "antinavigated", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screen_complete", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_test_complete", 0, nodes.to.reset)
-    set.vertex.attribute(net.f, "screen_result_roll", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "neighbor_navigated_roll", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "neighborfp_roll", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_referral_counter", 0, nodes.to.reset)
