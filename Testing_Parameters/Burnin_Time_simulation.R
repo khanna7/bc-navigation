@@ -41,5 +41,15 @@ for (time in 1:sim_time){
 
 #save(net.f, file = "burnin.RData")
 
+##handling naming output file with environment variable from slurm (June 8 2020)
+##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
+###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
+
+
+slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+numericid = as.numeric(slurm_arrayid)
+filename = paste(numericid, ".data", sep="")
+save(net.f, file = filename)
+
 end_time <- Sys.time()
 end_time - start_time
