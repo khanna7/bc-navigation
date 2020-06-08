@@ -174,6 +174,12 @@ demography <- function(net.f){
   
   diagnosed_and_unnavigated<-intersect(unnavigated,diagnosed)
   time.until.diagnosis.unnavigated<-median(diagnosis_time[diagnosed_and_unnavigated])
+  
+  screen_complete<-net.f %v% "screen_complete"
+  screen_complete[which(screen_complete==1)]<-0
+  
+  dt_complete<-net.f %v% "diagnostic_test_complete_complete"
+  dt_complete[which(dt_complete==1)]<-0
 
   
   write.table(cbind(time,
@@ -196,7 +202,7 @@ demography <- function(net.f){
                     time.until.diagnosis,
                     time.until.diagnosis.navigated,
                     time.until.diagnosis.unnavigated),
-              file="highsocial.navigation.intervention.120.05192020.data",
+              file="burnin.120.06082020.data",
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
