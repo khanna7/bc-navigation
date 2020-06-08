@@ -36,6 +36,7 @@ diagnosis <- function(net.f, settings){
   neighborfp_roll <- net.f %v% "neighborfp_roll"
   diagnostic_visit_counter <- net.f %v% "diagnostic_visit_counter"
   screening_visit_counter <- net.f %v% "screening_visit_counter"
+  diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
   
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -71,6 +72,7 @@ diagnosis <- function(net.f, settings){
         #inputting diagnostic test referrals to positive screening mammogram pts.
         if(screen_result[agent]==1){
           diagnostic_referral[agent]<-1
+          diagnostic_referral_counter[agent]<-1
         }
         screening_referral[agent]<-0 #reset the referral
       }
@@ -138,6 +140,7 @@ diagnosis <- function(net.f, settings){
     }
   }
   
+  net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter
   net.f %v% "neighborfp_roll" <- neighborfp_roll
   
   net.f %v% "neighbor_navigated_roll" <- neighbor_navigated_roll
