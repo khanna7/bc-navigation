@@ -108,6 +108,7 @@ diagnosis <- function(net.f, settings){
         }
         
       }
+      diagnostic_referral[agent]<-0
     }
     #conclude diagnostic tests
   }
