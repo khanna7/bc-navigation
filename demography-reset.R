@@ -131,6 +131,7 @@ demography <- function(net.f){
     set.vertex.attribute(net.f, "screening_referral_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_visit_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
     
     #set vertex attribute for whether a patient has been diagnosed
     set.vertex.attribute(net.f, "diagnosis", 0, nodes.to.reset)
@@ -181,6 +182,8 @@ demography <- function(net.f){
   dt_complete<-net.f %v% "diagnostic_test_complete_complete"
   dt_complete[which(dt_complete==1)]<-0
 
+  diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
+  diagnostic_referral_counter[which(diagnostic_referral_counter==1)]<-0
   
   write.table(cbind(time,
                     nintros, #deaths
@@ -202,7 +205,7 @@ demography <- function(net.f){
                     time.until.diagnosis,
                     time.until.diagnosis.navigated,
                     time.until.diagnosis.unnavigated),
-              file="burnin.120.06082020.data",
+              file="2burnin.120.06082020.data",
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
