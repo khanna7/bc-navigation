@@ -132,6 +132,7 @@ demography <- function(net.f){
     set.vertex.attribute(net.f, "diagnostic_visit_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
     
     #set vertex attribute for whether a patient has been diagnosed
     set.vertex.attribute(net.f, "diagnosis", 0, nodes.to.reset)
@@ -161,6 +162,13 @@ demography <- function(net.f){
   
   number.of.symptomatic<-length(which(net.f %v% "symptom.severity">0))
   
+  number.of.diagnostic.referrals.at.t<-length(which(net.f %v% "diagnostic_referral_counter"==1))
+  cat(number.of.diagnostic.referrals.at.t, "dtreferralsatt")
+  
+  number.of.screening.visits.at.t<-length(which(net.f %v% "screening_visit_counter"==1))
+  cat(number.of.diagnostic.referrals.at.t, "smreferralsatt")
+  
+  
   positives<-which(net.f %v% "bc_status"==1)
   diagnosed<-which(net.f %v% "diagnosis"==1)
   disease.time<-net.f %v% "disease.time"
@@ -178,12 +186,19 @@ demography <- function(net.f){
   
   screen_complete<-net.f %v% "screen_complete"
   screen_complete[which(screen_complete==1)]<-0
+  net.f %v% "screen_complete"<-screen_complete
   
   dt_complete<-net.f %v% "diagnostic_test_complete_complete"
   dt_complete[which(dt_complete==1)]<-0
+  net.f %v% "diagnostic_test_complete_complete"<-dt_complete
 
   diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
   diagnostic_referral_counter[which(diagnostic_referral_counter==1)]<-0
+  net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter 
+  
+  screening_visit_counter <- net.f %v% "screening_visit_counter"
+  screening_visit_counter[which(screening_visit_counter==1)]<-0
+  net.f %v% "screening_visit_counter"<-screening_visit_counter
   
   write.table(cbind(time,
                     nintros, #deaths
@@ -194,17 +209,17 @@ demography <- function(net.f){
                     
                     number.of.diagnostic.referrals,
                     number.of.screening.referrals,
-                    
                     number.of.screen.completed,
                     number.of.dt.completed,
-                    
                     number.of.symptomatic,
                     number.of.navigated.agents,
                     
                     time.with.cancer,
                     time.until.diagnosis,
                     time.until.diagnosis.navigated,
-                    time.until.diagnosis.unnavigated),
+                    time.until.diagnosis.unnavigated,
+                    number.of.diagnostic.referrals.at.t,
+                    number.of.screening.visits.at.t),
               file="2burnin.120.06082020.data",
               append=TRUE,
               col.names=FALSE,
