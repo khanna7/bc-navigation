@@ -200,6 +200,16 @@ demography <- function(net.f){
   screening_visit_counter[which(screening_visit_counter==1)]<-0
   net.f %v% "screening_visit_counter"<-screening_visit_counter
   
+##handling naming output file with environment variable from slurm (June 14 2020-Bryan)
+##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
+###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
+
+
+slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+numericid = as.numeric(slurm_arrayid)
+filename = paste(numericid, ".data", sep="")
+
+  
   write.table(cbind(time,
                     nintros, #deaths
                     number.of.positive.bc.agents,
@@ -220,7 +230,7 @@ demography <- function(net.f){
                     time.until.diagnosis.unnavigated,
                     number.of.diagnostic.referrals.at.t,
                     number.of.screening.visits.at.t),
-              file="2burnin.120.06082020.data",
+              file="sprintf(filename)",
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
