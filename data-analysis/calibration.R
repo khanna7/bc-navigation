@@ -23,31 +23,36 @@ dt_columns <- c(
   "time.with.cancer",
   "time.until.diagnosis",
   "time.until.diagnosis.navigated",
-  "time.until.diagnosis.unnavigate"
-#  "number.of.diagnostic.referrals"
-)
+  "time.until.diagnosis.unnavigated",
+  "number.of.diagnostic.referrals.at.t",
+  "number.of.screening.visits.at.t"
+  )
 
 for (i in 1:n.instances){
-  dt_list[[i]] <- read.table(paste0("../06_08_Burnin_data_round2/", i,".data"), col.names = dt_columns)
+  dt_list[[i]] <- read.table(paste0("../06_14_2020_Burnin_30_runs/", i,".data"))
 }
 
-df <- bind_rows(dt_list[1:5])
-df$source <- rep(1:5, each=360)
+which(unlist(lapply(dt_list, nrow) != 360))
 
-ggplot(df, aes(x=time, y=number.of.screening.referrals, 
+df <- bind_rows(dt_list[14:19])
+colnames(df) <- dt_columns
+df$source <- rep(14:19, each=360)
+
+ggplot(df, aes(x=time, y=number.of.screening.visits.at.t, 
                colour=as.factor(source)))+
   geom_line()+
   theme_bw()
 
-ggplot(df, aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, 
+ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t, 
                colour=as.factor(source)))+
   geom_line()+
   theme_bw()
 
-ggplot(df, aes(x=time, y=number.of.diagnostic.referrals, 
+ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t/number.of.screening.visits.at.t, 
                colour=as.factor(source)))+
   geom_line()+
   theme_bw()
+
 
 ggplot(df, aes(x=time, y=number.of.dt.completed/number.of.screen.completed, 
                colour=as.factor(source)))+
@@ -88,3 +93,4 @@ ggplot(df, aes(x=time, y=nintros,
                colour=as.factor(source)))+
   geom_line()+
   theme_bw()
+
