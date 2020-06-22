@@ -181,8 +181,15 @@ demography <- function(net.f){
   diagnosed_and_navigated<-intersect(navigated,diagnosed)
   time.until.diagnosis.navigated<-median(diagnosis_time[diagnosed_and_navigated])
   
+  neighbor_navigated<-which(net.f %v% "neighbor_navigated"==1)
+  neighbor_unnavigated<-which(net.f %v% "neighbor_navigated"==0)
+  
   diagnosed_and_unnavigated<-intersect(unnavigated,diagnosed)
-  time.until.diagnosis.unnavigated<-median(diagnosis_time[diagnosed_and_unnavigated])
+  diagnosed_and_unnavigated_completely<-intersect(diagnosed_and_unnavigated, neighbor_unnavigated)
+  time.until.diagnosis.unnavigated<-median(diagnosis_time[diagnosed_and_unnavigated_completely])
+  
+  diagnosed_and_neighbor_navigated<-intersect(neighbor_navigated,diagnosed_and_unnavigated)
+  time.until.diagnosis.neigbor.navigated<-median(diagnosis_time[diagnosed_and_neighbor_navigated])
   
   screen_complete<-net.f %v% "screen_complete"
   screen_complete[which(screen_complete==1)]<-0
@@ -200,14 +207,44 @@ demography <- function(net.f){
   screening_visit_counter[which(screening_visit_counter==1)]<-0
   net.f %v% "screening_visit_counter"<-screening_visit_counter
   
+  
+  ss0<-which(net.f %v% "symptom.severity"==0)
+  ss1<-which(net.f %v% "symptom.severity"==1)
+  ss2<-which(net.f %v% "symptom.severity"==2)
+  ss3<-which(net.f %v% "symptom.severity"==3)
+  
+  number.of.ss0.diagnosed<-length(intersect(diagnosed,ss0))
+  number.of.ss0.diagnosed.navigated<-length(intersect(diagnosed_and_navigated,ss0))
+  number.of.ss0.diagnosed.neighbor_navigated<-length(intersect(diagnosed_and_neighbor_navigated,ss0))
+  number.of.ss0.diagnosed.unnavigated<-length(intersect(diagnosed_and_unnavigated_completely,ss0))
+  
+  number.of.ss1.diagnosed<-length(intersect(diagnosed,ss1))
+  number.of.ss1.diagnosed.navigated<-length(intersect(diagnosed_and_navigated,ss1))
+  number.of.ss1.diagnosed.neighbor_navigated<-length(intersect(diagnosed_and_neighbor_navigated,ss1))
+  number.of.ss1.diagnosed.unnavigated<-length(intersect(diagnosed_and_unnavigated_completely,ss1))
+  
+  number.of.ss2.diagnosed<-length(intersect(diagnosed,ss2))
+  number.of.ss2.diagnosed.navigated<-length(intersect(diagnosed_and_navigated,ss2))
+  number.of.ss2.diagnosed.neighbor_navigated<-length(intersect(diagnosed_and_neighbor_navigated,ss2))
+  number.of.ss2.diagnosed.unnavigated<-length(intersect(diagnosed_and_unnavigated_completely,ss2))
+  
+  number.of.ss3.diagnosed<-length(intersect(diagnosed,ss3))
+  number.of.ss3.diagnosed.navigated<-length(intersect(diagnosed_and_navigated,ss3))
+  number.of.ss3.diagnosed.neighbor_navigated<-length(intersect(diagnosed_and_neighbor_navigated,ss3))
+  number.of.ss3.diagnosed.unnavigated<-length(intersect(diagnosed_and_unnavigated_completely,ss3))
+  
+  
+  
+  
+  
 ##handling naming output file with environment variable from slurm (June 14 2020-Bryan)
 ##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
 ###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
 
 
-slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
-numericid = as.numeric(slurm_arrayid)
-filename = paste(numericid, ".data", sep="")
+#slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+#numericid = as.numeric(slurm_arrayid)
+#filename = paste(numericid, ".data", sep="")
 
   
   write.table(cbind(time,
@@ -228,9 +265,31 @@ filename = paste(numericid, ".data", sep="")
                     time.until.diagnosis,
                     time.until.diagnosis.navigated,
                     time.until.diagnosis.unnavigated,
+                    time.until.diagnosis.neigbor.navigated,
                     number.of.diagnostic.referrals.at.t,
-                    number.of.screening.visits.at.t),
-              file="sprintf(filename)",
+                    
+                    number.of.screening.visits.at.t,#19
+                    
+                    number.of.ss0.diagnosed,#20
+                    number.of.ss1.diagnosed,#21
+                    number.of.ss2.diagnosed,#22
+                    number.of.ss3.diagnosed,#23
+                    
+                    number.of.ss0.diagnosed.navigated,#24
+                    number.of.ss1.diagnosed.navigated,#25
+                    number.of.ss2.diagnosed.navigated,#26
+                    number.of.ss3.diagnosed.navigated,#27
+                    
+                    number.of.ss0.diagnosed.unnavigated,#28
+                    number.of.ss1.diagnosed.unnavigated,#29
+                    number.of.ss2.diagnosed.unnavigated,#30
+                    number.of.ss3.diagnosed.unnavigated,#31
+                    
+                    number.of.ss0.diagnosed.neighbor_navigated, #32
+                    number.of.ss1.diagnosed.neighbor_navigated, #33
+                    number.of.ss2.diagnosed.neighbor_navigated, #34
+                    number.of.ss3.diagnosed.neighbor_navigated),#35
+              file="33burnin3.120.06192020",
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
