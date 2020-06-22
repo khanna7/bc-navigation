@@ -13,6 +13,7 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
+###Change this to chose a burnin
 load("06_17_2020_Burnin_30_round1/RData/3.RData")
 #load("burnin.RData")
 #net.f <- net0_bip
