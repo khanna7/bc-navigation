@@ -44,7 +44,21 @@ for (time in 1:sim_time){
   net.f <- demography(net.f)
 }
 
-#save(net.f, file = "burnin.RData")
+
+######SLURM Intervention Network Output
+
+##handling naming output file with environment variable from slurm (June 14 2020-$
+##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
+###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-writ$
+
+
+slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+numericid = as.numeric(slurm_arrayid)
+intervention_filename = paste(numericid, "_intervention.RData", sep="")
+
+save(net.f, file = intervention_filename)
+
+######
 
 end_time <- Sys.time()
 end_time - start_time
