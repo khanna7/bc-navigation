@@ -37,6 +37,7 @@ diagnosis <- function(net.f, settings){
   diagnostic_visit_counter <- net.f %v% "diagnostic_visit_counter"
   screening_visit_counter <- net.f %v% "screening_visit_counter"
   diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
+  screening_visit_counter <- net.f %v% "screening_visit_counter"
   
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -61,6 +62,8 @@ diagnosis <- function(net.f, settings){
       
       #if they completed, process their results
       if(screen_complete[agent]==1){
+        screening_referral[agent]<-0 #reset the referral
+        screening_visit_counter[agent]<-1
         
         if(bc_status[agent]==1){
           screen_result[agent]<-rbinom(1,1,(1-p_false_negative_sm))
@@ -74,7 +77,6 @@ diagnosis <- function(net.f, settings){
           diagnostic_referral[agent]<-1
           diagnostic_referral_counter[agent]<-1
         }
-        screening_referral[agent]<-0 #reset the referral
       }
       #conclude screening mammograms
     }
@@ -90,6 +92,7 @@ diagnosis <- function(net.f, settings){
       
       #if they completed, process their results
       if(dt_complete[agent]==1){
+        diagnostic_referral[agent]<-0
         
         if(bc_status[agent]==1){
           diagnosis[agent]<-1
@@ -108,7 +111,6 @@ diagnosis <- function(net.f, settings){
         }
         
       }
-      diagnostic_referral[agent]<-0
     }
     #conclude diagnostic tests
   }
@@ -137,10 +139,12 @@ diagnosis <- function(net.f, settings){
         }
       }
       neighbor_navigated_roll[agent]<-1
-      cat(length(which(net.f %v% "navigated"==1)))
+      #cat(length(which(net.f %v% "navigated"==1)))
     }
   }
   
+  
+  net.f %v% "screening_visit_counter" <- screening_visit_counter
   net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter
   net.f %v% "neighborfp_roll" <- neighborfp_roll
   
