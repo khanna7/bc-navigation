@@ -13,8 +13,8 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
-#load("estimation_net.RData")
-load("burnin.RData")
+load("06_17_2020_Burnin_30_round1/RData/3.RData")
+#load("burnin.RData")
 #net.f <- net0_bip
 
 activate.edges(net.f)
