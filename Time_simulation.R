@@ -1,7 +1,7 @@
 ##Time loop 
 
 rm(list=ls())
-setwd("~/projects/bc-navigation")
+##setwd("~/projects/bc-navigation") ##Specific to Mickey's runs
 
 library(networkDynamic)
 
