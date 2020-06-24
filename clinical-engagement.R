@@ -69,7 +69,7 @@ clinical_engagement <- function(net.f, settings1, settings2){
          (diagnostic_referral[agent]==1 |
           screening_referral[agent]==1)
          ){
-        navigated[agent]<-rbinom(1,1,0.2) #random institutional navigation
+        navigated[agent]<-rbinom(1,1, prob_institutional_navigation) #random institutional navigation
       }
     }
     
@@ -81,7 +81,7 @@ clinical_engagement <- function(net.f, settings1, settings2){
           screening_referral[agent]==1) &
          (neighbor_navigated[agent]==1) #key component
       ){
-        navigated[agent]<-rbinom(1,1,0.514) #social navigation
+        navigated[agent]<-rbinom(1,1,prob_social_navigation) #social navigation
       }
     }
   }
