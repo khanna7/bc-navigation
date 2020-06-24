@@ -76,8 +76,8 @@ diagnostic_testing_SS2_calculation<-2.25
 diagnostic_testing_SS3_calculation<-2.70
 
 regular_pcp_visitor_oddsratio<-14
-screening_mammogram_navigated_oddsratio<-2.5 #completion
-diagnostic_test_navigated_oddsratio<-1.6 #completion
+screening_mammogram_navigated_oddsratio<-2.48 #completion
+diagnostic_test_navigated_oddsratio<-1.57 #completion
 antinavigation_assumption<-1/2.6
 neighbor_navigation_oddsratio<-2.6
 neighbor_false_positive_assumption<-1/2.6
