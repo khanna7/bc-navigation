@@ -241,10 +241,10 @@ demography <- function(net.f){
 ##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
 ###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
 
-
-#slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
-#numericid = as.numeric(slurm_arrayid)
-#filename = paste(numericid, ".data", sep="")
+##comment this section and assign "filename" variable to run without slurm
+slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+numericid = as.numeric(slurm_arrayid)
+filename = paste(numericid, ".data", sep="")
 
   
   write.table(cbind(time,
@@ -289,7 +289,7 @@ demography <- function(net.f){
                     number.of.ss1.diagnosed.neighbor_navigated, #33
                     number.of.ss2.diagnosed.neighbor_navigated, #34
                     number.of.ss3.diagnosed.neighbor_navigated),#35
-              file="33burnin3.120.06192020",
+              file=filename,
               append=TRUE,
               col.names=FALSE,
               row.names=FALSE
