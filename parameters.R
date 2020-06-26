@@ -69,7 +69,7 @@ ac.mort.65 <- .17714/12
 ac.mort.70 <- .25317/12
 
 #prob.R parameters
-screening_mammogram_symptomatic_assumption<-3
+screening_mammogram_symptomatic_assumption<-1.5
 
 diagnostic_testing_SS1_assumption<-2
 diagnostic_testing_SS2_calculation<-2.25
