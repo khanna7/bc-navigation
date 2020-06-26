@@ -85,12 +85,16 @@ neighbor_false_positive_assumption<-1/2.6
 #diagnosis.R parameters
 p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result
 p_false_positive_sm <- 0.11 #the probability of a false positive screening mammogram result
-p_neighbor_fp<-0.5
-p_neighbor_navigated<-0.72
+p_neighbor_fp<-0.5 
+#the probability of a neighboring agent becoming negatively affected by an agent's false positive (THIS IS ASSUMED HAS NO BASIS)
+p_neighbor_navigated<-0.72 
+##the probability of a neighboring agent becoming positively affected by an agent's false positive (this comes from some data from Yami)
 
 #clinical-engagement.R parameters
-prob_social_navigation <- 0.514 #assumption
+prob_social_navigation <- 0.514 #Yami has some data on this, it technically should be in the .30-.40 range.
+#the above is the probability that an agent who knows a navigated agent becomes navigated after getting screen mam referral.
 prob_institutional_navigation <- 0.2 #assumption
+#the above is the probability that any agent becomes navigated after getting screen mam referral.
 
 #disease-progress.R parameters
 stage_2_cancer_death<-0.00120878 
