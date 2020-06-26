@@ -104,7 +104,7 @@ diagnosis <- function(net.f, settings){
           neighbors<-get.neighborhood(net.f,agent)
           for(neighbor in neighbors){
             if(neighborfp_roll[agent]==0){
-              neighborfp[neighbor]<-rbinom(1,1,0.5)
+              neighborfp[neighbor]<-rbinom(1,1,p_neighbor_fp)
               neighborfp_roll[agent]<-1
             }
           }
@@ -134,7 +134,7 @@ diagnosis <- function(net.f, settings){
           }
           
           for (neighbor in neighbors){
-            neighbor_navigated[neighbor]<-rbinom(1,1,0.72)
+            neighbor_navigated[neighbor]<-rbinom(1,1,p_neighbor_navigated)
           }
         }
       }
