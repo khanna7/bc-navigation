@@ -85,6 +85,8 @@ neighbor_false_positive_assumption<-1/2.6
 #diagnosis.R parameters
 p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result
 p_false_positive_sm <- 0.11 #the probability of a false positive screening mammogram result
+p_neighbor_fp<-0.5
+p_neighbor_navigated<-0.72
 
 #clinical-engagement.R parameters
 prob_social_navigation <- 0.514
@@ -93,3 +95,5 @@ prob_institutional_navigation <- 0.2
 #disease-progress.R parameters
 stage_2_cancer_death<-0.00120878
 stage_3_cancer_death<-0.0249197
+#source:
+#https://www.cancer.org/cancer/breast-cancer/understanding-a-breast-cancer-diagnosis/breast-cancer-survival-rates.html
