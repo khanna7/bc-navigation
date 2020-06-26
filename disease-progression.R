@@ -89,10 +89,10 @@ disease_progression <- function(net.f){
           symptom.severity[agent] <- 1
          } else if (disease.time[agent] >= 24 & disease.time[agent] < 36){
            symptom.severity[agent] <- 2
-           if(cancer_death[agent]==0){cancer_death[agent] <- rbinom(1,1,0.00120878)} #stage 2 cancer death
+           if(cancer_death[agent]==0){cancer_death[agent] <- rbinom(1,1,stage_2_cancer_death)} #stage 2 cancer death
          } else if(disease.time[agent] >= 36){
            symptom.severity[agent] <- 3
-           if(cancer_death[agent]==0){cancer_death[agent] <- rbinom(1,1,0.0249197)} #stage 4 cancer death
+           if(cancer_death[agent]==0){cancer_death[agent] <- rbinom(1,1,stage_3_cancer_death)} #stage 4 cancer death
          }
        }
      }
