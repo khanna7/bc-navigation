@@ -89,11 +89,11 @@ p_neighbor_fp<-0.5
 p_neighbor_navigated<-0.72
 
 #clinical-engagement.R parameters
-prob_social_navigation <- 0.514
-prob_institutional_navigation <- 0.2
+prob_social_navigation <- 0.514 #assumption
+prob_institutional_navigation <- 0.2 #assumption
 
 #disease-progress.R parameters
-stage_2_cancer_death<-0.00120878
+stage_2_cancer_death<-0.00120878 
 stage_3_cancer_death<-0.0249197
 #source:
 #https://www.cancer.org/cancer/breast-cancer/understanding-a-breast-cancer-diagnosis/breast-cancer-survival-rates.html
