@@ -87,9 +87,9 @@ p_false_negative_sm <- 0.012/100 #the probability of a false negative screening 
 p_false_positive_sm <- 0.11 #the probability of a false positive screening mammogram result
 
 #clinical-engagement.R parameters
-prob_social_navigation <- 0.514
-prob_institutional_navigation <- 0.2
+prob_social_navigation <- 0.514 #assumption
+prob_institutional_navigation <- 0.2 #assumption
 
 #disease-progress.R parameters
-stage_2_cancer_death<-0.00120878
+stage_2_cancer_death<-0.00120878 
 stage_3_cancer_death<-0.0249197
