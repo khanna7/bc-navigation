@@ -1,7 +1,7 @@
-##Time loop 
+##Time loop
 
 rm(list=ls())
-##setwd("~/projects/bc-navigation") ##Specific to Mickey's runs
+##setwd("~/projects/bc-navigation")
 
 library(networkDynamic)
 
@@ -13,7 +13,6 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
-###Change this to chose a burnin
 load("06_17_2020_Burnin_30_round1/RData/3.RData")
 #load("burnin.RData")
 #net.f <- net0_bip
@@ -22,7 +21,7 @@ activate.edges(net.f)
 activate.vertices(net.f)
 
 #parameter_file <- "parameters.R"
-sim_time <-120 #length of simulation in months
+sim_time <-360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
@@ -46,20 +45,14 @@ for (time in 1:sim_time){
 }
 
 
-######SLURM Intervention Network Output
 
-##handling naming output file with environment variable from slurm (June 14 2020-$
-##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
-###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-writ$
-
-
+##comment this section and assign "filename" variable to run without slurm
 slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
 numericid = as.numeric(slurm_arrayid)
-intervention_filename = paste(numericid, "_intervention.RData", sep="")
+netfilename = paste(numericid, ".RData", sep="")
 
-save(net.f, file = intervention_filename)
+save(net.f, file = netfilename)
 
-######
-
+##Timekeeping
 end_time <- Sys.time()
 end_time - start_time
