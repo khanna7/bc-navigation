@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATCH --job-name=datagen_06_08_2020          # Job name
 #SBATCH --ntasks=30                 # Number of Simultaneous tasks
