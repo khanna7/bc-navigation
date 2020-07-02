@@ -39,7 +39,14 @@ for (time in 1:sim_time){
   cat("demography", '\n')
   net.f <- demography(net.f)
 }
-#save(net.f, file = "burnin.RData")
+
+##comment this section and assign "filename" variable to run without slurm
+slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+numericid = as.numeric(slurm_arrayid)
+netfilename = paste(numericid, ".RData", sep="")
+
+save(net.f, file = netfilename)
+
 
 end_time <- Sys.time()
 end_time - start_time
