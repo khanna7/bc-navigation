@@ -72,7 +72,12 @@ df_mean_at_time <-
   summarise(m_number.of.screening.visits.at.t = mean(number.of.screening.visits.at.t),
             m_number.of.diagnostic.referrals.at.t = mean(number.of.diagnostic.referrals.at.t),
             m_number.of.dt.completed = mean(number.of.dt.completed),
-            m_number.of.screen.completed = mean(number.of.screen.completed)
+            m_number.of.screen.completed = mean(number.of.screen.completed),
+            m_number.of.hpos.agents = mean(number.of.hpos.agents),
+            m_number.of.hneg.agents = mean(number.of.hneg.agents),
+            m_number.of.diagnosed.cases = mean(number.of.diagnosed.cases),
+            m_number.of.positive.bc.agents = mean(number.of.positive.bc.agents),
+            m_nintros = mean(nintros)
             )
 
 
@@ -101,35 +106,38 @@ ggplot(df, aes(x=time, y=number.of.dt.completed/number.of.screen.completed))+
   
 ggplot(df, aes(x=time, y=number.of.dt.completed))+
   geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.dt.completed))
+
+ggplot(df, aes(x=time))+
+  geom_line(aes(y=number.of.hpos.agents), alpha=0.1)+
+  geom_line(aes(y=number.of.hneg.agents), alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.hpos.agents))+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.hneg.agents))+
+  ylim(c(0, 200))+
+  annotate(geom="text", x=625, y=90, label="Hormone-positive", col="black")+
+  annotate(geom="text", x=625, y=30, label="Hormone-negative", col="black")+
+  labs(y="number")
+
+ggplot(df, aes(x=time, y=number.of.hneg.agents/number.of.hpos.agents))+
+  geom_line(alpha=0.1)+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.hneg.agents/m_number.of.hpos.agents))+
+  theme_bw()+
+  ylim(c(0,1))
+
+ggplot(df, aes(x=time, y=number.of.diagnosed.cases))+
+  geom_line(alpha=0.1)+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.diagnosed.cases))
   theme_bw()
 
-ggplot(df, aes(x=time, y=number.of.hpos.agents, 
-               colour=as.factor(source)))+
-  geom_line()+
+ggplot(df, aes(x=time, y=number.of.positive.bc.agents))+
+  geom_line(alpha=0.1)+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.positive.bc.agents))+
   theme_bw()
 
-ggplot(df, aes(x=time, y=number.of.hneg.agents, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
-
-ggplot(df, aes(x=time, y=number.of.hneg.agents/number.of.hpos.agents, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
-
-ggplot(df, aes(x=time, y=number.of.diagnosed.cases, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
-
-ggplot(df, aes(x=time, y=number.of.positive.bc.agents, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
-
-ggplot(df, aes(x=time, y=nintros, 
-               colour=as.factor(source)))+
-  geom_line()+
+ggplot(df, aes(x=time, y=nintros))+
+  geom_line(alpha=0.1)+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_nintros))+  
   theme_bw()
 
