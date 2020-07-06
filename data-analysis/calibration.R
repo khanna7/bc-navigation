@@ -54,39 +54,53 @@ dt_columns <- c(
   )
 
 for (i in 1:n.instances){
-  dt_list[[i]] <- read.table(paste0("../07_02_2020_burnin30/data/", i,".data"))
+  dt_list[[i]] <- read.table(paste0("../data/07_05_intervention100yr/data/", i,".data"))
 }
 
-which(unlist(lapply(dt_list, nrow) != 360))
+which(unlist(lapply(dt_list, nrow) != 1200))
 
-df <- bind_rows(dt_list[1])
+df <- bind_rows(dt_list[1:n.instances])
 colnames(df) <- dt_columns
-df$source <- rep(1, each=360)
-
-ggplot(df, aes(x=time, y=number.of.screening.visits.at.t, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
-
-ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
-
-ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t/number.of.screening.visits.at.t, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
+df$source <- rep(1:n.instances, each=1200)
 
 
-ggplot(df, aes(x=time, y=number.of.dt.completed/number.of.screen.completed, 
-               colour=as.factor(source)))+
-  geom_line()+
-  theme_bw()
+# Compute means across variables at given time ----------
+
+df_mean_at_time <- 
+  df %>% 
+  group_by(time) %>%
+  summarise(m_number.of.screening.visits.at.t = mean(number.of.screening.visits.at.t),
+            m_number.of.diagnostic.referrals.at.t = mean(number.of.diagnostic.referrals.at.t),
+            m_number.of.dt.completed = mean(number.of.dt.completed),
+            m_number.of.screen.completed = mean(number.of.screen.completed)
+            )
+
+
+# Plots ----------
+
+ggplot(df, aes(x=time, y=number.of.screening.visits.at.t))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.screening.visits.at.t))
+
+ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.diagnostic.referrals.at.t))
+
+ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t/number.of.screening.visits.at.t))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.diagnostic.referrals.at.t/m_number.of.screening.visits.at.t))+
+  ylim(c(0,1))
+
+ggplot(df, aes(x=time, y=number.of.dt.completed/number.of.screen.completed))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.dt.completed/m_number.of.screen.completed))
   
-ggplot(df, aes(x=time, y=number.of.dt.completed, 
-               colour=as.factor(source)))+
-  geom_line()+
+ggplot(df, aes(x=time, y=number.of.dt.completed))+
+  geom_line(alpha=0.1)+
   theme_bw()
 
 ggplot(df, aes(x=time, y=number.of.hpos.agents, 
