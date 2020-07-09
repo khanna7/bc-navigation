@@ -1,8 +1,15 @@
+# Analyze calibration data
+
+# Libraries  ----------
+
 rm(list=ls())
 
 library(dplyr)
 library(ggplot2)
 
+# Read data and set meta-parameters ----------
+
+N <- 5000
 n.instances <- 30
 
 dt_list <- as.list(1:n.instances)
@@ -64,12 +71,21 @@ colnames(df) <- dt_columns
 df$source <- rep(1:n.instances, each=1200)
 
 
+# Compute incidence rate ----------
+
+df <- 
+df %>%
+  mutate(number.of.bc.neg = N - number.of.positive.bc.agents)  
+
+
+         
 # Compute means across variables at given time ----------
 
 df_mean_at_time <- 
   df %>% 
   group_by(time) %>%
   summarise(m_number.of.screening.visits.at.t = mean(number.of.screening.visits.at.t),
+            m_number.of.positive.bc.agents = mean(number.of.positive.bc.agents),
             m_number.of.diagnostic.referrals.at.t = mean(number.of.diagnostic.referrals.at.t),
             m_number.of.screening.referrals = mean(number.of.screening.referrals),
             m_number.of.dt.completed = mean(number.of.dt.completed),
@@ -83,6 +99,11 @@ df_mean_at_time <-
 
 
 # Plots ----------
+
+ggplot(df, aes(x=time, y=number.of.positive.bc.agents))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.positive.bc.agents))
 
 ggplot(df, aes(x=time, y=number.of.screening.visits.at.t))+
   geom_line(alpha=0.1)+
@@ -123,10 +144,13 @@ ggplot(df, aes(x=time, y=number.of.dt.completed))+
 ggplot(df, aes(x=time))+
   geom_line(aes(y=number.of.hpos.agents), alpha=0.1)+
   geom_line(aes(y=number.of.hneg.agents), alpha=0.1)+
+  geom_line(aes(y=number.of.positive.bc.agents), alpha=0.1)+
   theme_bw()+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.hpos.agents))+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.hneg.agents))+
-  ylim(c(0, 200))+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.positive.bc.agents))+
+  ylim(c(0, 150))+
+  annotate(geom="text", x=625, y=112, label="Breast cancer", col="black")+
   annotate(geom="text", x=625, y=90, label="Hormone-positive", col="black")+
   annotate(geom="text", x=625, y=30, label="Hormone-negative", col="black")+
   labs(y="number")
