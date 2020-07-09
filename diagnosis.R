@@ -95,6 +95,7 @@ diagnosis <- function(net.f, settings){
         diagnostic_referral[agent]<-0
         
         if(bc_status[agent]==1){
+          antinavigated[agent]<-0
           diagnosis[agent]<-1
           diagnosis_time[agent]<-disease.time[agent]
         }
