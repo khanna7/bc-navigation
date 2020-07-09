@@ -132,6 +132,7 @@ demography <- function(net.f){
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "bc_onsets", 0, nodes.to.reset)
 
     #set vertex attribute for whether a patient has been diagnosed
     set.vertex.attribute(net.f, "diagnosis", 0, nodes.to.reset)
