@@ -24,6 +24,7 @@ disease_progression <- function(net.f){
   disease.time <- net.f %v% "disease.time" #time of BC onset
   symptom.severity <- net.f %v% "symptom.severity" #severity of breast cancer
   cancer_death <- net.f %v% "cancer_death" #whether or not the agent has died of breast cancer
+  bc_onsets<- net.f %v% "bc_onsets"
 
   # update menopausal status based on age
      for (agent in 1:pop_size){
@@ -108,6 +109,7 @@ disease_progression <- function(net.f){
          #multinomial roll for hpos cancer, hneg cancer, and not hpos or hneg cancer
          if (bc_status_update[3] == 0){    # if agent got breast cancer of either type
            bc_status[agent] <- 1
+           bc_onsets[agent] <- 1
            subtype[agent] <- which(bc_status_update ==1) #1 = hpos, 2 = hneg
          }
        }
@@ -119,7 +121,9 @@ disease_progression <- function(net.f){
      net.f %v% "subtype" <- subtype   # assign breast cancer subtype for newly developed cases
      net.f %v% "cancer_death"<-cancer_death
 
-     cat("New BC onsets: ", length(which(net.f %v% "bc_status" == 1)))
+     cat("New BC onsets: ", length(which(net.f %v% "bc_onset" == 1)))
+     bc_onsets<-rep(0,length(bc_onsets))
+     net.f %v% "bc_onsets"<-bc_onsets
      cat("\n")
      cat("BC status: ", table(net.f %v% "bc_status"), "\n")
      cat("BC subtype: ", table(net.f %v% "subtype"), "\n")
