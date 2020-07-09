@@ -71,6 +71,7 @@ df_mean_at_time <-
   group_by(time) %>%
   summarise(m_number.of.screening.visits.at.t = mean(number.of.screening.visits.at.t),
             m_number.of.diagnostic.referrals.at.t = mean(number.of.diagnostic.referrals.at.t),
+            m_number.of.screening.referrals = mean(number.of.screening.referrals),
             m_number.of.dt.completed = mean(number.of.dt.completed),
             m_number.of.screen.completed = mean(number.of.screen.completed),
             m_number.of.hpos.agents = mean(number.of.hpos.agents),
@@ -93,6 +94,11 @@ ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t))+
   theme_bw()+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.diagnostic.referrals.at.t))
 
+ggplot(df, aes(x=time, y=number.of.screening.referrals))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.screening.referrals))
+
 ggplot(df, aes(x=time, y=number.of.diagnostic.referrals.at.t/number.of.screening.visits.at.t))+
   geom_line(alpha=0.1)+
   theme_bw()+
@@ -103,7 +109,12 @@ ggplot(df, aes(x=time, y=number.of.dt.completed/number.of.screen.completed))+
   geom_line(alpha=0.1)+
   theme_bw()+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.dt.completed/m_number.of.screen.completed))
-  
+ 
+ggplot(df, aes(x=time, y=number.of.screen.completed))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.screen.completed))
+ 
 ggplot(df, aes(x=time, y=number.of.dt.completed))+
   geom_line(alpha=0.1)+
   theme_bw()+
@@ -128,7 +139,7 @@ ggplot(df, aes(x=time, y=number.of.hneg.agents/number.of.hpos.agents))+
 
 ggplot(df, aes(x=time, y=number.of.diagnosed.cases))+
   geom_line(alpha=0.1)+
-  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.diagnosed.cases))
+  geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.diagnosed.cases))+
   theme_bw()
 
 ggplot(df, aes(x=time, y=number.of.positive.bc.agents))+

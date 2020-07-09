@@ -195,9 +195,11 @@ demography <- function(net.f){
   net.f %v% "screen_complete"<-screen_complete
 
   dt_complete<-net.f %v% "diagnostic_test_complete_complete"
+  if(sum(dt_complete, na.rm=T) > 0){browser()}
   dt_complete[which(dt_complete==1)]<-0
   net.f %v% "diagnostic_test_complete_complete"<-dt_complete
-
+  cat("dt_complete", sum(dt_complete), "\n")
+ 
   diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
   diagnostic_referral_counter[which(diagnostic_referral_counter==1)]<-0
   net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter
@@ -241,7 +243,8 @@ demography <- function(net.f){
 ###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
 
 
-slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+#slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+slurm_arrayid <- 1
 numericid = as.numeric(slurm_arrayid)
 filename = paste(numericid, ".data", sep="")
 
