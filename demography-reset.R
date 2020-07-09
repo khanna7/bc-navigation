@@ -207,6 +207,9 @@ demography <- function(net.f){
   screening_visit_counter <- net.f %v% "screening_visit_counter"
   screening_visit_counter[which(screening_visit_counter==1)]<-0
   net.f %v% "screening_visit_counter"<-screening_visit_counter
+  
+  number.of.bc.onsets<-length(which(net.f %v% "bc_onsets")==1) 
+  net.f %v% "bc_onsets"<-rep(0,length(bc_onsets))
 
 
   ss0<-which(net.f %v% "symptom.severity"==0)
@@ -290,7 +293,8 @@ filename = paste(numericid, ".data", sep="")
                     number.of.ss0.diagnosed.neighbor_navigated, #32
                     number.of.ss1.diagnosed.neighbor_navigated, #33
                     number.of.ss2.diagnosed.neighbor_navigated, #34
-                    number.of.ss3.diagnosed.neighbor_navigated),#35
+                    number.of.ss3.diagnosed.neighbor_navigated, #35
+                    number.of.bc.onsets),#36
               file=filename,
               append=TRUE,
               col.names=FALSE,
