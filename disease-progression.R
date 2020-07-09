@@ -122,7 +122,6 @@ disease_progression <- function(net.f){
      net.f %v% "cancer_death"<-cancer_death
 
      cat("New BC onsets: ", length(which(net.f %v% "bc_onset" == 1)))
-     bc_onsets<-rep(0,length(bc_onsets))
      net.f %v% "bc_onsets"<-bc_onsets
      cat("\n")
      cat("BC status: ", table(net.f %v% "bc_status"), "\n")
