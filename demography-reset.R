@@ -208,7 +208,7 @@ demography <- function(net.f){
   screening_visit_counter[which(screening_visit_counter==1)]<-0
   net.f %v% "screening_visit_counter"<-screening_visit_counter
   
-  number.of.bc.onsets<-length(which(net.f %v% "bc_onsets")==1) 
+  number.of.bc.onsets<-length(which(net.f %v% "bc_onsets"==1))
   net.f %v% "bc_onsets"<-rep(0,length(bc_onsets))
 
 
