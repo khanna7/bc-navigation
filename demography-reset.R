@@ -209,7 +209,7 @@ demography <- function(net.f){
   net.f %v% "screening_visit_counter"<-screening_visit_counter
   
   number.of.bc.onsets<-length(which(net.f %v% "bc_onsets"==1))
-  net.f %v% "bc_onsets"<-rep(0,length(bc_onsets))
+  net.f %v% "bc_onsets"<-rep(0,5000)
 
 
   ss0<-which(net.f %v% "symptom.severity"==0)
