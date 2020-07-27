@@ -57,18 +57,19 @@ dt_columns <- c(
   "number.of.ss0.diagnosed.neighbor_navigated", #32
   "number.of.ss1.diagnosed.neighbor_navigated", #33
   "number.of.ss2.diagnosed.neighbor_navigated", #34
-  "number.of.ss3.diagnosed.neighbor_navigated" #35
+  "number.of.ss3.diagnosed.neighbor_navigated", #35
+  "number.of.bc.onsets" #36
   )
 
 for (i in 1:n.instances){
-  dt_list[[i]] <- read.table(paste0("../data/7_5_2020_burnin100yrs/data/", i,".data"))
+  dt_list[[i]] <- read.table(paste0("../data/07_24_2020_12_49_output/data/", i,".data"))
 }
 
-which(unlist(lapply(dt_list, nrow) != 1200))
+which(unlist(lapply(dt_list, nrow) != 300)) #number of months of the simulation
 
 df <- bind_rows(dt_list[1:n.instances])
 colnames(df) <- dt_columns
-df$source <- rep(1:n.instances, each=1200)
+df$source <- rep(1:n.instances, each=300)
 
 
 # Compute incidence rate ----------
