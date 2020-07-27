@@ -61,7 +61,7 @@ dt_columns <- c(
   )
 
 for (i in 1:n.instances){
-  dt_list[[i]] <- read.table(paste0("../data/07_05_intervention100yr/data/", i,".data"))
+  dt_list[[i]] <- read.table(paste0("../data/7_5_2020_burnin100yrs/data/", i,".data"))
 }
 
 which(unlist(lapply(dt_list, nrow) != 1200))
@@ -104,6 +104,13 @@ ggplot(df, aes(x=time, y=number.of.positive.bc.agents))+
   geom_line(alpha=0.1)+
   theme_bw()+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.positive.bc.agents))
+
+ggplot(df, aes(x=time, y=((number.of.positive.bc.agents/N)*100)))+
+  geom_line(alpha=0.1)+
+  theme_bw()+
+  geom_line(data = df_mean_at_time, aes(x=time, y=((m_number.of.positive.bc.agents/N)*100)))+
+  ylim(c(0,10))+
+  labs(y="Breast Cancer Prevalence (%)")
 
 ggplot(df, aes(x=time, y=number.of.screening.visits.at.t))+
   geom_line(alpha=0.1)+
@@ -150,7 +157,7 @@ ggplot(df, aes(x=time))+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.hneg.agents))+
   geom_line(data = df_mean_at_time, aes(x=time, y=m_number.of.positive.bc.agents))+
   ylim(c(0, 150))+
-  annotate(geom="text", x=625, y=112, label="Breast cancer", col="black")+
+  annotate(geom="text", x=625, y=112, label="All cases", col="black")+
   annotate(geom="text", x=625, y=90, label="Hormone-positive", col="black")+
   annotate(geom="text", x=625, y=30, label="Hormone-negative", col="black")+
   labs(y="number")
