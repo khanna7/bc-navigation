@@ -132,6 +132,7 @@ demography <- function(net.f){
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "bc_onsets", 0, nodes.to.reset)
 
     #set vertex attribute for whether a patient has been diagnosed
     set.vertex.attribute(net.f, "diagnosis", 0, nodes.to.reset)
@@ -195,10 +196,9 @@ demography <- function(net.f){
   net.f %v% "screen_complete"<-screen_complete
 
   dt_complete<-net.f %v% "diagnostic_test_complete_complete"
-  if(sum(dt_complete, na.rm=T) > 0){browser()}
-  dt_complete[which(dt_complete==1)]<-0
+  false_positives<-which(net.f %v% "antinavigated"==1)
+  dt_complete[false_positives]<-0
   net.f %v% "diagnostic_test_complete_complete"<-dt_complete
-  cat("dt_complete", sum(dt_complete), "\n")
  
   diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
   diagnostic_referral_counter[which(diagnostic_referral_counter==1)]<-0
@@ -207,6 +207,9 @@ demography <- function(net.f){
   screening_visit_counter <- net.f %v% "screening_visit_counter"
   screening_visit_counter[which(screening_visit_counter==1)]<-0
   net.f %v% "screening_visit_counter"<-screening_visit_counter
+  
+  number.of.bc.onsets<-length(which(net.f %v% "bc_onsets"==1))
+  net.f %v% "bc_onsets"<-rep(0,5000)
 
 
   ss0<-which(net.f %v% "symptom.severity"==0)
@@ -290,7 +293,8 @@ filename = paste(numericid, ".data", sep="")
                     number.of.ss0.diagnosed.neighbor_navigated, #32
                     number.of.ss1.diagnosed.neighbor_navigated, #33
                     number.of.ss2.diagnosed.neighbor_navigated, #34
-                    number.of.ss3.diagnosed.neighbor_navigated),#35
+                    number.of.ss3.diagnosed.neighbor_navigated, #35
+                    number.of.bc.onsets),#36
               file=filename,
               append=TRUE,
               col.names=FALSE,

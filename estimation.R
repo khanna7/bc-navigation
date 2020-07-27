@@ -159,6 +159,7 @@ set.vertex.attribute(net0_bip, "diagnostic_visit_counter", 0)
 set.vertex.attribute(net0_bip, "screening_visit_counter", 0)
 set.vertex.attribute(net0_bip, "diagnostic_referral_counter", 0)
 set.vertex.attribute(net0_bip, "screening_visit_counter", 0)
+set.vertex.attribute(net0_bip, "bc_onsets", 0)
 
 
 #set vertex attribute for whether a patient has been diagnosed
