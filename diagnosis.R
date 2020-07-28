@@ -39,8 +39,8 @@ diagnosis <- function(net.f, settings){
   screening_visit_counter <- net.f %v% "screening_visit_counter"
   
   diagnostic_referral_checker <- net.f %v% "diagnostic_referral_checker"
-  diagnostic_visit_counter <- net.f %v% "diagnostic_visit_checker"
-  screening_visit_counter <- net.f %v% "screening_visit_checker"
+  diagnostic_visit_checker <- net.f %v% "diagnostic_visit_checker"
+  screening_visit_checker <- net.f %v% "screening_visit_checker"
   
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -149,8 +149,8 @@ diagnosis <- function(net.f, settings){
   }
   
   
-  net.f %v% "screening_visit_checker" <- screening_visit_counter
-  net.f %v% "diagnostic_visit_checker" <- diagnostic_referral_counter
+  net.f %v% "screening_visit_checker" <- screening_visit_checker
+  net.f %v% "diagnostic_visit_checker" <- diagnostic_visit_checker
   net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
   
   net.f %v% "screening_visit_counter" <- screening_visit_counter
