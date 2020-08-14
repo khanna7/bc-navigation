@@ -153,12 +153,18 @@ set.vertex.attribute(net0_bip, "screen_complete", 0)
 set.vertex.attribute(net0_bip, "diagnostic_test_complete", 0)
 set.vertex.attribute(net0_bip, "neighbor_navigated_roll", 0)
 set.vertex.attribute(net0_bip, "neighborfp_roll", 0)
+
 set.vertex.attribute(net0_bip, "diagnostic_referral_counter", 0)
 set.vertex.attribute(net0_bip, "screening_referral_counter", 0)
+set.vertex.attribute(net0_bip, "screening_visit_counter", 0)
 set.vertex.attribute(net0_bip, "diagnostic_visit_counter", 0)
-set.vertex.attribute(net0_bip, "screening_visit_counter", 0)
-set.vertex.attribute(net0_bip, "diagnostic_referral_counter", 0)
-set.vertex.attribute(net0_bip, "screening_visit_counter", 0)
+
+set.vertex.attribute(net0_bip, "diagnostic_referral_checker", 0)
+set.vertex.attribute(net0_bip, "diagnostic_visit_checker", 0)
+set.vertex.attribute(net0_bip, "screening_referral_checker", 0)
+set.vertex.attribute(net0_bip, "screening_visit_checker", 0)
+
+
 set.vertex.attribute(net0_bip, "bc_onsets", 0)
 
 

@@ -34,10 +34,13 @@ diagnosis <- function(net.f, settings){
   neighbornav <- net.f %v% "neighbornav"
   neighbor_navigated_roll <- net.f %v% "neighbor_navigated_roll"
   neighborfp_roll <- net.f %v% "neighborfp_roll"
+  
   diagnostic_visit_counter <- net.f %v% "diagnostic_visit_counter"
   screening_visit_counter <- net.f %v% "screening_visit_counter"
-  diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
-  screening_visit_counter <- net.f %v% "screening_visit_counter"
+  
+  diagnostic_referral_checker <- net.f %v% "diagnostic_referral_checker"
+  diagnostic_visit_checker <- net.f %v% "diagnostic_visit_checker"
+  screening_visit_checker <- net.f %v% "screening_visit_checker"
   
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -63,7 +66,7 @@ diagnosis <- function(net.f, settings){
       #if they completed, process their results
       if(screen_complete[agent]==1){
         screening_referral[agent]<-0 #reset the referral
-        screening_visit_counter[agent]<-1
+        screening_visit_checker[agent]<-1
         
         if(bc_status[agent]==1){
           screen_result[agent]<-rbinom(1,1,(1-p_false_negative_sm))
@@ -75,7 +78,7 @@ diagnosis <- function(net.f, settings){
         #inputting diagnostic test referrals to positive screening mammogram pts.
         if(screen_result[agent]==1){
           diagnostic_referral[agent]<-1
-          diagnostic_referral_counter[agent]<-1
+          diagnostic_referral_checker[agent]<-1
         }
       }
       #conclude screening mammograms
@@ -93,6 +96,7 @@ diagnosis <- function(net.f, settings){
       #if they completed, process their results
       if(dt_complete[agent]==1){
         diagnostic_referral[agent]<-0
+        diagnostic_visit_checker[agent]<-1
         
         if(bc_status[agent]==1){
           antinavigated[agent]<-0
@@ -145,8 +149,13 @@ diagnosis <- function(net.f, settings){
   }
   
   
+  net.f %v% "screening_visit_checker" <- screening_visit_checker
+  net.f %v% "diagnostic_visit_checker" <- diagnostic_visit_checker
+  net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
+  
   net.f %v% "screening_visit_counter" <- screening_visit_counter
-  net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter
+  net.f %v% "diagnostic_visit_counter" <- diagnostic_visit_counter
+  
   net.f %v% "neighborfp_roll" <- neighborfp_roll
   
   net.f %v% "neighbor_navigated_roll" <- neighbor_navigated_roll

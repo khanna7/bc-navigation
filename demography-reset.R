@@ -126,12 +126,16 @@ demography <- function(net.f){
     set.vertex.attribute(net.f, "diagnostic_test_complete", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "neighbor_navigated_roll", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "neighborfp_roll", 0, nodes.to.reset)
+    
     set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_referral_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_visit_counter", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
-    set.vertex.attribute(net.f, "diagnostic_referral_counter", 0, nodes.to.reset)
-    set.vertex.attribute(net.f, "screening_visit_counter", 0, nodes.to.reset)
+    
+    set.vertex.attribute(net.f, "diagnostic_referral_checker", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "diagnostic_visit_checker", 0, nodes.to.reset)
+    set.vertex.attribute(net.f, "screening_visit_checker", 0, nodes.to.reset)
+    
     set.vertex.attribute(net.f, "bc_onsets", 0, nodes.to.reset)
 
     #set vertex attribute for whether a patient has been diagnosed
@@ -162,10 +166,10 @@ demography <- function(net.f){
 
   number.of.symptomatic<-length(which(net.f %v% "symptom.severity">0))
 
-  number.of.diagnostic.referrals.at.t<-length(which(net.f %v% "diagnostic_referral_counter"==1))
+  number.of.diagnostic.referrals.at.t<-length(which(net.f %v% "diagnostic_referral_checker"==1))
   cat(number.of.diagnostic.referrals.at.t, "dtreferralsatt")
 
-  number.of.screening.visits.at.t<-length(which(net.f %v% "screening_visit_counter"==1))
+  number.of.screening.visits.at.t<-length(which(net.f %v% "screening_visit_checker"==1))
   cat(number.of.diagnostic.referrals.at.t, "smreferralsatt")
 
 
@@ -200,13 +204,17 @@ demography <- function(net.f){
   dt_complete[false_positives]<-0
   net.f %v% "diagnostic_test_complete_complete"<-dt_complete
  
-  diagnostic_referral_counter <- net.f %v% "diagnostic_referral_counter"
-  diagnostic_referral_counter[which(diagnostic_referral_counter==1)]<-0
-  net.f %v% "diagnostic_referral_counter" <- diagnostic_referral_counter
+  diagnostic_referral_checker <- net.f %v% "diagnostic_referral_checker"
+  diagnostic_referral_checker[which(diagnostic_referral_checker==1)]<-0
+  net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
+  
+  diagnostic_visit_checker <- net.f %v% "diagnostic_visit_checker"
+  diagnostic_visit_checker[which(diagnostic_visit_checker==1)]<-0
+  net.f %v% "diagnostic_visit_checker" <- diagnostic_visit_checker
 
-  screening_visit_counter <- net.f %v% "screening_visit_counter"
-  screening_visit_counter[which(screening_visit_counter==1)]<-0
-  net.f %v% "screening_visit_counter"<-screening_visit_counter
+  screening_visit_checker<- net.f %v% "screening_visit_checker"
+  screening_visit_checker[which(screening_visit_checker==1)]<-0
+  net.f %v% "screening_visit_checker"<-screening_visit_checker
   
   number.of.bc.onsets<-length(which(net.f %v% "bc_onsets"==1))
   net.f %v% "bc_onsets"<-rep(0,5000)
