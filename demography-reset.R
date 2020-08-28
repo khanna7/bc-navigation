@@ -170,7 +170,7 @@ demography <- function(net.f){
   cat(number.of.diagnostic.referrals.at.t, "dtreferralsatt")
 
   number.of.screening.visits.at.t<-length(which(net.f %v% "screening_visit_checker"==1))
-  cat(number.of.diagnostic.referrals.at.t, "smreferralsatt")
+  cat(number.of.screening.referrals.at.t, "smreferralsatt")
 
 
   positives<-which(net.f %v% "bc_status"==1)
