@@ -14,6 +14,9 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
+#Enable/Disable Slurm
+slurm = False
+
 #load("estimation_net.RData")
 #load("burnin.RData")
 net.f <- net0_bip
@@ -41,8 +44,13 @@ for (time in 1:sim_time){
 }
 
 ##comment this section and assign "filename" variable to run without slurm
-#slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
-slurm_arrayid <- 1
+if(slurm = true){
+  slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+} else{
+  slurm_arrayid <- 1
+}
+
+
 numericid = as.numeric(slurm_arrayid)
 netfilename = paste(numericid, ".RData", sep="")
 
