@@ -13,7 +13,10 @@ source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
 
-burninname= "3.RData"
+burninname = "3.RData"
+
+#Slurm code included if true, local execution if false
+slurm = False
 
 load(burninname)
 #load("burnin.RData")
@@ -49,7 +52,10 @@ for (time in 1:sim_time){
 
 
 ##comment this section and assign "filename" variable to run without slurm
-slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+if(slurm == True){
+  slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+ } else{
+  slurm_arrayid <- 1
 numericid = as.numeric(slurm_arrayid)
 netfilename = paste(numericid, ".RData", sep="")
 
