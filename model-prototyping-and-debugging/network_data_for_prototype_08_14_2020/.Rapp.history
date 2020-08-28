@@ -1,0 +1,85 @@
+load("3.RData")
+library(sna)
+ls()
+ls()
+net.f.burnin <- net.f
+gplot(net.f.burnin, gmode="graph")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE)
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,
+usearrows=FALSE)
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,
+q
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,
+usearrows=FALSE,
+edge.col = "gray")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      edge.col = "gray",#
+      vertex.col = "black")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.col = "black")
+palette(c("black", "steelblue1", "darkolivegreen", "darkorange2",
+"gray60", "darkslateblue"))
+palette(c("black", "steelblue1", "darkolivegreen", "darkorange2","gray60", "darkslateblue"))#
+#
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.col = "black")
+list.vertex.attributes(net.f.burnin)
+net.f.burning %v% "navigated"
+net.f.burnin %v% "navigated"
+table(net.f.burnin %v% "navigated")
+list.vertex.attributes(net.f.burnin)
+table(net.f.burnin %v% "symptom.severity")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.col = net.f.burnin %v% "symptom.severity")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = (net.f.burnin %v% "symptom.severity"))
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      #vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = 0.75*c(net.f.burnin %v% "symptom.severity"))
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      #vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = 1*c(net.f.burnin %v% "symptom.severity"))
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      #vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = 1*c(net.f.burnin %v% "symptom.severity"),#
+      vertex.col = "black")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      #vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = 1.25*c(net.f.burnin %v% "symptom.severity"),#
+      vertex.col = "black")
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      #vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = 1.25*c(net.f.burnin %v% "symptom.severity"),#
+      vertex.col = "steelblue1")
+pdf(file="burnin-network.pdf")#
+gplot(net.f.burnin, gmode="graph", displayisolates=FALSE,#
+      usearrows=FALSE, #
+      #vertex.cex=0.75,#
+      edge.col = "gray",#
+      vertex.cex = 1.25*c(net.f.burnin %v% "symptom.severity"),#
+      vertex.col = "steelblue1")#
+dev.off()
