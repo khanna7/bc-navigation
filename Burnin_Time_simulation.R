@@ -7,12 +7,16 @@ rm(list=ls())
 library(networkDynamic)
 
 source('parameters.R')
-source('estimation.R')
+#source('estimation.R')
+load("./estimation_net.RData")
 source('disease-progression.R')
 source('clinical-engagement.R')
 source('demography-reset.R')
 source('diagnosis.R')
 source('prob.R')
+
+#Enable/Disable Slurm
+slurm = FALSE
 
 #load("estimation_net.RData")
 #load("burnin.RData")
@@ -21,7 +25,7 @@ net.f <- net0_bip
 activate.edges(net.f)
 activate.vertices(net.f)
 
-sim_time <- 300 #length of simulation in months
+sim_time <- 10 #length of simulation in months
 
 start_time <- Sys.time()
 
@@ -41,8 +45,13 @@ for (time in 1:sim_time){
 }
 
 ##comment this section and assign "filename" variable to run without slurm
-#slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
-slurm_arrayid <- 1
+if(slurm == TRUE){
+  slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+} else{
+  slurm_arrayid <- 1
+}
+
+
 numericid = as.numeric(slurm_arrayid)
 netfilename = paste(numericid, ".RData", sep="")
 

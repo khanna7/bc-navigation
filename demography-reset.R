@@ -2,6 +2,8 @@
 
 demography <- function(net.f){
 
+  slurm = FALSE
+  
   # Aging -------------------
 
   #Update age per time step
@@ -170,7 +172,7 @@ demography <- function(net.f){
   cat(number.of.diagnostic.referrals.at.t, "dtreferralsatt")
 
   number.of.screening.visits.at.t<-length(which(net.f %v% "screening_visit_checker"==1))
-  cat(number.of.screening.referrals.at.t, "smreferralsatt")
+  cat(number.of.screening.visits.at.t, "smreferralsatt")
 
 
   positives<-which(net.f %v% "bc_status"==1)
@@ -254,8 +256,11 @@ demography <- function(net.f){
 ###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
 
 
-#slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
-slurm_arrayid <- 1
+if(slurm == TRUE){
+  slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+} else{ 
+  slurm_arrayid <- 1
+}
 numericid = as.numeric(slurm_arrayid)
 filename = paste(numericid, ".data", sep="")
 
