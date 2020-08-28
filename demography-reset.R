@@ -254,7 +254,7 @@ demography <- function(net.f){
 ###https://stackoverflow.com/questions/6773342/variable-in-the-file-name-for-write-tabl$
 
 
-if(slurm = True){
+if(slurm == True){
   slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
 } else{ 
   slurm_arrayid <- 1
