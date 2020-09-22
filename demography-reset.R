@@ -201,14 +201,14 @@ demography <- function(net.f){
   screen_complete[which(screen_complete==1)]<-0
   net.f %v% "screen_complete"<-screen_complete
 
+  #if (time >= 25) {browser()}
   #dt_complete <- net.f %v% "diagnostic_test_complete_complete"
   dt_complete <- net.f %v% "diagnostic_test_complete"
   dt_complete <- which(dt_complete == 1) #WROTE
   #false_positives<-which(net.f %v% "antinavigated"==1) #WILL NECESSARILY BE EMPTY BECAUSE THERE IS NO NAVIGATION IN THE BASELINE MODEL
   #dt_complete[false_positives]<-0
   dt_complete[dt_complete] <- 0 #ADITYA WROTE SO IT IS NOT ONLY DEPENDENT ON FALSE POSITIVES
-  net.f %v% "diagnostic_test_complete"<-dt_complete
- 
+  net.f %v% "diagnostic_test_complete" <- dt_complete
   diagnostic_referral_checker <- net.f %v% "diagnostic_referral_checker"
   diagnostic_referral_checker[which(diagnostic_referral_checker==1)]<-0
   net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
