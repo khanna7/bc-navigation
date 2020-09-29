@@ -16,7 +16,7 @@ source('prob.R')
 burninname = "3.RData"
 
 #Slurm code included if true, local execution if false
-slurm = False
+slurm = FALSE
 
 load(burninname)
 #load("burnin.RData")
@@ -52,7 +52,7 @@ for (time in 1:sim_time){
 
 
 ##comment this section and assign "filename" variable to run without slurm
-if(slurm == True){
+if(slurm == TRUE){
   slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
  } else{
   slurm_arrayid <- 1
@@ -63,4 +63,4 @@ save(net.f, file = netfilename)
 
 ##Timekeeping
 end_time <- Sys.time()
-end_time - start_time
+end_time <- start_time
