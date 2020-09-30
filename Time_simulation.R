@@ -54,8 +54,10 @@ for (time in 1:sim_time){
 ##comment this section and assign "filename" variable to run without slurm
 if(slurm == TRUE){
   slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
- } else{
+ } 
+else{
   slurm_arrayid <- 1
+ }
 numericid = as.numeric(slurm_arrayid)
 netfilename = paste(numericid, ".RData", sep="")
 
