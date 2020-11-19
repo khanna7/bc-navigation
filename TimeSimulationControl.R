@@ -16,7 +16,7 @@ source('prob.R')
 burninname = "data/clean_burnin.RData"
 
 #Slurm code included if true, local execution if false
-slurm <- FALSE
+slurm = TRUE
 
 load(burninname)
 #load("burnin.RData")
@@ -26,27 +26,32 @@ activate.edges(net.f)
 activate.vertices(net.f)
 
 #parameter_file <- "parameters.R"
-sim_time <- 15 #length of simulation in months
+sim_time <-360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
-control <- FALSE
-institutional <- TRUE
-social <- TRUE
+control <- TRUE
+institutional <- FALSE
+social <- FALSE
+#setting1<-"institutional"
+#setting2<-"social"
 
-cat("INTERVENTION WITH SOCIAL NAVIGATION", "\n")
+#setting1<-"burnin"
+#setting2<-"social effect off"
+
+
+cat("CONTROL RUN WITHOUT INTERVENTION", "\n")
 for (time in 1:sim_time){
   cat(time, '\n')
-  cat("\n", "Begin disease_progression.R", '\n \n')
+  cat("disease_progression", '\n')
   net.f <- disease_progression(net.f)
-  cat("\n", "Begin clinical-engagement.R", '\n \n')
+  cat("clinical_engagement", '\n')
   net.f <- clinical_engagement(net.f, institutional, social, control)
-  cat("Number currently navigated: ", length(which(net.f %v% "navigated" == 1)), "\n")
-  cat("\n", "Begin diagnosis.R", '\n \n')
+  cat("diagnosis", '\n')
   net.f <- diagnosis(net.f, social)
-  cat("\n", "Begin demography.R", '\n \n')
-  net.f <- demography(net.f, slurm)
+  cat("demography", '\n')
+  net.f <- demography(net.f)
 }
 
 
