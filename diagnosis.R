@@ -8,7 +8,7 @@ library(ergm)
 
 source("parameters.R")
 
-diagnosis <- function(net.f, settings){
+diagnosis <- function(net.f, social){
   
   ## get individual attributes 
   pop_size <- 5000
@@ -122,7 +122,7 @@ diagnosis <- function(net.f, settings){
   #conclude all appointments
   
   #introducing social navigation 
-  if(settings=="social"){
+  if(social == TRUE){
     primary_edge<- net.f %e% "primary edge"
     
     for (agent in navigated_agents){
@@ -140,6 +140,15 @@ diagnosis <- function(net.f, settings){
           
           for (neighbor in neighbors){
             neighbor_navigated[neighbor]<-rbinom(1,1,p_neighbor_navigated)
+            if(isTRUE((navigated[agent]==0) &
+                      (dt_complete[agent]==0) &
+                      (screen_complete[agent]==0) &
+                      (diagnostic_referral[agent]==1 |
+                       screening_referral[agent]==1) &
+                      (neighbor_navigated[agent]==1) #key component
+            )){
+              navigated[agent]<-rbinom(1,1,prob_social_navigation) #social navigation
+            }
           }
         }
       }
