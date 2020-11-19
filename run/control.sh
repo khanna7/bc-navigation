@@ -13,7 +13,7 @@ echo date
 echo "CONTROL RUN"
 
 module load R
-Rscript TimeSimulationControl.R
+Rscript ../TimeSimulationControl.R
 
 echo "END CONTROL RUN"
 
