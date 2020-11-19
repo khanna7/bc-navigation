@@ -124,8 +124,10 @@ disease_progression <- function(net.f){
      cat("New BC onsets: ", length(which(net.f %v% "bc_onset" == 1)))
      net.f %v% "bc_onsets"<-bc_onsets
      cat("\n")
-     cat("BC status: ", table(net.f %v% "bc_status"), "\n")
-     cat("BC subtype: ", table(net.f %v% "subtype"), "\n")
+     cat("BC status: (negative, positive)", table(net.f %v% "bc_status"), "\n")
+     
+     #TODO could change this to "ER-positive, ER-negative) ER = estrogen receptor
+     cat("BC subtype: (total, hpos, hneg) ", table(net.f %v% "subtype"), "\n")
      cat("\n")
      # simulate progression of disase
 
