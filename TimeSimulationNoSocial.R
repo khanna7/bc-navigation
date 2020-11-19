@@ -5,6 +5,13 @@ rm(list=ls())
 
 library(networkDynamic)
 
+source('parameters.R')
+#source('estimation.R')
+source('disease-progression.R')
+source('clinical-engagement')
+source('demography-reset.R')
+source('diagnosis.R')
+source('prob.R')
 
 burninname = "data/clean_burnin.RData"
 
