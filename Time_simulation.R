@@ -8,9 +8,9 @@ library(networkDynamic)
 source('parameters.R')
 #source('estimation.R')
 source('disease-progression.R')
-source('clinical-engagement_socialFix.R')
+source('clinical-engagement')
 source('demography-reset.R')
-source('diagnosis_socialFix.R')
+source('diagnosis.R')
 source('prob.R')
 
 burninname = "data/clean_burnin.RData"
