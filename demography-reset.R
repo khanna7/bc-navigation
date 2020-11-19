@@ -1,9 +1,8 @@
 #Demography module
 
-demography <- function(net.f){
+demography <- function(net.f, slurm){
 
-  slurm = FALSE
-  
+
   # Aging -------------------
 
   #Update age per time step
@@ -54,7 +53,7 @@ demography <- function(net.f){
   #}
   #####Ongoing project to change vertex IDs
 
-  cat(nintros, "new agents", "\n")
+  cat("Number of new agents (nintros): ", nintros, "\n")
   if(nintros>0){
 
     #Initialize attributes for reset vertices
@@ -169,12 +168,17 @@ demography <- function(net.f){
   number.of.symptomatic<-length(which(net.f %v% "symptom.severity">0))
 
   number.of.diagnostic.referrals.at.t<-length(which(net.f %v% "diagnostic_referral_checker"==1))
-  cat(number.of.diagnostic.referrals.at.t, "dtreferralsatt")
+  cat("Number of diagnostic referrals at t: ", number.of.diagnostic.referrals.at.t, "\n")
 
+  number.of.screening.referrals.at.t<-length(which(net.f %v% "screening_referral_checker"==1))
+  cat("\n","Number of screening referrals at t:", number.of.screening.referrals.at.t, "\n")
+  
   number.of.screening.visits.at.t<-length(which(net.f %v% "screening_visit_checker"==1))
-  cat(number.of.screening.visits.at.t, "smreferralsatt")
-
-
+  cat("Number of screening visits at t: ", number.of.screening.visits.at.t, "\n")
+  
+  number.of.diagnostic.visits.at.t<-length(which(net.f %v% "diagnostic_visit_checker"==1))
+  cat("Number of diagnostic visits at t: ", number.of.screening.visits.at.t, "\n")
+  
   positives<-which(net.f %v% "bc_status"==1)
   diagnosed<-which(net.f %v% "diagnosis"==1)
   disease.time<-net.f %v% "disease.time"
@@ -201,18 +205,33 @@ demography <- function(net.f){
   screen_complete[which(screen_complete==1)]<-0
   net.f %v% "screen_complete"<-screen_complete
 
-  #if (time >= 25) {browser()}
+  #dtOfOne = table(which(net.f %v% "diagnostic_test_complete" == 1))
+
+  #browser()
+  #Debugging dt_complete
+  #cat("\n dt_complete: ", which(net.f %v% "diagnostic_test_complete" == 1), "\n")
+  #cat(capture.output(dtOfOne, exclude = NULL,file="indices_of_dt1.txt",sep="\n",append=TRUE))
+  #sink('dtEqualOne.txt', append=TRUE)
+  #cat(dtOfOne)
+  #sink()
+  
+      
   #dt_complete <- net.f %v% "diagnostic_test_complete_complete"
   dt_complete <- net.f %v% "diagnostic_test_complete"
-  dt_complete <- which(dt_complete == 1) #WROTE
+  dt1_indices <- which(dt_complete == 1) #WROTE
   #false_positives<-which(net.f %v% "antinavigated"==1) #WILL NECESSARILY BE EMPTY BECAUSE THERE IS NO NAVIGATION IN THE BASELINE MODEL
   #dt_complete[false_positives]<-0
-  dt_complete[dt_complete] <- 0 #ADITYA WROTE SO IT IS NOT ONLY DEPENDENT ON FALSE POSITIVES
+  dt_complete[dt1_indices] <- 0 #ADITYA WROTE SO IT IS NOT ONLY DEPENDENT ON FALSE POSITIVES
   net.f %v% "diagnostic_test_complete" <- dt_complete
   diagnostic_referral_checker <- net.f %v% "diagnostic_referral_checker"
   diagnostic_referral_checker[which(diagnostic_referral_checker==1)]<-0
   net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
   
+  #Reset screening_referral_checker (because it tracks referrals given in this time step)
+  screening_referral_checker <- net.f %v% "screening_referral_checker"
+  screening_referral_checker[which(screening_referral_checker==1)]<-0
+  net.f %v% "screening_referral_checker" <- screening_referral_checker
+
   diagnostic_visit_checker <- net.f %v% "diagnostic_visit_checker"
   diagnostic_visit_checker[which(diagnostic_visit_checker==1)]<-0
   net.f %v% "diagnostic_visit_checker" <- diagnostic_visit_checker
@@ -310,7 +329,8 @@ filename = paste(numericid, ".data", sep="")
                     number.of.ss1.diagnosed.neighbor_navigated, #33
                     number.of.ss2.diagnosed.neighbor_navigated, #34
                     number.of.ss3.diagnosed.neighbor_navigated, #35
-                    number.of.bc.onsets),#36
+                    number.of.bc.onsets,  #36
+                    number.of.screening.referrals.at.t), #37
               file=filename,
               append=TRUE,
               col.names=FALSE,
