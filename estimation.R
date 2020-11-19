@@ -182,4 +182,3 @@ set.vertex.attribute(net0_bip, "cancer_death", 0)
 
 # Save object -----
 save(net0_bip, file = "estimation_net.RData")
-
