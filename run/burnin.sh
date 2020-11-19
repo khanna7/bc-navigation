@@ -11,7 +11,7 @@
 echo date
 
 module load R
-Rscript Burnin_Time_simulation.R
+Rscript ../Burnin_Time_simulation.R
 echo This is task $SLURM_ARRAY_TASK_ID
 
 echo date
