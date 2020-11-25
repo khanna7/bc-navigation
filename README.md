@@ -16,3 +16,30 @@ The model is written in R, and slurm is used to manage the high performance comp
 ##File Descriptions
 
 ##How to use
+
+Burnin- create or specify
+
+log in to midway (or cluster with slurm)
+
+sbatch run/{preferred mode}.sh
+(control, intervention, interventionNoSocial)
+
+data will output
+
+sort data into directory structure: RunName > data rdata logs
+
+move data into directory
+
+e.g.
+mv *.data RunName/data
+mv *.RData RunName/rdata
+mv *.log RunName/logs
+
+load rstudio and run analysis code from data-analysis (multiplot.R)
+
+e.g.
+module load rstudio
+rstudio
+open analysis file and update paths to data
+
+generate plots
