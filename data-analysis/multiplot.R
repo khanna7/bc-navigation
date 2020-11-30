@@ -10,7 +10,7 @@ library(network)
 library(networkDynamic)
 
 # Read data and set meta-parameters ----------
-setwd('/project2/khanna7/bryanb/bc-navigation/intervention_testing')
+setwd('/project2/khanna7/bryanb/bc-navigation/19nov_update_bc-navigation')
 getwd()
 N <- 5000
 n.instances <- 20
@@ -69,13 +69,13 @@ dt_columns <- c(
 
 #create lists
 for (i in 1:n.instances){
-  control_list[[i]] <- read.table(paste0("nov3_control/data/", i,".data"))
+  control_list[[i]] <- read.table(paste0("data/nov22_control/data/", i,".data"))
   }
 for (i in 1:n.instances){
-  intervention_list[[i]] <- read.table(paste0("10nov_socialFix/data/", i,".data"))
+  intervention_list[[i]] <- read.table(paste0("data/nov22_intervention/data/", i,".data"))
   }
 for (i in 1:n.instances){
-  noSocial_intervention_list[[i]] <- read.table(paste0("nov3_nosocial/data/", i,".data"))
+  noSocial_intervention_list[[i]] <- read.table(paste0("data/nov22_interventionNoSocial/data/", i,".data"))
   }
 
 

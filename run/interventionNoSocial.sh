@@ -11,4 +11,5 @@
 echo date
 
 module load R
-Rscript ../TimeSimulationNoSocial.R
+
+Rscript TimeSimulationNoSocial.R
