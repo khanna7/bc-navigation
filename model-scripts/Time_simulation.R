@@ -5,13 +5,13 @@ rm(list=ls())
 
 library(networkDynamic)
 
-source('parameters.R')
-#source('estimation.R')
-source('disease-progression.R')
-source('clinical-engagement.R')
-source('demography-reset.R')
-source('diagnosis.R')
-source('prob.R')
+source('model_scripts/parameters.R')
+#source('model_scripts/estimation.R')
+source('model_scripts/disease-progression.R')
+source('model_scripts/clinical-engagement.R')
+source('model_scripts/demography-reset.R')
+source('model_scripts/diagnosis.R')
+source('model_scripts/prob.R')
 
 burninname = "data/clean_burnin.RData"
 
@@ -26,16 +26,16 @@ activate.edges(net.f)
 activate.vertices(net.f)
 
 #parameter_file <- "parameters.R"
-sim_time <-360 #length of simulation in months
+sim_time <- 360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
 control <- FALSE
 institutional <- TRUE
-social <- FALSE
+social <- TRUE
 
-cat("INTERVENTION WITHOUT SOCIAL NAVIGATION", "\n")
+cat("INTERVENTION WITH SOCIAL NAVIGATION", "\n")
 for (time in 1:sim_time){
   cat(time, '\n')
   cat("\n", "Begin disease_progression.R", '\n \n')
@@ -48,7 +48,6 @@ for (time in 1:sim_time){
   cat("\n", "Begin demography.R", '\n \n')
   net.f <- demography(net.f, slurm)
 }
-
 
 ##comment this section and assign "filename" variable to run without slurm
 if(slurm == TRUE){

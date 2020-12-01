@@ -1,17 +1,17 @@
 ##Time loop
 
 rm(list=ls())
-##setwd("~/projects/bc-navigation")
+setwd("/project2/khanna7/bryanb/bc-navigation/nov30_fresh_git/bc-navigation")
 
 library(networkDynamic)
 
-source('parameters.R')
+source('model_scripts/parameters.R')n
 #source('estimation.R')
-source('disease-progression.R')
-source('clinical-engagement.R')
-source('demography-reset.R')
-source('diagnosis.R')
-source('prob.R')
+source('model_scripts/disease-progression.R')
+source('model_scripts/clinical-engagement.R')
+source('model_scripts/demography-reset.R')
+source('model_scripts/diagnosis.R')
+source('model_scripts/prob.R')
 
 burninname = "data/clean_burnin.RData"
 
@@ -26,16 +26,16 @@ activate.edges(net.f)
 activate.vertices(net.f)
 
 #parameter_file <- "parameters.R"
-sim_time <- 360 #length of simulation in months
+sim_time <-360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
-control <- FALSE
-institutional <- TRUE
-social <- TRUE
+control <- TRUE
+institutional <- FALSE
+social <- FALSE
 
-cat("INTERVENTION WITH SOCIAL NAVIGATION", "\n")
+cat("CONTROL RUN WITHOUT INTERVENTION", "\n \n")
 for (time in 1:sim_time){
   cat(time, '\n')
   cat("\n", "Begin disease_progression.R", '\n \n')

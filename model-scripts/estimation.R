@@ -7,7 +7,7 @@ library(ergm)
 library(networkDynamic)
 library(tergm)
 
-source("scripts/parameters.R")
+source("model_scripts/parameters.R")
 
 # Estimate unipartite ERGM ----
 

@@ -1,17 +1,17 @@
 ##Time loop
 
 rm(list=ls())
-setwd("/project2/khanna7/bryanb/bc-navigation/19nov_update_bc-navigation")
+##setwd("~/projects/bc-navigation")
 
 library(networkDynamic)
 
-source('scripts/parameters.R')
+source('model_scripts/parameters.R')
 #source('estimation.R')
-source('scripts/disease-progression.R')
-source('scripts/clinical-engagement.R')
-source('scripts/demography-reset.R')
-source('scripts/diagnosis.R')
-source('scripts/prob.R')
+source('model_scripts/disease-progression.R')
+source('model_scripts/clinical-engagement.R')
+source('model_scripts/demography-reset.R')
+source('model_scripts/diagnosis.R')
+source('model_scripts/prob.R')
 
 burninname = "data/clean_burnin.RData"
 
@@ -31,11 +31,11 @@ sim_time <-360 #length of simulation in months
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()
 
-control <- TRUE
-institutional <- FALSE
+control <- FALSE
+institutional <- TRUE
 social <- FALSE
 
-cat("CONTROL RUN WITHOUT INTERVENTION", "\n \n")
+cat("INTERVENTION WITHOUT SOCIAL NAVIGATION", "\n")
 for (time in 1:sim_time){
   cat(time, '\n')
   cat("\n", "Begin disease_progression.R", '\n \n')
@@ -48,6 +48,7 @@ for (time in 1:sim_time){
   cat("\n", "Begin demography.R", '\n \n')
   net.f <- demography(net.f, slurm)
 }
+
 
 ##comment this section and assign "filename" variable to run without slurm
 if(slurm == TRUE){
