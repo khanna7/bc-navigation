@@ -6,15 +6,15 @@ rm(list=ls())
 
 library(networkDynamic)
 
-source('model_scripts/parameters.R')
-#source('estimation.R')
+source('model-scripts/parameters.R')
+#source('model-scripts/estimation.R')
 #set to location of estimation network data
 load("estimation_net.RData")
-source('model_scripts/disease-progression.R')
-source('model_scripts/clinical-engagement.R')
-source('model_scripts/demography-reset.R')
-source('model_scripts/diagnosis.R')
-source('model_scripts/prob.R')
+source('model-scripts/disease-progression.R')
+source('model-scripts/clinical-engagement.R')
+source('model-scripts/demography-reset.R')
+source('model-scripts/diagnosis.R')
+source('model-scripts/prob.R')
 
 #Enable/Disable Slurm
 slurm = TRUE

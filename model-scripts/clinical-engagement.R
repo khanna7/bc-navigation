@@ -39,10 +39,12 @@ if(control == FALSE){
     navigated <- rbinom(length(net.f %v% "navigated"),1,0.02)
   }
 
-if(time == 1){
-  cat(capture.output(table(net.f %v% "diagnostic_test_complete", exclude = NULL)),file="dt.complete.txt",sep="\n",append=TRUE)
-}
+#Debugging diagnostic tests at step 1
+#if(time == 1){
+#  cat(capture.output(table(net.f %v% "diagnostic_test_complete", exclude = NULL)),file="dt.complete.txt",sep="\n",append=TRUE)
+#}
  }
+
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
                      navigated,
@@ -60,7 +62,12 @@ if(time == 1){
        ss[agent]>0){
        diagnostic_referral[agent]<-rbinom(1,1,prob(agent_data,"dt"))
        diagnostic_referral_counter[agent]<-diagnostic_referral_counter[agent]+diagnostic_referral[agent]
-    }
+      if(diagnostic_referral[agent] == 1){ #navigate direct-diagnosis agents
+        navigated[agent]<-rbinom(1,1, prob_institutional_navigation) #random institutional navigation
+        rolls_for_navigation <- rolls_for_navigation + 1
+        number_navigated_at_t <- number_navigated_at_t + navigated[agent]
+      }
+        }
     
     #second: all agents without referrals roll for sm referrals
     if(diagnostic_referral[agent]==0 &
@@ -88,7 +95,7 @@ if(time == 1){
         
         	}
 	}
-    	}
+    }
     }
     
     #if(social == TRUE){ 

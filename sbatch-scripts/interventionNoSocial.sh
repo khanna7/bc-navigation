@@ -12,4 +12,4 @@ echo date
 
 module load R
 
-Rscript model_scripts/TimeSimulationNoSocial.R
+Rscript model-scripts/TimeSimulationNoSocial.R

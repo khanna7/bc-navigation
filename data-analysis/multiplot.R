@@ -10,7 +10,7 @@ library(network)
 library(networkDynamic)
 
 # Read data and set meta-parameters ----------
-setwd('/project2/khanna7/bryanb/bc-navigation/19nov_update_bc-navigation')
+#setwd('/project2/khanna7/bryanb/bc-navigation/nov*/bc*')
 getwd()
 N <- 5000
 n.instances <- 20
@@ -67,18 +67,26 @@ dt_columns <- c(
   "screening_referral_checker" #37
 )
 
+## Add names of data directories here
+bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/nov30_fresh_git/bc-navigation/'
+date <- '14:15:09_2020-12-04'
+full_run_name <- '14:15:09_2020-12-04_full_run/'
+#control_name <- '14:15:09_2020-12-04_control/data/'
+#intervention_name <- '14:15:09_2020-12-04_intervention/data/'
+#intervention_no_social_name <- '14:15:09_2020-12-04_interventionNoSocial/data/'
+
 #create lists
 for (i in 1:n.instances){
-  control_list[[i]] <- read.table(paste0("data/nov22_control/data/", i,".data"))
+  control_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date, '_control/data/', i,".data"))
   }
 for (i in 1:n.instances){
-  intervention_list[[i]] <- read.table(paste0("data/nov22_intervention/data/", i,".data"))
+  intervention_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date,'_intervention/data/', i,".data"))
   }
 for (i in 1:n.instances){
-  noSocial_intervention_list[[i]] <- read.table(paste0("data/nov22_interventionNoSocial/data/", i,".data"))
+  noSocial_intervention_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date, '_interventionNoSocial/data/', i,".data"))
   }
 
-
+#check whether the listed data is of the right length
 which(unlist(lapply(control_list, nrow) != 360)) #number of months of the simulation
 which(unlist(lapply(intervention_list, nrow) != 360)) 
 which(unlist(lapply(noSocial_intervention_list, nrow) != 360)) 

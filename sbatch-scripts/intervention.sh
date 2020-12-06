@@ -11,4 +11,4 @@
 echo date
 
 module load R
-Rscript model_scripts/Time_simulation.R
+Rscript model-scripts/Time_simulation.R

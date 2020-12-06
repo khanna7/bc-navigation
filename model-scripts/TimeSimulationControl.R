@@ -5,13 +5,13 @@ setwd("/project2/khanna7/bryanb/bc-navigation/nov30_fresh_git/bc-navigation")
 
 library(networkDynamic)
 
-source('model_scripts/parameters.R')n
+source('model-scripts/parameters.R')
 #source('estimation.R')
-source('model_scripts/disease-progression.R')
-source('model_scripts/clinical-engagement.R')
-source('model_scripts/demography-reset.R')
-source('model_scripts/diagnosis.R')
-source('model_scripts/prob.R')
+source('model-scripts/disease-progression.R')
+source('model-scripts/clinical-engagement.R')
+source('model-scripts/demography-reset.R')
+source('model-scripts/diagnosis.R')
+source('model-scripts/prob.R')
 
 burninname = "data/clean_burnin.RData"
 
@@ -25,8 +25,8 @@ load(burninname)
 activate.edges(net.f)
 activate.vertices(net.f)
 
-#parameter_file <- "parameters.R"
-sim_time <-360 #length of simulation in months
+#parameter_file <- "model-scripts/parameters.R"
+sim_time <- 360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()

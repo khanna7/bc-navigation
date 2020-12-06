@@ -6,7 +6,7 @@ library(ergm)
 
 #Initialize function
 
-source("model_scripts/parameters.R")
+source("model-scripts/parameters.R")
 
 diagnosis <- function(net.f, social){
   

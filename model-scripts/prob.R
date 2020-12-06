@@ -1,4 +1,4 @@
-source("model_scripts/parameters.R")
+source("model-scripts/parameters.R")
 
 prob<-function(agent_data,test){
   
