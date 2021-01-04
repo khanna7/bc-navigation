@@ -1,7 +1,7 @@
 ##Time loop
 
 rm(list=ls())
-setwd("/project2/khanna7/bryanb/bc-navigation/nov30_fresh_git/bc-navigation")
+setwd("/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation")
 
 library(networkDynamic)
 

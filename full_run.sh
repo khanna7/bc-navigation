@@ -38,6 +38,11 @@ mv *.log ${interventionNoSocial_dir}/logs
 
 full_run_dir=${start_time}_full_run
 mkdir ${full_run_dir}
-mv ${control_dir} ${intervention_dir} ${interventionNoSocial_dir} ${full_run_dir} 
+mv ${control_dir} ${full_run_dir}
+mv ${intervention_dir} ${full_run_dir}
+mv ${interventionNoSocial_dir} ${full_run_dir} 
+
+#TODO add code to verify output 
+
 
 echo "############ Job Complete ############"

@@ -73,6 +73,8 @@ diagnosis <- function(net.f, social){
         }
         else if(bc_status[agent]==0){
           screen_result[agent]<-rbinom(1,1,p_false_positive_sm)
+#TODO stop navigation here 
+	  navigated[agent] <- 0
         }
         
         #inputting diagnostic test referrals to positive screening mammogram pts.
@@ -97,7 +99,8 @@ diagnosis <- function(net.f, social){
       if(dt_complete[agent]==1){
         diagnostic_referral[agent]<-0
         diagnostic_visit_checker[agent]<-1
-        
+#TODO stop navigation here (either way navigation ends with diagnostic testing)
+	navigated[agent] <- 0
         if(bc_status[agent]==1){
           antinavigated[agent]<-0
           diagnosis[agent]<-1

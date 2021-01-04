@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=datagen_06_08_2020          # Job name
+#SBATCH --job-name=burnin          # Job name
 #SBATCH --ntasks=30                 # Number of Simultaneous tasks
 #SBATCH --cpus-per-task=1
 #SBATCH --time=01:30:00             # Time limit hrs:min:sec

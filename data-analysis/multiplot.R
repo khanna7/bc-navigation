@@ -13,7 +13,8 @@ library(networkDynamic)
 #setwd('/project2/khanna7/bryanb/bc-navigation/nov*/bc*')
 getwd()
 N <- 5000
-n.instances <- 20
+n.instances <- 30
+run_length=360
 
 control_list <- as.list(1:n.instances)
 intervention_list <- as.list(1:n.instances)
@@ -68,10 +69,11 @@ dt_columns <- c(
 )
 
 ## Add names of data directories here
-bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/nov30_fresh_git/bc-navigation/'
-date <- '14:15:09_2020-12-04'
-full_run_name <- '14:15:09_2020-12-04_full_run/'
-#control_name <- '14:15:09_2020-12-04_control/data/'
+bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
+#date <- '11:53:08_2020-12-08'
+date <- '22:05:53_2020-12-17'
+full_run_name <- paste0(date, '_full_run/')
+#control_name <- paste0(date, '_control/data/')
 #intervention_name <- '14:15:09_2020-12-04_intervention/data/'
 #intervention_no_social_name <- '14:15:09_2020-12-04_interventionNoSocial/data/'
 
@@ -86,10 +88,10 @@ for (i in 1:n.instances){
   noSocial_intervention_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date, '_interventionNoSocial/data/', i,".data"))
   }
 
-#check whether the listed data is of the right length
-which(unlist(lapply(control_list, nrow) != 360)) #number of months of the simulation
-which(unlist(lapply(intervention_list, nrow) != 360)) 
-which(unlist(lapply(noSocial_intervention_list, nrow) != 360)) 
+#check whether the listed data is of the right length. Returns the instances that are missing data.
+which(unlist(lapply(control_list, nrow) != run_length)) #number of months of the simulation
+which(unlist(lapply(intervention_list, nrow) != run_length)) 
+which(unlist(lapply(noSocial_intervention_list, nrow) != run_length)) 
 
 
 control.df <- bind_rows(control_list[1:n.instances])
@@ -100,9 +102,9 @@ colnames(control.df) <- dt_columns
 colnames(intervention.df) <- dt_columns
 colnames(noSocial_intervention.df) <- dt_columns
 
-control.df$source <- rep(1:n.instances, each=360)
-intervention.df$source <- rep(1:n.instances, each=360)
-noSocial_intervention.df$source <- rep(1:n.instances, each=360)
+control.df$source <- rep(1:n.instances, each=run_length)
+intervention.df$source <- rep(1:n.instances, each=run_length)
+noSocial_intervention.df$source <- rep(1:n.instances, each=run_length)
 
 
 # Compute incidence rate ----------
@@ -173,6 +175,9 @@ noSocial_intervention.df_mean_at_time <-
   
 # Plots ----------
 
+#begin capturing output if you dont want to knit
+#pdf(file='multiplot_out.pdf')
+
 #may be used to color legend
 colors <- c("control" = "green", "full intervention" = "blue", "no social" = "red")
 
@@ -203,7 +208,7 @@ ggplot()+
   geom_line(data=noSocial_intervention.df, alpha=0.1, aes(x=time, y=number.of.navigated.agents, color='red'))+
   geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.navigated.agents, color='blue'))+
   geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.navigated.agents,color='blue'))#+
- # scale_color_manual(
+  # scale_color_manual(
   #  values = c("green", "blue", "red"),
    # labels = c("control", "Institutional with social", "Institutional without social")
   #)
@@ -356,4 +361,7 @@ ggplot()+
   geom_line(data=noSocial_intervention.df_mean_at_time,color='red', aes(x=time, y=m_nintros))+  
   geom_line(data=intervention.df, color='blue',alpha=0.1, aes(x=time, y=nintros))+
   geom_line(data=intervention.df_mean_at_time,color='blue', aes(x=time, y=m_nintros))
+  
+#end capturing plots if not using knit  
+#dev.off()
 

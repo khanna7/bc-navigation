@@ -34,16 +34,6 @@ clinical_engagement <- function(net.f, institutional, social, control){
   number_navigated_at_t <- 0
   rolls_for_navigation <- 0
   
-if(control == FALSE){  
-  if((time==1)&(institutional == FALSE)){
-    navigated <- rbinom(length(net.f %v% "navigated"),1,0.02)
-  }
-
-#Debugging diagnostic tests at step 1
-#if(time == 1){
-#  cat(capture.output(table(net.f %v% "diagnostic_test_complete", exclude = NULL)),file="dt.complete.txt",sep="\n",append=TRUE)
-#}
- }
 
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
@@ -98,17 +88,17 @@ if(control == FALSE){
     }
     }
     
-    #if(social == TRUE){ 
-      # if(isTRUE((navigated[agent]==0) &
-      #    (dt_complete[agent]==0) &
-      #    (screen_complete[agent]==0) &
-      #    (diagnostic_referral[agent]==1 |
-      #     screening_referral[agent]==1) &
-      #    (neighbor_navigated[agent]==1) #key component
-      # )){
-      #   navigated[agent]<-rbinom(1,1,prob_social_navigation) #social navigation
-      # }
-    #}
+    if(social == TRUE){ 
+       if(isTRUE((navigated[agent]==0) &
+          (dt_complete[agent]==0) &
+          (screen_complete[agent]==0) &
+          (diagnostic_referral[agent]==1 |
+           screening_referral[agent]==1) &
+          (neighbor_navigated[agent]==1) #key component
+       )){
+         navigated[agent]<-rbinom(1,1,prob_social_navigation) #social navigation
+       }
+    }
   }
   cat("Number navigated at time t: ", number_navigated_at_t, "\n")
   cat("Rolls for navigation at time t: ", rolls_for_navigation, "\n")
