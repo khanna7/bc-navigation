@@ -1,6 +1,6 @@
 #Demography module
 
-demography <- function(net.f, slurm, time_step, sim_time){
+demography <- function(net.f, slurm, time_step, sim_time){ 
 
 
   # Aging -------------------
@@ -155,20 +155,18 @@ demography <- function(net.f, slurm, time_step, sim_time){
     set.vertex.attribute(net.f, "navigation_start_time", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "navigation_end_time", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "navigation_length", 0, nodes.to.reset)
-  
     #referral expiration
+      #screening
     set.vertex.attribute(net.f, "screening_referral_start_time", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_referral_end_time", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "screening_referral_length", 0, nodes.to.reset)
     #set.vertex.attribute(net.f, "screening_referral_expired", 0, nodes.to.reset)
-    
-    
+      #diagnostic
     set.vertex.attribute(net.f, "diagnostic_referral_start_time", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_referral_end_time", 0, nodes.to.reset)
     set.vertex.attribute(net.f, "diagnostic_referral_length", 0, nodes.to.reset)
     #set.vertex.attribute(net.f, "diagnostic_referral_expired", 0, nodes.to.reset)
-    
-    }
+  }
 
   # Save object -----
   number.of.positive.bc.agents<-length(which(net.f %v% "bc_status"==1))
@@ -195,7 +193,7 @@ demography <- function(net.f, slurm, time_step, sim_time){
   cat("Number of screening visits at t: ", number.of.screening.visits.at.t, "\n")
   
   number.of.diagnostic.visits.at.t<-length(which(net.f %v% "diagnostic_visit_checker"==1))
-  cat("Number of diagnostic visits at t: ", number.of.diagnostic.visits.at.t, "\n")
+  cat("Number of diagnostic visits at t: ", number.of.screening.visits.at.t, "\n")
   
   positives<-which(net.f %v% "bc_status"==1)
   diagnosed<-which(net.f %v% "diagnosis"==1)
@@ -246,6 +244,7 @@ demography <- function(net.f, slurm, time_step, sim_time){
   net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
   
   #Reset screening_referral_checker (because it tracks referrals given in this time step)
+  #Don't try to print this or you will get a very difficult to diagnose bug where 5000x the normal amount of data is printed
   screening_referral_checker <- net.f %v% "screening_referral_checker"
   screening_referral_checker[which(screening_referral_checker==1)]<-0
   net.f %v% "screening_referral_checker" <- screening_referral_checker
@@ -261,29 +260,16 @@ demography <- function(net.f, slurm, time_step, sim_time){
   number.of.bc.onsets<-length(which(net.f %v% "bc_onsets"==1))
   net.f %v% "bc_onsets"<-rep(0,5000)
   
-     #Navigation length at the last step
-   
-    #if(time_step == sim_time){ #sim_time is the length of the simulation (specified in Time_simulation.R) #this gave weird results when run on 01/05. Many repititions of timestep 360 in x.data
-     # navigation.start <- net.f %v% "navigation_start_time"
-      #cat("NAV START: ", navigation.start, "\n")
-      #navigation.end <- net.f %v% "navigation_end_time"
-      #net.f %v% "navigation_length" <- navigation.end - navigation.start
-      #navigation.length <- net.f %v% "navigation_length" #ok don't try to print that
-    #}
-      
-    ##Screening referral length
-    #screening_referral_start_time <- net.f %v% "screening_referral_start_time"
-    #screening_referral_end_time <- net.f %v% "screening_referral_end_time"
-    #net.f %v% "screening_length" <- navigation.end - navigation.start
+  #Navigation length at the last step
+ 
+  #if(time_step == sim_time){ #sim_time is the length of the simulation (specified in Time_simulation.R) #this gave weird results when run on 01/05. Many repititions of timestep 360 in x.data
+    navigation.start <- net.f %v% "navigation_start_time"
+    #cat("NAV START: ", navigation.start, "\n")
+    navigation.end <- net.f %v% "navigation_end_time"
+    #   net.f %v% "navigation_length" <- navigation.end - navigation.start
+    #navigation.length <- net.f %v% "navigation_length" #ok don't try to print that
+  #}
 
-    ##Diagnostic referral length
-    #diagnostic.start <- net.f %v% "diagnostic_referral_start_time"
-    #diagnostic.end <- net.f %v% "diagnostic_referral_end_time"
-    #net.f %v% "diagnostic_length" <- diagnostic.end - diagnostic.start
-    
-    ##Referral Expiration  
-
-    
   ss0<-which(net.f %v% "symptom.severity"==0)
   ss1<-which(net.f %v% "symptom.severity"==1)
   ss2<-which(net.f %v% "symptom.severity"==2)
@@ -309,22 +295,22 @@ demography <- function(net.f, slurm, time_step, sim_time){
   number.of.ss3.diagnosed.neighbor_navigated<-length(intersect(diagnosed_and_neighbor_navigated,ss3))
   number.of.ss3.diagnosed.unnavigated<-length(intersect(diagnosed_and_unnavigated_completely,ss3))
 
-  
   number.of.expired.diagnostic.referrals.at.t <- length(which(net.f %v% "diagnostic_referral_expired" == 1))
   number.of.expired.screening.referrals.at.t <- length(which(net.f %v% "screening_referral_expired" == 1))
   
   #Navigation length at the last step
   
 #if(time_step == sim_time){ #sim_time is the length of the simulation (specified in Time_simulation.R) #this gave weird results when run on 01/05. Many repititions of timestep 360 in x.data
-#  navigation.start <- net.f %v% "navigation_start_time"
+  #navigation.start <- net.f %v% "navigation_start_time"
   #cat("NAV START: ", navigation.start, "\n") #DEBUG
-#  navigation.end <- net.f %v% "navigation_end_time"
-#  net.f %v% "navigation_length" <- navigation.end - navigation.start
-   navigation.length <- net.f %v% "navigation_length" #ok don't try to print that
-   nav_start <- net.f %v% "navigation_start_time"
-   nav_end <- net.f %v% "navigation_end_time"
-#  }
+  #navigation.end <- net.f %v% "navigation_end_time"
+  #net.f %v% "navigation_length" <- navigation.end - navigation.start
+ # navigation.length <- net.f %v% "navigation_length" #ok don't try to print that
+  #}
 
+  navigation.length <- net.f %v% "navigation_length" #ok don't try to print that
+  nav_start <- net.f %v% "navigation_start_time"
+  nav_end <- net.f %v% "navigation_end_time"
 
 ##handling naming output file with environment variable from slurm (June 14 2020-Bryan)
 ##ref= https://sph.umich.edu/biostat/computing/cluster/examples/r.html
@@ -339,55 +325,54 @@ if(slurm == TRUE){
 numericid = as.numeric(slurm_arrayid)
 filename = paste(numericid, ".data", sep="")
 
-
   write.table(cbind(time_step,
                     nintros, #deaths
                     number.of.positive.bc.agents,
                     number.of.hpos.agents,
                     number.of.hneg.agents,
-                    
                     number.of.diagnosed.cases,
+
                     number.of.diagnostic.referrals,
                     number.of.screening.referrals,
                     number.of.screen.completed,
                     number.of.dt.completed,
-                    
                     number.of.symptomatic,
                     number.of.navigated.agents,
+
                     time.with.cancer,
                     time.until.diagnosis,
                     time.until.diagnosis.navigated,
-                    
                     time.until.diagnosis.unnavigated,
                     time.until.diagnosis.neigbor.navigated,
                     number.of.diagnostic.referrals.at.t,
+
                     number.of.screening.visits.at.t,#19
+
                     number.of.ss0.diagnosed,#20
-                    
                     number.of.ss1.diagnosed,#21
                     number.of.ss2.diagnosed,#22
                     number.of.ss3.diagnosed,#23
+
                     number.of.ss0.diagnosed.navigated,#24
                     number.of.ss1.diagnosed.navigated,#25
-                    
                     number.of.ss2.diagnosed.navigated,#26
                     number.of.ss3.diagnosed.navigated,#27
+
                     number.of.ss0.diagnosed.unnavigated,#28
                     number.of.ss1.diagnosed.unnavigated,#29
                     number.of.ss2.diagnosed.unnavigated,#30
-                    
                     number.of.ss3.diagnosed.unnavigated,#31
+
                     number.of.ss0.diagnosed.neighbor_navigated, #32
                     number.of.ss1.diagnosed.neighbor_navigated, #33
                     number.of.ss2.diagnosed.neighbor_navigated, #34
                     number.of.ss3.diagnosed.neighbor_navigated, #35
-                    
                     number.of.bc.onsets,  #36
                     number.of.screening.referrals.at.t,#37
-                    #navigation.length, #38
-                    number.of.expired.diagnostic.referrals.at.t,#39
-                    number.of.expired.screening.referrals.at.t),#40
-                    
+                    number.of.expired.diagnostic.referrals.at.t,#38
+                    number.of.expired.screening.referrals.at.t#39
+                    ),
+
               file=filename,
               append=TRUE,
               col.names=FALSE,

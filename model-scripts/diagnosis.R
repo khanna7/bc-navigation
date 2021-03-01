@@ -1,16 +1,17 @@
-## module for clinical engagement
-
-# Load libraries ---------------------------
+##
+## Diagnostic process modelling module ##
+##
+# Load Dependencies 
 
 library(ergm)
-
-#Initialize function
-
 source("model-scripts/parameters.R")
 
-diagnosis <- function(net.f, social){
+
+#Initialize Function
+diagnosis <- function(net.f, social, time_step){
   
-  ## get individual attributes 
+####Pull In Individual Attributes 
+
   pop_size <- 5000
   age <- net.f %v% "age"
   symptom.severity <- net.f %v% "symptom.severity"
@@ -42,25 +43,123 @@ diagnosis <- function(net.f, social){
   diagnostic_visit_checker <- net.f %v% "diagnostic_visit_checker"
   screening_visit_checker <- net.f %v% "screening_visit_checker"
   
+  navigation_start_time <- net.f %v% "navigation_start_time"
+  navigation_end_time <- net.f %v% "navigation_end_time"
+  navigation_length <- net.f %v% "navigation_length"
+  
+  #referral expiration
+  screening_referral_start_time <- net.f %v% "screening_referral_start_time"
+  screening_referral_end_time <- net.f %v% "screening_referral_end_time"
+  screening_referral_length <- net.f %v% "screening_referral_length"
+  
+  diagnostic_referral_start_time <- net.f %v% "diagnostic_referral_start_time"
+  diagnostic_referral_end_time <- net.f %v% "diagnostic_referral_end_time"
+  diagnostic_referral_length <- net.f %v% "diagnostic_referral_length"
+  
+  cat("Non-0 dtl: ",diagnostic_referral_length[which(net.f %v% "diagnostic_referral_length" != 0)],"\n")
+  screening_referral_expired <- net.f %v% "screening_referral_expired"
+  diagnostic_referral_expired <- net.f %v% "diagnostic_referral_expired"
+  
+####Create Attribute Matrix (Mickey's solution) 
+
   attrib_mtrx<-cbind(symptom.severity,
                      reg.pcp.visitor,
                      navigated,
                      antinavigated,
                      neighbor_navigated,
                      neighborfp)
+ 
+####Isolate Undiagnosed and Navigated Subpopulations 
   
-  all_agents<-which(diagnosis==0)
-  navigated_agents<-which(navigated==1)
+  all_agents <- which(diagnosis==0)
+  navigated_agents <- which(navigated==1)
   
+  for(nav_agent in navigated_agents){
+    navigation_length[nav_agent] <- navigation_length[nav_agent] + 1
+  }
+####Begin Diagnostic Logic
   for (agent in all_agents){
     agent_data<-attrib_mtrx[agent,]
     
-    ####1. Screening Mammograms##########################
+ ####Check for referral expiration 
+    #Increments lengths of navigation and referrals if still active
+    if(screening_referral[agent] == 1){
+      screening_referral_length[agent] <- screening_referral_length[agent] + 1
+    }
+    if(screening_referral[agent] == 0){
+      screening_referral_length[agent] <- 0
+    }
     
+    if(diagnostic_referral[agent] == 1){
+      diagnostic_referral_length[agent] <- diagnostic_referral_length[agent] + 1
+    }
+    if(diagnostic_referral[agent] == 0){
+      diagnostic_referral_length[agent] <- 0
+    }
+    
+    #Referrals expire if longer than referral_max_length
+    if(screening_referral_length[agent] > 12){
+      
+      #measure number of expirations (recorded and reset each step in demography_reset.R)
+      screening_referral_expired[agent] <- screening_referral_expired[agent] + 1
+      screening_referral[agent] <- 0
+      screening_referral_start_time[agent] <- 0
+      screening_referral_length[agent] <- 0
+      #screening_referral_end_time[agent] <- 0
+      
+      #navigation also expires if applicable
+      navigated[agent] <- 0
+      #navigation_start_time[agent] <- 0
+      navigation_length[agent] <- 0
+      #navigation_end_time[agent] <- 0 # Likely not necessary, since can be inferred by start time and length
+    }
+    
+    #diagnostic_referral_length[agent] <- diagnostic_referral_end_time[agent] - diagnostic_referral_start_time[agent]
+    if(diagnostic_referral_length[agent] > 12){
+      
+      diagnostic_referral_expired[agent] <- diagnostic_referral_expired[agent] + 1
+      diagnostic_referral[agent] <- 0
+
+      #Output Diagnostic Referral Information
+      if(slurm == TRUE){
+        slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+      } else{ 
+        slurm_arrayid <- 1
+      }
+      numericid = as.numeric(slurm_arrayid)
+      filename = paste(numericid, ".dtestdata", sep="")
+      
+      #This writes one line per end
+      write.table(cbind(time_step,
+                        -1,#diagnostic_referral_length[agent],
+                        1,#diagnostic_referral_expired[agent],
+                        FALSE,
+                        symptom.severity[agent]),#Length < 2 months
+                        
+                        file=filename,
+                        append=TRUE,
+                        col.names=FALSE,
+                        row.names=FALSE)
+      
+      if(bc_status[agent]==1){
+        antinavigated[agent]<-0
+        diagnosis[agent]<-1
+        diagnosis_time[agent]<-disease.time[agent]
+      }
+      
+      #navigation also expires if applicable
+      navigated[agent] <- 0
+      navigation_length[agent] <- 0
+
+    }
+  
+ ####Simulate Screening and Diagnostic Testing 
+    
+    ####Screening Mammograms
     if(screening_referral[agent]==1){
      
       #roll to see if they complete the visit
-      screen_complete[agent]<-rbinom(1,1,prob(agent_data,"sm"))
+      screen_complete[agent]<-rbinom(1,1,prob(agent_data,"sm",0)) #NOTE: prob() defined in prob.R
       screening_visit_counter[agent]<-screen_complete[agent]+screening_visit_counter[agent]
       
       #if they completed, process their results
@@ -73,39 +172,64 @@ diagnosis <- function(net.f, social){
         }
         else if(bc_status[agent]==0){
           screen_result[agent]<-rbinom(1,1,p_false_positive_sm)
-#TODO stop navigation here 
-	  navigated[agent] <- 0
         }
-        
+        if(screen_result[agent]==0){
+          navigated[agent] <- 0
+          navigation_length[agent] <- 0
+          #avigation_end_time[agent] <- time_step
+        }
         #inputting diagnostic test referrals to positive screening mammogram pts.
         if(screen_result[agent]==1){
           diagnostic_referral[agent]<-1
+          diagnostic_referral_start_time[agent] <- time_step
           diagnostic_referral_checker[agent]<-1
         }
       }
       #conclude screening mammograms
     }
     
-    
-    ####2. Diagnostic Tests##########################
- 
-    if(diagnostic_referral[agent]==1){
+    ####Diagnostic Tests
+    if(diagnostic_referral[agent]==1 & diagnostic_referral_length[agent] != 0){ #don't allow screening and diagnosis in the same time step
     
       #roll to see if they complete the visit
-      dt_complete[agent]<-rbinom(1,1,prob(agent_data,"dt"))
+      dt_complete[agent]<-rbinom(1,1,prob(agent_data,"dt", diagnostic_referral_length[agent]))
       diagnostic_visit_counter[agent]<-dt_complete[agent]+diagnostic_visit_counter[agent]
-      
+
       #if they completed, process their results
       if(dt_complete[agent]==1){
+        
         diagnostic_referral[agent]<-0
         diagnostic_visit_checker[agent]<-1
-#TODO stop navigation here (either way navigation ends with diagnostic testing)
-	navigated[agent] <- 0
-        if(bc_status[agent]==1){
-          antinavigated[agent]<-0
-          diagnosis[agent]<-1
-          diagnosis_time[agent]<-disease.time[agent]
-        }
+        #End navigation
+      	navigated[agent] <- 0
+      	navigation_length[agent] <- 0
+      	
+      	#Output Diagnostic Referral Information
+      	if(slurm == TRUE){
+      	  slurm_arrayid <- Sys.getenv('SLURM_ARRAY_TASK_ID')
+      	} else{ 
+      	  slurm_arrayid <- 1
+      	}
+      	numericid = as.numeric(slurm_arrayid)
+      	filename = paste(numericid, ".dtestdata", sep="")
+      	
+      	#This writes one line per end
+      	write.table(cbind(time_step,
+      	                  diagnostic_referral_length[agent],
+      	                  0,#diagnostic_referral_expired[agent],
+      	                  diagnostic_referral_length[agent] <= 2,
+      	                  symptom.severity[agent]),
+      	                  
+      	                  file=filename,
+      	                  append=TRUE,
+      	                  col.names=FALSE,
+      	                  row.names=FALSE)
+      	
+         if(bc_status[agent]==1){
+            antinavigated[agent]<-0
+            diagnosis[agent]<-1
+            diagnosis_time[agent]<-disease.time[agent]
+         }
         
         else if(bc_status[agent]==0){
           antinavigated[agent]<-1
@@ -120,17 +244,15 @@ diagnosis <- function(net.f, social){
         
       }
     }
-    #conclude diagnostic tests
-  }
-  #conclude all appointments
   
-  #introducing social navigation 
+}
+ ###Implement social navigation 
+
   if(social == TRUE){
     primary_edge<- net.f %e% "primary edge"
     
     for (agent in navigated_agents){
       if(neighbor_navigated_roll[agent]==0){
-        
         agent_edges<-get.edgeIDs(net.f, v=agent)
         primary_edge_indices<-which(primary_edge[agent_edges]==1)
         if(length(primary_edge_indices)>0){
@@ -151,6 +273,10 @@ diagnosis <- function(net.f, social){
                       (neighbor_navigated[agent]==1) #key component
             )){
               navigated[agent]<-rbinom(1,1,prob_social_navigation) #social navigation
+              if(navigated[neighbor] == 1){
+                navigation_start_time[neighbor] <- time_step
+                cat("\n ------------ SOCIAL NAVIGATION HIT --------------\n")
+              }
             }
           }
         }
@@ -161,6 +287,8 @@ diagnosis <- function(net.f, social){
   }
   
   
+####Update the network 
+
   net.f %v% "screening_visit_checker" <- screening_visit_checker
   net.f %v% "diagnostic_visit_checker" <- diagnostic_visit_checker
   net.f %v% "diagnostic_referral_checker" <- diagnostic_referral_checker
@@ -190,6 +318,29 @@ diagnosis <- function(net.f, social){
   
   net.f %v% "diagnostic_visit_counter" <- diagnostic_visit_counter
   net.f %v% "screening_visit_counter" <- screening_visit_counter
+  
+  net.f %v% "navigation_start_time" <- navigation_start_time
+  net.f %v% "navigation_end_time" <- navigation_end_time
+  net.f %v% "navigation_length" <- navigation_length
+  
+  
+  #referral expiration
+  net.f %v% "screening_referral_start_time" <- screening_referral_start_time
+  net.f %v% "screening_referral_end_time" <- screening_referral_end_time
+  
+  net.f %v% "diagnostic_referral_start_time" <- diagnostic_referral_start_time
+  net.f %v% "diagnostic_referral_end_time" <- diagnostic_referral_end_time
+  
+  net.f %v% "screening_referral_length" <- screening_referral_length
+  net.f %v% "diagnostic_referral_length" <- diagnostic_referral_length
+  
+  
+  net.f %v% "screening_referral_expired" <- screening_referral_expired
+  net.f %v% "diagnostic_referral_expired" <- diagnostic_referral_expired
+  
+  
+
+
   
 return(net.f)
 }

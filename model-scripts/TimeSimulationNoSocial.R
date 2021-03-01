@@ -24,6 +24,22 @@ load(burninname)
 
 activate.edges(net.f)
 activate.vertices(net.f)
+#this should go in estimation, but i don't want to generate another burnin rn
+set.vertex.attribute(net.f, "navigation_start_time", 0, )
+set.vertex.attribute(net.f, "navigation_end_time", 0, )
+set.vertex.attribute(net.f, "navigation_length", 0, )
+
+set.vertex.attribute(net.f, "screening_referral_start_time", 0, )
+set.vertex.attribute(net.f, "screening_referral_end_time", 0, )
+set.vertex.attribute(net.f, "screening_referral_length", 0, )
+
+set.vertex.attribute(net.f, "diagnostic_referral_start_time", 0, )
+set.vertex.attribute(net.f, "diagnostic_referral_end_time", 0, )
+set.vertex.attribute(net.f, "diagnostic_referral_length", 0, )
+
+set.vertex.attribute(net.f, "screening_referral_expired", 0, )
+set.vertex.attribute(net.f, "diagnostic_referral_expired", 0, )
+set.vertex.attribute(net.f, "diagnostic_referral_length", 0, )
 
 #parameter_file <- "model-scripts/parameters.R"
 sim_time <-360 #length of simulation in months
@@ -36,17 +52,17 @@ institutional <- TRUE
 social <- FALSE
 
 cat("INTERVENTION WITHOUT SOCIAL NAVIGATION", "\n")
-for (time in 1:sim_time){
-  cat(time, '\n')
+for (time_step in 1:sim_time){
+  cat(time_step, '\n')
   cat("\n", "Begin disease_progression.R", '\n \n')
   net.f <- disease_progression(net.f)
   cat("\n", "Begin clinical-engagement.R", '\n \n')
-  net.f <- clinical_engagement(net.f, institutional, social, control)
+  net.f <- clinical_engagement(net.f, institutional, social, control, time_step)
   cat("Number currently navigated: ", length(which(net.f %v% "navigated" == 1)), "\n")
   cat("\n", "Begin diagnosis.R", '\n \n')
-  net.f <- diagnosis(net.f, social)
+  net.f <- diagnosis(net.f, social, time_step)
   cat("\n", "Begin demography.R", '\n \n')
-  net.f <- demography(net.f, slurm)
+  net.f <- demography(net.f, slurm, time_step, sim_time)
 }
 
 

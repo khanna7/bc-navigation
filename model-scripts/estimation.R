@@ -180,5 +180,14 @@ set.vertex.attribute(net0_bip, "diagnosis_referral_time", 0)
 #set vertex attribute for death due to cancer stage
 set.vertex.attribute(net0_bip, "cancer_death", 0)
 
+#set attr. for start time of most recent navigation
+set.vertex.attribute(net0_bip, "navigation_start_time", 0)
+
+#set attr. for stop time of most recent navigation
+set.vertex.attribute(net0_bip, "navigation_stop_time", 0)
+
+#set attr. for length of most recent navigation
+set.vertex.attribute(net0_bip, "navigation_length", 0)
+
 # Save object -----
 save(net0_bip, file = "estimation_net.RData")

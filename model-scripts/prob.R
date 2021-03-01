@@ -1,9 +1,15 @@
 source("model-scripts/parameters.R")
 
-prob<-function(agent_data,test){
+prob<-function(agent_data,test,diagnostic_referral_length){
   
-  probability<-0.0034 #time component
+  #probability<-0.0034 #time component
+  probability <- 0.0034
   
+  #Changing probability so 80% of women finish diagnostic referrals before 2 months/60 days
+  if(test == "dt" & (diagnostic_referral_length == 1 | diagnostic_referral_length == 2 )){
+    probability <- 0.025
+  }
+
   agent_symptom_severity<-agent_data[1]
   agent_regular_pcp_visitor<-agent_data[2]
   agent_navigated<-agent_data[3]
