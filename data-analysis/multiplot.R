@@ -10,6 +10,15 @@ library(ggplot2)
 library(network)
 library(networkDynamic)
 
+old_plots <- FALSE
+
+## Add names of data directories here
+#Directory name format is {date}_full_run
+bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
+date<-"11:29:57_2021-03-15"
+#date <- '14:55:41_2021-03-12'
+full_run_name <- paste0(date, '_full_run)/')
+
 # Read data and set meta-parameters ----------
 #setwd('/project2/khanna7/bryanb/bc-navigation/nov*/bc*')
 getwd()
@@ -20,6 +29,9 @@ run_length=360 #number of time steps in run
 control_list <- as.list(1:n.instances)
 intervention_list <- as.list(1:n.instances)
 noSocial_intervention_list <- as.list(1:n.instances)
+control_dt_list <- as.list(1:n.instances)
+intervention_dt_list <- as.list(1:n.instances)
+noSocial_intervention_dt_list <- as.list(1:n.instances)
 
 dt_columns <- c(
   #see `write.table` in https://github.com/khanna7/bc-navigation/blob/master/demography-reset.R for col names
@@ -71,11 +83,18 @@ dt_columns <- c(
   "number.of.expired.screening.referrals.at.t" #39
 )
 
-## Add names of data directories here
-#Directory name format is {date}_full_run
-bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
-  date <- '11:26:19_2021-02-23'
-full_run_name <- paste0(date, '_full_run/')
+dtest_columns <- c(
+  "time",
+  "diagnostic_referral_length",
+  "expired",
+  "within_2_months",
+  "symptom_severity",
+  "navigated",
+  "screening_referral_length",
+  "total_care_length",
+  "instance"#,
+  #"cancer_status"
+)
 
 #create lists
 for (i in 1:n.instances){
@@ -86,7 +105,18 @@ for (i in 1:n.instances){
   }
 for (i in 1:n.instances){
   noSocial_intervention_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date, '_interventionNoSocial/data/', i,".data"))
-  }
+}
+
+#dtestdata handling
+for (i in 1:n.instances){
+  control_dt_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date, '_control/dtestdata/', i,".dtestdata"))
+}
+for (i in 1:n.instances){
+  intervention_dt_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date,'_intervention/dtestdata/', i,".dtestdata"))
+}
+for (i in 1:n.instances){
+  noSocial_intervention_dt_list[[i]] <- read.table(paste0(bc_navigation_root, date, '_full_run/', date, '_interventionNoSocial/dtestdata/', i,".dtestdata"))
+}
 
 #check whether the listed data is of the right length. Returns the instances that are missing data.
 which(unlist(lapply(control_list, nrow) != run_length)) #number of months of the simulation
@@ -98,9 +128,17 @@ control.df <- bind_rows(control_list[1:n.instances])
 intervention.df <- bind_rows(intervention_list[1:n.instances])
 noSocial_intervention.df <- bind_rows(noSocial_intervention_list[1:n.instances])
 
+control_dt.df <- bind_rows(control_dt_list[1:n.instances])
+intervention_dt.df <- bind_rows(intervention_dt_list[1:n.instances])
+noSocial_intervention_dt.df <- bind_rows(noSocial_intervention_dt_list[1:n.instances])
+
 colnames(control.df) <- dt_columns
 colnames(intervention.df) <- dt_columns
 colnames(noSocial_intervention.df) <- dt_columns
+
+colnames(control_dt.df) <- dtest_columns
+colnames(intervention_dt.df) <- dtest_columns
+colnames(noSocial_intervention_dt.df) <- dtest_columns
 
 control.df$source <- rep(1:n.instances, each=run_length)
 intervention.df$source <- rep(1:n.instances, each=run_length)
@@ -181,6 +219,29 @@ noSocial_intervention.df_mean_at_time <-
             m_early.diagnosed.ratio = mean((number.of.ss0.diagnosed+number.of.ss1.diagnosed)/number.of.diagnosed.cases),
             m_late.diagnosed.ratio = mean((number.of.ss2.diagnosed+number.of.ss3.diagnosed)/number.of.diagnosed.cases)
   )
+
+##Not sure how this mean_at_time thing will work
+# control_dt.df_mean_at_time <- 
+#   control_dt.df %>% 
+#   group_by(time) %>%
+#   summarise(
+#     m_late.diagnosed.ratio = mean((number.of.ss2.diagnosed+number.of.ss3.diagnosed)/number.of.diagnosed.cases)
+#   )
+# 
+# intervention_dt.df_mean_at_time <- 
+#   intervention_dt.df %>% 
+#   group_by(time) %>%
+#   summarise(#m_navigation.length = mean(navigation.length),
+#     m_time.until.diagnosis = median(time.until.diagnosis),
+#  m_late.diagnosed.ratio = mean((number.of.ss2.diagnosed+number.of.ss3.diagnosed)/number.of.diagnosed.cases)
+#   )
+# 
+# noSocial_intervention_dt.df_mean_at_time <- 
+#   noSocial_intervention_dt.df %>% 
+#   group_by(time) %>%
+#   summarise(#m_navigation.length = mean(navigation.length),
+#     m_time.until.diagnosis = median(time.until.diagnosis),
+# )
   
 # Plots ----------
 
@@ -198,6 +259,297 @@ ins<-"Institutional without social"
 soc<-"Institutional with social"
 
 
+##New .dtestdata Plots 
+#Compare navigated vs non-navigated time of care
+navigated_completions <- filter(intervention_dt.df, navigated == 1)
+unnavigated_completions <- filter(intervention_dt.df, navigated == 0)
+
+
+ggplot()+
+  geom_histogram(data=unnavigated_completions, aes(x=total_care_length), bins = 13)
+
+ggplot()+
+  geom_histogram(data=navigated_completions, aes(x=total_care_length), bins = 13)
+
+#Compare navigated vs. non-navigated diagnostic test referral to completion time
+
+ggplot()+
+  geom_histogram(data=control_dt.df, aes(x=diagnostic_referral_length, color = con), fill = 'none')+
+  geom_histogram(data=noSocial_intervention_dt.df, aes(x=diagnostic_referral_length, color = ins), fill = 'none')+
+  geom_histogram(data=intervention_dt.df, aes(x=diagnostic_referral_length, color = soc), fill = 'none')+
+  scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                   values = c('green','red','blue'))
+
+#By Percent of completions
+control_tbl<-control_dt.df %>% group_by(diagnostic_referral_length)
+noSocial_tbl<-noSocial_intervention_dt.df %>% group_by(diagnostic_referral_length)
+social_tbl<-intervention_dt.df %>% group_by(diagnostic_referral_length)
+
+control_pct <- table(group_indices(control_tbl))/length(control_tbl$time)
+noSocial_pct <- table(group_indices(noSocial_tbl))/length(noSocial_tbl$time)
+social_pct <- table(group_indices(social_tbl))/length(social_tbl$time)
+
+#Cumulative sum
+plot(cumsum(control_pct), type='b')
+plot(cumsum(noSocial_pct), type='b')
+plot(cumsum(social_pct), type='b')
+
+#ggplot version of cumulative percent
+ggplot()+
+  geom_line(data=data.frame(cumsum(control_pct)), aes(x=1:13,y=cumsum.control_pct.), color='green')+
+  ylab("Cumulative Percent")+
+  xlab("Diagnostic Referral Length")+
+  scale_x_continuous(breaks=1:13)+
+  theme_bw()+
+  ylim(c(0,1))
+
+ggplot()+
+  geom_line(data=data.frame(cumsum(noSocial_pct)), aes(x=1:13,y=cumsum.noSocial_pct.), color='red')+
+  ylab("Cumulative Percent")+
+  xlab("Diagnostic Referral Length")+
+  scale_x_continuous(breaks=1:13)+
+  theme_bw()+
+  ylim(c(0,1))
+
+ggplot()+
+  geom_line(data=data.frame(cumsum(social_pct)), aes(x=1:13,y=cumsum.social_pct.),color='blue')+
+  ylab("Cumulative Percent")+
+  xlab("Diagnostic Referral Length")+
+  scale_x_continuous(breaks=1:13)+
+  theme_bw()+
+  ylim(c(0,1))
+
+ggplot()+
+  geom_line(data=data.frame(cumsum(social_pct)), aes(x=1:13,y=cumsum.social_pct.),color='blue')+
+  geom_line(data=data.frame(cumsum(noSocial_pct)), aes(x=1:13,y=cumsum.noSocial_pct.), color='red')+
+  geom_line(data=data.frame(cumsum(control_pct)), aes(x=1:13,y=cumsum.control_pct.), color='green')+
+  ylab("Cumulative Percent")+
+  xlab("Diagnostic Referral Length")+
+  scale_x_continuous(breaks=1:13)+
+  theme_bw()+
+  ylim(c(0,1))
+
+#Histogram of completions by diagnostic referral length
+ggplot()+
+  geom_histogram(data=control_dt.df, aes(x=diagnostic_referral_length, color = con), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=noSocial_intervention_dt.df, aes(x=diagnostic_referral_length, color = ins), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=intervention_dt.df, aes(x=diagnostic_referral_length, color = soc), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  ylab("Frequency")+
+  theme_bw()+
+  scale_x_continuous(name="Referral Length", breaks=-1:13, labels=-1:13)+ #No X-axis name or Labels for some reason??
+  scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                     values = c('green','red','blue'))
+
+##Compare navigated vs. Non-navigated
+
+#Length of diagnostic referral
+ggplot()+
+  #geom_histogram(data=control_dt.df, aes(x=diagnostic_referral_length, color = con), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(intervention_dt.df, navigated==1), aes(x=diagnostic_referral_length, color = 'navigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(intervention_dt.df, navigated==0), aes(x=diagnostic_referral_length, color = 'unnavigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  ylab("Frequency")+
+  #ylim(0,31000)+
+  theme_bw()+
+  scale_x_continuous(name="Referral Length", breaks=-1:13, labels=-1:13)+ #No X-axis name or Labels for some reason??
+  scale_color_manual("Social + Institutional", limits = c("navigated", "unnavigated"),
+                     values = c('blue', 'green'))
+ggplot()+
+  #geom_histogram(data=control_dt.df, aes(x=diagnostic_referral_length, color = con), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(noSocial_intervention_dt.df, navigated==1), aes(x=diagnostic_referral_length, color = 'navigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(noSocial_intervention_dt.df, navigated==0), aes(x=diagnostic_referral_length, color = 'unnavigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  ylab("Frequency")+
+  ylim(0,31000)+
+  theme_bw()+
+  scale_x_continuous(name="Referral Length", breaks=-1:13, labels=-1:13)+ #No X-axis name or Labels for some reason??
+  scale_color_manual("Institutional Only", limits = c("navigated", "unnavigated"),
+                     values = c('blue', 'green'))
+#Plotting diagnostic length as by percent
+
+
+
+
+#Symptom Severity at Logging
+#SS social nav/nonnav
+ggplot()+
+  #geom_histogram(data=control_dt.df, aes(x=diagnostic_referral_length, color = con), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(intervention_dt.df, navigated==1 ), aes(x=symptom_severity, color = 'navigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(intervention_dt.df, navigated==0 ), aes(x=symptom_severity, color = 'unnavigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  ylab("Frequency")+
+  theme_bw()+
+  scale_x_continuous(name="Symptom Severity at Logging", breaks=-1:13, labels=-1:13)+ #No X-axis name or Labels for some reason??
+  scale_color_manual("Social + Institutional", limits = c("navigated", "unnavigated"),
+                     values = c('blue', 'green'))
+#SS institutional nav/nonnav
+ggplot()+
+  #geom_histogram(data=control_dt.df, aes(x=diagnostic_referral_length, color = con), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(noSocial_intervention_dt.df, navigated==1 ), aes(x=symptom_severity, color = 'navigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  geom_histogram(data=filter(noSocial_intervention_dt.df, navigated==0 ), aes(x=symptom_severity, color = 'unnavigated'), fill = 'none', bins=15, binwidth=1, boundary=-0.5)+
+  ylab("Frequency")+
+  theme_bw()+
+  scale_x_continuous(name="Symptom Severity at Logging", breaks=-1:13, labels=-1:13)+ #No X-axis name or Labels for some reason??
+  scale_color_manual("Institutional Only", limits = c("navigated", "unnavigated"),
+                     values = c('blue', 'green'))
+
+#Plotting stage at logging by percent
+n_total_referral_ends_control <- length(control_dt.df$time)
+n_total_referral_ends_institutional <- length(noSocial_intervention_dt.df$time)
+n_total_referral_ends_social <- length(intervention_dt.df$time)
+
+nav_referral_ends_control <- filter(control_dt.df, navigated==1) #Should be 0 but isnt???
+nav_referral_ends_institutional <- filter(noSocial_intervention_dt.df, navigated==1)
+nav_referral_ends_social <- filter(intervention_dt.df, navigated==1)
+
+unnav_referral_ends_control <- filter(control_dt.df, navigated==0)
+unnav_referral_ends_institutional <- filter(noSocial_intervention_dt.df, navigated==0)
+unnav_referral_ends_social <- filter(intervention_dt.df, navigated==0)
+
+#SS Breakdowns
+control_SS_nav  <-table(nav_referral_ends_control$symptom_severity)
+control_SS_unnav<-table(unnav_referral_ends_control$symptom_severity)
+control_SS_total<-table(control_dt.df$symptom_severity)
+
+institutional_SS_nav  <-table(nav_referral_ends_institutional$symptom_severity)
+institutional_SS_unnav<-table(unnav_referral_ends_institutional$symptom_severity)
+institutional_SS_total<-table(noSocial_intervention_dt.df$symptom_severity)
+
+social_SS_nav  <-table(nav_referral_ends_social$symptom_severity)
+social_SS_unnav<-table(unnav_referral_ends_social$symptom_severity)
+social_SS_total<-table(intervention_dt.df$symptom_severity)
+
+#SS Breakdown by percent
+p_control_SS_nav<-control_SS_nav/sum(control_SS_nav)*100
+p_control_SS_unnav<-control_SS_unnav/sum(control_SS_unnav)*100
+p_control_SS_total<-control_SS_total/sum(control_SS_total)*100
+
+p_institutional_SS_nav  <-institutional_SS_nav/sum(institutional_SS_nav)*100
+p_institutional_SS_unnav<-institutional_SS_unnav/sum(institutional_SS_unnav)*100
+p_institutional_SS_total<-institutional_SS_total/sum(institutional_SS_total)*100
+
+p_social_SS_nav  <-social_SS_nav/sum(social_SS_nav)*100
+p_social_SS_unnav<-social_SS_unnav/sum(social_SS_unnav)*100
+p_social_SS_total<- social_SS_total/sum(social_SS_total)*100
+
+#Plotting symptom severity percentage breakdown
+
+ggplot()+
+  theme_bw()+
+  geom_bar(stat="identity",data=data.frame(p_control_SS_nav), aes(x=Var1,y=Freq), color="blue", fill='none')+
+  geom_bar(stat="identity",data=data.frame(p_control_SS_unnav), aes(x=Var1,y=Freq), color="green", fill='none')+
+  ylab("Percent")+
+  xlab("Symptom Severity Level/Cancer Stage")
+
+ggplot()+
+  theme_bw()+
+  geom_bar(stat="identity",data=data.frame(p_institutional_SS_nav), aes(x=Var1,y=Freq), color="blue", fill='none')+
+  geom_bar(stat="identity",data=data.frame(p_institutional_SS_unnav), aes(x=Var1,y=Freq), color="green", fill='none')+
+  ylab("Percent")+
+  xlab("Symptom Severity Level/Cancer Stage")
+
+ggplot()+
+  theme_bw()+
+  geom_bar(stat="identity",data=data.frame(p_social_SS_nav), aes(x=Var1,y=Freq), color="blue", fill='none')+
+  geom_bar(stat="identity",data=data.frame(p_social_SS_unnav), aes(x=Var1,y=Freq), color="green", fill='none')+
+  ylab("Percent")+
+  xlab("Symptom Severity Level/Cancer Stage")
+
+#Output for symptom severity table
+p_control_SS_nav
+p_control_SS_unnav
+p_control_SS_total
+
+p_institutional_SS_nav
+p_institutional_SS_unnav
+p_institutional_SS_total
+
+p_social_SS_nav
+p_social_SS_unnav
+p_social_SS_total
+
+#Difference:
+p_control_SS_nav[1:4] - p_control_SS_unnav[1:4] #Doesn't work because the navigated array is shorter
+p_institutional_SS_nav - p_institutional_SS_unnav
+p_social_SS_nav - p_social_SS_unnav
+
+
+#length(which(nav_referral_ends_control$navigated==1))
+#length(filter(intervention_dt.df, navigated==1 & symptom_severity==0)$time)/length(filter(intervention_dt.df,navigated==1)$time)
+
+#Managing data: Dividing event log into instances
+
+#Cumulative percent (nav vs. unnav)
+
+#control_tbl<-control_dt.df %>% group_by(diagnostic_referral_length)
+#noSocial_tbl<-noSocial_intervention_dt.df %>% group_by(diagnostic_referral_length)
+social_nav_tbl<-filter(intervention_dt.df, navigated==1) %>% group_by(diagnostic_referral_length)
+social_unnav_tbl<-filter(intervention_dt.df, navigated==1) %>% group_by(diagnostic_referral_length)
+
+
+#control_pct <- table(group_indices(control_tbl))/length(control_tbl$time)
+#noSocial_pct <- table(group_indices(noSocial_tbl))/length(noSocial_tbl$time)
+social_nav_pct <- table(group_indices(social_nav_tbl))/length(social_nav_tbl$time)
+social_unnav_pct <- table(group_indices(social_unnav_tbl))/length(social_unnav_tbl$time)
+
+#Cumulative sum
+plot(cumsum(control_pct), type='b')
+plot(cumsum(noSocial_pct), type='b')
+plot(cumsum(social_pct), type='b')
+
+
+
+ggplot()+
+  geom_line(data=data.frame(cumsum(social_nav_pct)), aes(x=1:13,y=cumsum.social_nav_pct.),color='blue')+
+  geom_line(data=data.frame(cumsum(social_unnav_pct)), aes(x=1:13,y=cumsum.social_unnav_pct.),color='green')+
+  ylab("Cumulative Percent")+
+  xlab("Diagnostic Referral Length")+
+  scale_x_continuous(breaks=1:13)+
+  theme_bw()+
+  ylim(c(0,1))
+
+
+##Old .data plots
+if(old_plots == TRUE){
+#GOAL: Percent dt referrals completed/ total number of completions. i.e. "73% of completions were in month 1-2"
+
+ggplot()+
+  theme_bw()+
+  geom_line(data = control.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals,color=con))+
+  geom_line(data=control.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.screening.referrals,color=con))+
+  geom_line(data = noSocial_intervention.df_mean_at_time, aes(x=time,y=m_number.of.screen.completed/m_number.of.screening.referrals,color=ins))+
+  geom_line(data=noSocial_intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=ins))+
+  geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals, color=soc))+
+  geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=soc))+
+  scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                     values = c('green','red','blue')
+  )#+
+  #ylim(c(0,2))
+  
+  #Screening completions/dt completions
+  ggplot()+
+    theme_bw()+
+    geom_line(data = control.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.dt.completed,color=con))+
+    geom_line(data=control.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.dt.completed,color=con))+
+    geom_line(data = noSocial_intervention.df_mean_at_time, aes(x=time,y=m_number.of.screen.completed/m_number.of.dt.completed,color=ins))+
+    geom_line(data=noSocial_intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.dt.completed, color=ins))+
+    geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.dt.completed, color=soc))+
+    geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.dt.completed, color=soc))+
+    scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                       values = c('green','red','blue')
+    )
+
+  #Screening completion rate: screen complete/screening referral
+  ggplot()+
+    theme_bw()+
+    geom_line(data = control.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals,color=con))+
+    #geom_line(data=control.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.screening.referrals,color=con))+
+    geom_line(data = noSocial_intervention.df_mean_at_time, aes(x=time,y=m_number.of.screen.completed/m_number.of.screening.referrals,color=ins))+
+    #geom_line(data=noSocial_intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.dt.completed, color=ins))+
+    geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals, color=soc))+
+    #geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.dt.completed, color=soc))+
+    scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                       values = c('green','red','blue')
+    )
+  
+
 #Screening completions/Screening Referrals (screening referral completion rate)
 ggplot()+
   theme_bw()+
@@ -209,8 +561,30 @@ ggplot()+
   geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=soc))+
   scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
                      values = c('green','red','blue')
-  )+
-  ylim(c(0,2))
+  )#+
+  #ylim(c(0,1))
+#1 instance
+ggplot()+
+  theme_bw()+
+  #geom_line(data = control.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals,color=con))+
+  geom_line(data=control.df[1:360,], aes(x=time, y=number.of.screen.completed/number.of.screening.referrals,color=con))+
+  #geom_line(data = noSocial_intervention.df_mean_at_time, aes(x=time,y=m_number.of.screen.completed/m_number.of.screening.referrals,color=ins))+
+  geom_line(data=noSocial_intervention.df[1:360,], aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=ins))+
+  #geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals, color=soc))+
+  geom_line(data=intervention.df[1:360,], aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=soc))+
+  scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                     values = c('green','red','blue'))
+#2 instance
+ggplot()+
+  theme_bw()+
+  #geom_line(data = control.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals,color=con))+
+  geom_line(data=control.df[360:720,], aes(x=time, y=number.of.screen.completed/number.of.screening.referrals,color=con))+
+  #geom_line(data = noSocial_intervention.df_mean_at_time, aes(x=time,y=m_number.of.screen.completed/m_number.of.screening.referrals,color=ins))+
+  geom_line(data=noSocial_intervention.df[360:720,], aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=ins))+
+  #geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.screen.completed/m_number.of.screening.referrals, color=soc))+
+  geom_line(data=intervention.df[360:720,], aes(x=time, y=number.of.screen.completed/number.of.screening.referrals, color=soc))+
+  scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                     values = c('green','red','blue'))
 
 #Diagnostic completions/diagnostic referrals (diagnostic referral completion rate)
 ggplot()+
@@ -223,8 +597,20 @@ ggplot()+
   geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.dt.completed/number.of.diagnostic.referrals.at.t, color=soc))+
   scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
                      values = c('green','red','blue')
+  )#+
+ # ylim(c(0,2))
+ggplot()+
+  theme_bw()+
+  geom_line(data = control.df_mean_at_time, aes(x=time, y=m_number.of.dt.completed/m_number.of.diagnostic.referrals.at.t,color=con))+
+  #geom_line(data=control.df, alpha=0.1, aes(x=time, y=number.of.dt.completed/number.of.diagnostic.referrals.at.t,color=con))+
+  geom_line(data = noSocial_intervention.df_mean_at_time, aes(x=time,y=m_number.of.dt.completed/m_number.of.diagnostic.referrals.at.t,color=ins))+
+  #geom_line(data=noSocial_intervention.df, alpha=0.1, aes(x=time, y=number.of.dt.completed/number.of.diagnostic.referrals.at.t, color=ins))+
+  geom_line(data = intervention.df_mean_at_time, aes(x=time, y=m_number.of.dt.completed/m_number.of.diagnostic.referrals.at.t, color=soc))+
+  #geom_line(data=intervention.df, alpha=0.1, aes(x=time, y=number.of.dt.completed/number.of.diagnostic.referrals.at.t, color=soc))+
+  scale_color_manual("Scenario", limits = c("control", "Institutional without social", "Institutional with social"),
+                     values = c('green','red','blue')
   )+
-  ylim(c(0,2))
+  ylim(c(0,2)) #ylim cuts off huge spike around t=1
 
 #Agents diagnosed/Agents with cancer (Diagnosis rate)
 ggplot()+
@@ -242,6 +628,7 @@ ggplot()+
   mean(noSocial_intervention.df_mean_at_time$m_number.of.diagnosed.cases/noSocial_intervention.df_mean_at_time$m_number.of.positive.bc.agents)
   mean(intervention.df_mean_at_time$m_number.of.diagnosed.cases/intervention.df_mean_at_time$m_number.of.positive.bc.agents)
   
+    
 #Stage at diagnosis (Early = 0-1, late = 2-3) (navigated vs unnavigated?)
   #Early
   ggplot()+
@@ -525,6 +912,7 @@ ggplot()+
                      limits = c("control", "Institutional without social", "Institutional with social")
   )+
   ylim(c(40,110))
+}
 #end capturing plots if not using knit  
 #dev.off()
 

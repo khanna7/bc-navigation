@@ -23,17 +23,17 @@ prob<-function(agent_data,test,diagnostic_referral_length){
   else if(agent_symptom_severity==2 & test=="dt"){probability<-probability*diagnostic_testing_SS2_calculation}
   else if(agent_symptom_severity==3 & test=="dt"){probability<-probability*diagnostic_testing_SS3_calculation}
   
-  if(agent_regular_pcp_visitor==1){probability<-probability*regular_pcp_visitor_oddsratio} 
+  if(agent_regular_pcp_visitor==1){probability<-probability*regular_pcp_visitor_oddsratio}
   #same as being up to date on mammograms in paper
   
   if(agent_navigated==1 & test=="sm"){probability<-probability*screening_mammogram_navigated_oddsratio}
   if(agent_navigated==1 & test=="dt"){probability<-probability*diagnostic_test_navigated_oddsratio}
   
-  if(agent_antinavigated==1){probability<-probability*antinavigation_assumption}
+  #if(agent_antinavigated==1){probability<-probability*antinavigation_assumption}
   
   if(agent_neighbor_navigated==1){probability<-probability*neighbor_navigation_oddsratio}
   
-  if(agent_neighbor_false_positive==1){probability<-probability*neighbor_false_positive_assumption}
+  #if(agent_neighbor_false_positive==1){probability<-probability*neighbor_false_positive_assumption}
   
   return(min(probability,1))
 }

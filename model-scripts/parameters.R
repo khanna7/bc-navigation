@@ -39,9 +39,9 @@ prop.hormone.positive <- 77/100 #SEER data from Yami
 age.at.postmp <- 60 #ASSUMPTION
 
 ## bmi and disease risk (Munsell et al, 2014)
-obesity_hpos_premp <- 0.78 #nonderived
-obesity_hpos_postmp<- 1.39 #nonderived
-obesity_hneg_premp <- 1.06 #nonderived
+obesity_hpos_premp <- 0.78  #nonderived
+obesity_hpos_postmp<- 1.39  #nonderived
+obesity_hneg_premp <- 1.06  #nonderived
 obesity_hneg_postmp <- 0.98 #nonderived
 
 ## obesity 
@@ -55,7 +55,7 @@ prop.bmi.ge.30 <- 0.50 #ASSUMPTION
 hpos_risk <- .77    #77 percent of cancers among AA were hormone positive, Howlader 2014
 
 ## First degree relative history
-prop.fd.rel <- .124   # 12.4% of women had a first degree relative with breast cancer, Braithwite
+prop.fd.rel <- .124  # 12.4% of women had a first degree relative with breast cancer, Braithwite
 fd.rel.risk <- 1.49  # relative risk of women who had first degree relative with breast cancer 
 
 ## Screening parameters
@@ -76,11 +76,11 @@ diagnostic_testing_SS2_calculation<-2.25
 diagnostic_testing_SS3_calculation<-2.70
 
 regular_pcp_visitor_oddsratio<-14
-screening_mammogram_navigated_oddsratio<-2.48 #completion
-diagnostic_test_navigated_oddsratio<-1.57 #completion
-antinavigation_assumption<-1/2.6
+screening_mammogram_navigated_oddsratio<-2.48 #completion  * factor
+diagnostic_test_navigated_oddsratio<-1.57 #completion  * factor
+#antinavigation_assumption<-1/2.6
 neighbor_navigation_oddsratio<-2.6
-neighbor_false_positive_assumption<-1/2.6
+#neighbor_false_positive_assumption<-1/2.6
 
 #diagnosis.R parameters
 p_false_negative_sm <- 0.012/100 #the probability of a false negative screening mammogram result

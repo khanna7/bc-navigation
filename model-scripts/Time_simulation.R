@@ -16,7 +16,7 @@ source('model-scripts/prob.R')
 burninname = "data/clean_burnin.RData"
   
 #Slurm code included if true, local execution if false
-slurm <- FALSE
+slurm <- TRUE
 cat("probability = 0.025")
 
 load(burninname)
@@ -37,21 +37,12 @@ institutional <- TRUE
 social <- TRUE
 
 #this should go in estimation, but i don't want to generate another burnin rn
-set.vertex.attribute(net.f, "navigation_start_time", 0, )
-set.vertex.attribute(net.f, "navigation_end_time", 0, )
 set.vertex.attribute(net.f, "navigation_length", 0, )
-
-set.vertex.attribute(net.f, "screening_referral_start_time", 0, )
-set.vertex.attribute(net.f, "screening_referral_end_time", 0, )
 set.vertex.attribute(net.f, "screening_referral_length", 0, )
-
-set.vertex.attribute(net.f, "diagnostic_referral_start_time", 0, )
-set.vertex.attribute(net.f, "diagnostic_referral_end_time", 0, )
 set.vertex.attribute(net.f, "diagnostic_referral_length", 0, )
 
 set.vertex.attribute(net.f, "screening_referral_expired", 0, )
 set.vertex.attribute(net.f, "diagnostic_referral_expired", 0, )
-set.vertex.attribute(net.f, "diagnostic_referral_length", 0, )
 
 cat("INTERVENTION WITH SOCIAL NAVIGATION", "\n")
 for (time_step in 1:sim_time){

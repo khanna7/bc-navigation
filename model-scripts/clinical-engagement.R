@@ -30,18 +30,14 @@ clinical_engagement <- function(net.f, institutional, social, control, time_step
   screening_referral_checker <- net.f %v% "screening_referral_checker"
   number_navigated_at_t <- 0
   rolls_for_navigation <- 0
-  screening_referral_length <- net.f %v% "screening_referral_length"
-  
+
   navigation_start_time <- net.f %v% "navigation_start_time"
-  navigation_end_time <- net.f %v% "navigation_end_time" #TODO unused
   navigation_length <- net.f %v% "navigation_length"
   
-  #referral expiration
-  screening_referral_start_time <- net.f %v% "screening_referral_start_time"
-  screening_referral_end_time <- net.f %v% "screening_referral_end_time"
-
-  diagnostic_referral_start_time <- net.f %v% "diagnostic_referral_start_time"
-  diagnostic_referral_end_time <- net.f %v% "diagnostic_referral_end_time"
+  #referral lengths
+  screening_referral_length <- net.f %v% "screening_referral_length"
+  diagnostic_referral_length <- net.f %v% "diagnostic_referral_length"
+  
 ####Create Attribute matrix (Mickey's solution) 
   
   attrib_mtrx<-cbind(symptom.severity,
@@ -66,7 +62,7 @@ clinical_engagement <- function(net.f, institutional, social, control, time_step
         diagnostic_referral[agent]<-rbinom(1,1,prob(agent_data,"dt",0))
         diagnostic_referral_counter[agent]<-diagnostic_referral_counter[agent]+diagnostic_referral[agent]
       if(diagnostic_referral[agent] == 1){ #navigate direct-diagnosis agents
-        diagnostic_referral_start_time[agent] <- time_step
+        diagnostic_referral_length[agent] <- 0
         navigated[agent]<-rbinom(1,1, prob_institutional_navigation) #random institutional navigation
         rolls_for_navigation <- rolls_for_navigation + 1
         number_navigated_at_t <- number_navigated_at_t + navigated[agent]
@@ -87,7 +83,7 @@ clinical_engagement <- function(net.f, institutional, social, control, time_step
       	  screening_referral_counter[agent]<-screening_referral_counter[agent]+screening_referral[agent]
 	          if(screening_referral[agent]==1){ #Limiting navigation rolls to the step where a referral is given
 	            screening_referral_checker[agent] <- 1
-	            screening_referral_start_time[agent] <- time_step
+	            screening_referral_length[agent] <- 0
 	            if(institutional == TRUE){
        	            	#simulate institutional navigation
 	  	          if(isTRUE((navigated[agent]==0) &
@@ -99,13 +95,6 @@ clinical_engagement <- function(net.f, institutional, social, control, time_step
 	                     navigated[agent]<-rbinom(1,1, prob_institutional_navigation) #random institutional navigation
 	                     rolls_for_navigation <- rolls_for_navigation + 1
 	                      number_navigated_at_t <- number_navigated_at_t + navigated[agent]
-	                       if(navigated[agent]==1){
-	                        # if(navigation_length[agent] != 0){
-	                        #  navigation_length[agent] <- 0
-	                        #}
-	                         navigation_start_time[agent] <- time_step
-	                       }
-
         	       }
 	            }#
             }
@@ -121,12 +110,6 @@ clinical_engagement <- function(net.f, institutional, social, control, time_step
           (neighbor_navigated[agent]==1) #key component
        )){
          navigated[agent]<-rbinom(1,1,prob_social_navigation) #social navigation
-         if(navigated[agent]==1){
-          # if(navigation_length[agent] != 0){
-          #   navigation_length[agent] <- 0
-          # }
-           navigation_start_time[agent] <- time_step
-         }
        }
     }
   }
@@ -145,15 +128,8 @@ clinical_engagement <- function(net.f, institutional, social, control, time_step
   net.f %v% "diagnostic_referral" <- diagnostic_referral
   net.f %v% "screening_referral_checker" <- screening_referral_checker
   
-  net.f %v% "navigation_start_time" <- navigation_start_time
-  net.f %v% "navigation_end_time" <- navigation_end_time
-  net.f %v% "navigation_length" <- navigation_length
-  
-  net.f %v% "screening_referral_start_time" <- screening_referral_start_time
-  net.f %v% "screening_referral_end_time" <-screening_referral_end_time
-  
-  net.f %v% "diagnostic_referral_start_time" <- diagnostic_referral_start_time
-  net.f %v% "diagnostic_referral_end_time"  <- diagnostic_referral_end_time
+  net.f %v% "diagnostic_referral_length" <- diagnostic_referral_length
+  net.f %v% "screening_referral_length" <- screening_referral_length
   
 return(net.f)
 }
