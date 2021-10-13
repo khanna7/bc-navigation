@@ -59,7 +59,7 @@ prop.fd.rel <- .124  # 12.4% of women had a first degree relative with breast ca
 fd.rel.risk <- 1.49  # relative risk of women who had first degree relative with breast cancer 
 
 ## Screening parameters
-prop.pcp.visitor <- .84
+prop.pcp.visitor <- .84 #Supported by data (Yami)
 
 #All cause mortality rates by age, per time step 
 ac.mort.50 <- .06146/12
@@ -75,7 +75,7 @@ diagnostic_testing_SS1_assumption<-2
 diagnostic_testing_SS2_calculation<-2.25
 diagnostic_testing_SS3_calculation<-2.70
 
-regular_pcp_visitor_oddsratio<-14
+regular_pcp_visitor_oddsratio<-14 #Supported by only 1 paper (Yami thinks this is likely too high?)
 screening_mammogram_navigated_oddsratio<-2.48 #completion  * factor
 diagnostic_test_navigated_oddsratio<-1.57 #completion  * factor
 #antinavigation_assumption<-1/2.6

@@ -13,15 +13,14 @@ source('model-scripts/demography-reset.R')
 source('model-scripts/diagnosis.R')
 source('model-scripts/prob.R')
 
-burninname = "data/clean_burnin.RData"
+burninname = "data/7-1-2021_menopause_at_50_burnin.RData"
 
 #Slurm code included if true, local execution if false
 slurm <- TRUE
 
 load(burninname)
 #load("burnin.RData")
-#net.f <- net0_bip
-
+#net.f <- net0_bip #ONLY NEEDED WHEN RUNING FROM A FRESH TIME-ZERO NETWORK FROM estimation.R
 activate.edges(net.f)
 activate.vertices(net.f)
 
@@ -36,6 +35,9 @@ institutional <- FALSE
 social <- FALSE
 
 #this should go in estimation, but i don't want to generate another burnin rn
+
+set.vertex.attribute(net.f, "navigate_next_referral",0,)
+
 set.vertex.attribute(net.f, "navigation_start_time", 0, )
 set.vertex.attribute(net.f, "navigation_end_time", 0, )
 set.vertex.attribute(net.f, "navigation_length", 0, )

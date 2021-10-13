@@ -7,7 +7,8 @@ library(ergm)
 library(networkDynamic)
 library(tergm)
 
-source("model-scripts/parameters.R")
+#set working directory to model-scripts before sourcing below
+source("parameters.R")
 
 # Estimate unipartite ERGM ----
 
@@ -95,7 +96,7 @@ set.vertex.attribute(net0_bip, "bmi.ge.30", rbinom(n, 1, prop.bmi.ge.30))
 #menopausal status
 meno.status <- rep(0, n)
 
-meno.age <- which(net0_bip %v% "age" >= 60)
+meno.age <- which(net0_bip %v% "age" >= 50)
 for (i in meno.age){
   meno.status[i] <- 1
 }
@@ -190,4 +191,5 @@ set.vertex.attribute(net0_bip, "navigation_stop_time", 0)
 set.vertex.attribute(net0_bip, "navigation_length", 0)
 
 # Save object -----
-save(net0_bip, file = "estimation_net.RData")
+save(net0_bip, file = "menopause_age50_time_0_net.RData")
+  

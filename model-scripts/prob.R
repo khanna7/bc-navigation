@@ -9,6 +9,10 @@ prob<-function(agent_data,test,diagnostic_referral_length){
   if(test == "dt" & (diagnostic_referral_length == 1 | diagnostic_referral_length == 2 )){
     probability <- 0.025
   }
+  # #Changing probability so 80% of women finish screening referrals before 2 months/60 days
+  # if(test == "sm" & (screening_referral_length == 1 | screening_referral_length == 2 )){
+  #   probability <- 0.025
+  # }
 
   agent_symptom_severity<-agent_data[1]
   agent_regular_pcp_visitor<-agent_data[2]
@@ -24,7 +28,7 @@ prob<-function(agent_data,test,diagnostic_referral_length){
   else if(agent_symptom_severity==3 & test=="dt"){probability<-probability*diagnostic_testing_SS3_calculation}
   
   if(agent_regular_pcp_visitor==1){probability<-probability*regular_pcp_visitor_oddsratio}
-  #same as being up to date on mammograms in paper
+  #same as being up to date on mammograms in paperaqswz
   
   if(agent_navigated==1 & test=="sm"){probability<-probability*screening_mammogram_navigated_oddsratio}
   if(agent_navigated==1 & test=="dt"){probability<-probability*diagnostic_test_navigated_oddsratio}

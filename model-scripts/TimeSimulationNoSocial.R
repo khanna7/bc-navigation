@@ -13,10 +13,11 @@ source('model-scripts/demography-reset.R')
 source('model-scripts/diagnosis.R')
 source('model-scripts/prob.R')
 
-burninname = "data/clean_burnin.RData"
+burninname = "data/7-1-2021_menopause_at_50_burnin.RData"
 
 #Slurm code included if true, local execution if false
 slurm <- TRUE
+sim_time <- 360 #length of simulation in months
 
 load(burninname)
 #load("burnin.RData")
@@ -25,6 +26,8 @@ load(burninname)
 activate.edges(net.f)
 activate.vertices(net.f)
 #this should go in estimation, but i don't want to generate another burnin rn
+set.vertex.attribute(net.f, "navigate_next_referral",0,)
+
 set.vertex.attribute(net.f, "navigation_start_time", 0, )
 set.vertex.attribute(net.f, "navigation_end_time", 0, )
 set.vertex.attribute(net.f, "navigation_length", 0, )
@@ -40,9 +43,6 @@ set.vertex.attribute(net.f, "diagnostic_referral_length", 0, )
 set.vertex.attribute(net.f, "screening_referral_expired", 0, )
 set.vertex.attribute(net.f, "diagnostic_referral_expired", 0, )
 set.vertex.attribute(net.f, "diagnostic_referral_length", 0, )
-
-#parameter_file <- "model-scripts/parameters.R"
-sim_time <-360 #length of simulation in months
 
 #estimation_net <- main_estimation(parameter_file)
 start_time <- Sys.time()

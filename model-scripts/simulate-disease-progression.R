@@ -24,10 +24,11 @@ disease_progression <- function(net.f){
   disease.time <- net.f %v% "disease.time" #time of BC onset
   symptom.severity <- net.f %v% "symptom.severity"
   cancer_death <- net.f %v% "cancer_death"
+  diagnosis <- net.f %v% "diagnosis" #TODO 
 
   # update menopausal status based on age
      for (agent in 1:pop_size){
-       if (age[agent] >= 60)
+       if (age[agent] >= 50)
          meno.status[agent] <- 1
      }
   
@@ -84,7 +85,7 @@ disease_progression <- function(net.f){
      #Update time since development of disease
      
      for (agent in 1:pop_size){
-       if (bc_status[agent] == 1){
+       if (bc_status[agent] == 1 & diagnosis == 0) #TODO
          disease.time[agent] <- disease.time[agent] + 1 
          if (disease.time[agent] >= 12 & disease.time[agent] < 24){
           symptom.severity[agent] <- 1

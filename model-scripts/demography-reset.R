@@ -168,6 +168,8 @@ demography <- function(net.f, slurm, time_step, sim_time){
     set.vertex.attribute(net.f, "diagnostic_referral_length", 0, nodes.to.reset)
     #set.vertex.attribute(net.f, "diagnostic_referral_expired", 0, nodes.to.reset)
     
+    set.vertex.attribute(net.f, "navigate_next_referral",0, nodes.to.reset)
+    
     }
 
   # Save object -----
@@ -179,6 +181,9 @@ demography <- function(net.f, slurm, time_step, sim_time){
 
   number.of.diagnostic.referrals<-length(which(net.f %v% "diagnostic_referral"==1))
   number.of.screening.referrals<-length(which(net.f %v% "screening_referral"==1))
+  
+  number.of.diagnostic.referrals.cumulative<- sum(net.f %v% "diagnostic_referral_counter")
+  number.of.screening.referrals.cumulative<-sum(net.f %v% "screening_referral_counter")
 
   number.of.screen.completed<-length(which(net.f %v% "screen_complete"==1))
   number.of.dt.completed<-length(which(net.f %v% "diagnostic_test_complete"==1))
@@ -288,6 +293,11 @@ demography <- function(net.f, slurm, time_step, sim_time){
   ss1<-which(net.f %v% "symptom.severity"==1)
   ss2<-which(net.f %v% "symptom.severity"==2)
   ss3<-which(net.f %v% "symptom.severity"==3)
+  
+  n_ss0<-length(which(net.f %v% "symptom.severity"==0))
+  n_ss1<-length(which(net.f %v% "symptom.severity"==1))
+  n_ss2<-length(which(net.f %v% "symptom.severity"==2))
+  n_ss3<-length(which(net.f %v% "symptom.severity"==3))
 
   number.of.ss0.diagnosed<-length(intersect(diagnosed,ss0))
   number.of.ss0.diagnosed.navigated<-length(intersect(diagnosed_and_navigated,ss0))
@@ -310,8 +320,14 @@ demography <- function(net.f, slurm, time_step, sim_time){
   number.of.ss3.diagnosed.unnavigated<-length(intersect(diagnosed_and_unnavigated_completely,ss3))
 
   
-  number.of.expired.diagnostic.referrals.at.t <- length(which(net.f %v% "diagnostic_referral_expired" == 1))
-  number.of.expired.screening.referrals.at.t <- length(which(net.f %v% "screening_referral_expired" == 1))
+  
+  #These overcount because they are cumulative
+  #number.of.expired.diagnostic.referrals.at.t <- length(which(net.f %v% "diagnostic_referral_expired" == 1))
+  #number.of.expired.screening.referrals.at.t <- length(which(net.f %v% "screening_referral_expired" == 1))
+  number.of.total.expired.diagnostic.referrals <- sum(net.f %v% "diagnostic_referral_expired")
+  number.of.total.screening.referrals <- sum(net.f %v% "screening_referral_expired") #NEEDS TYPO FIX
+  
+  
   
   #Navigation length at the last step
   
@@ -385,8 +401,13 @@ filename = paste(numericid, ".data", sep="")
                     number.of.bc.onsets,  #36
                     number.of.screening.referrals.at.t,#37
                     #navigation.length, #38
-                    number.of.expired.diagnostic.referrals.at.t,#39
-                    number.of.expired.screening.referrals.at.t),#40
+                    number.of.total.expired.diagnostic.referrals,
+                    number.of.total.screening.referrals,
+                    
+                    n_ss0,
+                    n_ss1,
+                    n_ss2,
+                    n_ss3),#40
                     
               file=filename,
               append=TRUE,
