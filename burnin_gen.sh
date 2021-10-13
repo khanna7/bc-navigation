@@ -8,7 +8,7 @@ mkdir $control_dir
 mkdir ${control_dir}/data $control_dir/rdata $control_dir/logs $control_dir/diagnostic_event_logs
 
 #control
-sbatch --wait sbatch-scripts/control.sh
+sbatch --wait sbatch-scripts/burnin.sh
 wait
 mv *.data ${control_dir}/data
 mv *.events ${control_dir}/diagnostic_event_logs
