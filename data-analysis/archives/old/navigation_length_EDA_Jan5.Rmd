@@ -1,0 +1,152 @@
+---
+title: "Exploration of navigation length code"
+output:
+  html_document:
+    df_print: paged
+---
+```{r}
+load("jan_5_nav_length_eda_workspace.RData")
+library(networkDynamic)
+library(network)
+```
+
+Setup:
+A 360 time step run was completed on a login node. Afterwards, the state of the model after the final step was probed in the console. (we wanted to look at a snapshot of navigation lengths- I chose the final time step)
+
+```{r}
+start <- net.f %v% "navigation_start_time"
+end <- net.f %v% "navigation_end_time"
+```
+
+Central tendency measures:
+```{r}
+mean(navigation.length[which(navigation.length > 0)])
+median(navigation.length[which(navigation.length > 0)])
+
+```
+
+Number of agents with navigations that last longer than 12 months:
+```{r}
+length(which(navigation.length > 12))
+
+```
+
+Number of agents with navigation length greater than 0:
+```{r}
+length(which(navigation.length > 0))
+```
+
+
+Number of navigations which had no end time at time 360:
+```{r}
+length(intersect(which(start > 0), which(end == 0)))
+```
+```{r}
+nav_start_not_end <- intersect(which(start > 0), which(end == 0))
+nav_start_not_end
+```
+
+```{r}
+hist(navigation.length)
+```
+
+
+Looking at the navigations where 
+```{r}
+hist(navigation.length[which(navigation.length > 0)])
+
+```
+Why are there so many navigation.length = 1 agents? 
+
+Including zero:
+```{r}
+hist(navigation.length[which(navigation.length >= 0)])
+
+```
+
+```{r}
+mean(navigation.length[which(navigation.length > 0)])
+median(navigation.length[which(navigation.length > 0)])
+
+```
+
+
+How many agents have start and end = 0? (no navigation)
+```{r}
+n_no_nav <- length(navigation.length[intersect(which(start == 0), which(end == 0))])
+n_no_nav
+```
+
+Do the numbers add up to 5000?
+```{r}
+nav_completed <- length(intersect(which(end != 0), which(start < end)))
+nav_overwrite <- length(intersect(which(end < start), which(end != 0)))
+nav_started_and_ended <- length(intersect(which(end != 0), which(end > start)))
+
+n_no_nav + length(nav_start_not_end) + nav_completed + nav_overwrite 
+#nav_start_not_end <- intersect(which(start > 0), which(end == 0))
+#n_no_nav <- length(navigation.length[intersect(which(start == 0), which(end == 0))])
+
+```
+The numbers don't quite add up. Either there is an issue, or my cases are incorrect.
+
+
+
+Agents with negative navigation lengths: (navigation.length = nav.end.time - nav.start.time. Negative value means at least one navigation has ended and another has started, hence end time is lower than start time)
+```{r}
+hist(navigation.length[which(navigation.length < 0)])
+```
+
+
+
+
+
+
+
+CONCLUSIONS:
+
+1) MANY agents have very long navigation lengths. We should implement a referral timeout. Currently, navigation ends only when the referrals are completed. From this we can infer than many agents are not completing their referrals in a reasonable amount of time.
+
+2) We should implement a per-agent counting of number of times navigated (easy) . We haven't looked at this at all.
+
+3) navigation_length data doesn't fit well into the multiplot.R data management scheme. It pulls data from n.data output files, which only record summary data, not per agent data like nav_length would need to be. 
+
+4) A similar analysis could be done for testing_length (not a great name), which I'm imagining as the time from referral to diagnostic test completion. We could compare the lengths as a way of seeing the effect of navigation
+
+
+
+
+
+QUESTIONS:
+
+*Do we need to factor in diagnosed agents? (note: these seem to be NAs:) 
+```{r}
+length(which(net.f %v% "diagnosed" == 1))
+```
+
+*What does it mean about our calibration in terms of referral completions? Does this match Yami's expectations/data?
+Particularly, we have many 1 month completions, and many 150+ month navigations.
+
+*Screening visits- I was poking around the model and noticed that many women have no screening visits. Perhaps this is where navigated agents are getting stuck?
+
+```{r}
+table(net.f %v% "diagnostic_visit_counter")
+```
+```{r}
+table(net.f %v% "screening_visit_counter")
+```
+
+```{r}
+length(which(navigation.length > 100))
+```
+
+* on this note, we se very few women with significant numbers of screening referrals. We would expect older women to have 1 screening per two years. We'd need to look into measuring women's number of time steps in the model to see if our numbers are reasonable (because nintros are generated with an age probabilistically- they don't just age in). Mickey has talked about "ageing in", but since nintros are the only new nodes due to our in-place replacement scheme there really is no "ageing in" to speak of.
+
+This makes us unable to cross-reference age and expected screenings, since we only measure screenings that happen while agents are in the model. e.g. If someone ages in at 50 and we measure them at 74, we'd expect around 12 screenings. But if someone replaces a dead agent and rolls that they'll start at 74 they will only show up as having 0 (or possibly 1) screenings. 
+
+As we can see below, we have a sizeable number of 70+ agents, but we have no idea how long we've been tracking their screenings.
+```{r}
+age <- net.f %v% "age"
+length(which(age > 70))
+```
+

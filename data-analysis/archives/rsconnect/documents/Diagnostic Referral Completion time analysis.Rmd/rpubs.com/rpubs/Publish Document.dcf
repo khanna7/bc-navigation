@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/727292/8aebf90fec43486c986844ffd076b437
+bundleId: https://api.rpubs.com/api/v1/document/727292/8aebf90fec43486c986844ffd076b437
+url: http://rpubs.com/BryanBrick/727292
+when: 1613688198.43477

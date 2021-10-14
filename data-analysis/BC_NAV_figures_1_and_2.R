@@ -9,7 +9,7 @@ rm(list=ls())
 
 ## Add names of data directories here
 #Directory name format is {date}_full_run
-bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
+bc_navigation_root <- '/project2/ahotton/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
 #date<-"13:50:15_2021-05-13" #3rd round (reset neighbor_navigation_roll at each navigation end point)
 date <- "15:54:31_2021-07-08"
 full_run_name <- paste0(date, '_full_run)/')
@@ -154,8 +154,8 @@ d_social_expirations <- intervention_dt.df %>%
             "Total number of completions"=length(which(expired==0 & cancer_status==1))
   )
 d_con_expirations <-cbind(d_con_expirations, "scenario"= "Control")
-d_noSocial_expirations <- cbind(d_noSocial_expirations, "scenario"= "Institutional Only")
-d_social_expirations <- cbind(d_social_expirations, "scenario"= "Institutional and Social")
+d_noSocial_expirations <- cbind(d_noSocial_expirations, "scenario"= "Clinical Navigation")
+d_social_expirations <- cbind(d_social_expirations, "scenario"= "Network Navigation")
 
 colnames(d_con_expirations)     <- c("Instance", "Percent_expired","Percent_completed","Total_population", 
                                      "navigated_NA_completion_rate", "navigated_no_NA_completion_rate","unnavigated_NA_completion_rate", "unnavigated_no_NA_completion_rate",
@@ -221,10 +221,10 @@ d2<-ggplot(diagnostic_data_long, aes(
     labs(group = "Treatment")+ #TODO figure out why this doesn't work
     theme_bw()+
     labs(color = "Treatment")+
-    scale_color_discrete(name="Treatment", labels = c("Navigated with NA", 
-                                                 "Navigated without NA", 
-                                                 "Unnavigated with NA",
-                                                 "Unnavigated without NA"))+
+    scale_color_discrete(name="Treatment", labels = c("Navigated with NN", 
+                                                 "Navigated without NN", 
+                                                 "Unnavigated with NN",
+                                                 "Unnavigated without NN"))+
     annotate("rect", xmin = 1.5, xmax = 2.5, ymin = -100, ymax = 200,
              alpha = .2)+
     coord_cartesian(xlim = c(1,3), ylim = c(0,100))
@@ -283,8 +283,8 @@ s_social_expirations <- intervention_sc.df %>%
             )   
 
 s_con_expirations <-cbind(s_con_expirations, "scenario"= "Control")
-s_noSocial_expirations <- cbind(s_noSocial_expirations, "scenario"= "Institutional Only")
-s_social_expirations <- cbind(s_social_expirations, "scenario"= "Institutional and Social")
+s_noSocial_expirations <- cbind(s_noSocial_expirations, "scenario"= "Clinical Navigation")
+s_social_expirations <- cbind(s_social_expirations, "scenario"= "Network Navigation")
 
 colnames(s_con_expirations)     <- c("Instance", "Percent_expired","Percent_completed","Total_population", "navigated_NA_completion_rate", "navigated_no_NA_completion_rate","unnavigated_NA_completion_rate", "unnavigated_no_NA_completion_rate",
                                      "Number_of_navigated_with_NA","Number_of_navigated_no_NA","Number_of_unnavigated_with_NA","Number_of_unnavigated_no_NA","Scenario")
@@ -331,10 +331,10 @@ s2<-ggplot(screening_data_long, aes(
   ylab("Screening Referral Completion Rate (%)")+  
   theme_bw()+
   labs(color = "Treatment")+
-  scale_color_discrete("Treatment", labels = c("Navigated with NA", 
-                                               "Navigated without NA", 
-                                               "Unnavigated with NA",
-                                               "Unnavigated without NA"))+
+  scale_color_discrete("Treatment", labels = c("Navigated with NN", 
+                                               "Navigated without NN", 
+                                               "Unnavigated with NN",
+                                               "Unnavigated without NN"))+
   annotate("rect", xmin = 1.5, xmax = 2.5, ymin = -100, ymax = 200,
            alpha = .2)+
   coord_cartesian(xlim = c(1,3), ylim = c(0,100))
@@ -350,7 +350,7 @@ s_total<-ggplot(screening_data_long, aes(
                 #color = group
          )) +
          geom_boxplot()+
-         ylab("Total Pop. Screening Referral Completion Rate (%)")+  
+         ylab("Total Pop. Screening Completion Rate (%)")+  
          theme_bw()+
          annotate("rect", xmin = 1.5, xmax = 2.5, ymin = -100, ymax = 200,
                   alpha = .2)+
@@ -363,7 +363,7 @@ d_total<-ggplot(diagnostic_data_long, aes(
          #color = group
          )) +
          geom_boxplot()+
-         ylab("Total Pop. Diagnostic Referral Completion Rate (%)")+  
+         ylab("Total Pop. Diagnostic Completion Rate (%)")+  
          theme_bw()+
          annotate("rect", xmin = 1.5, xmax = 2.5, ymin = -100, ymax = 200,
                   alpha = .2)+

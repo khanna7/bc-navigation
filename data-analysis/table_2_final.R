@@ -1,4 +1,4 @@
-#Analyze calibration data
+  #Analyze calibration data
 #Pulls data from .data files (written by demography-reset.R)
 #Loads data into dataframes and generates plots 
 
@@ -13,7 +13,7 @@ library(networkDynamic)
 
 ## Add names of data directories here
 #Directory name format is {date}_full_run
-bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
+bc_navigation_root <- '/project2/ahotton/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
 #date<-"20:53:45_2021-06-08" 
 date <- "15:54:31_2021-07-08"
 full_run_name <- paste0(date, '_full_run)/')
@@ -191,7 +191,7 @@ upper_ci <- function(data){
   x_bar <- mean(data)
   sigma <- sd(data)
   n.sim <- length(data)
-  A = qt(0.975, df=n.sim-1)*sigma/sqrt(n.sim)
+    A = qt(0.975, df=n.sim-1)*sigma/sqrt(n.sim)
   left <- x_bar - A
   right <- x_bar + A
   ci_interval <- c(round(left,digits=2),round(right,digits=2))
@@ -284,3 +284,4 @@ cat(round(mean(social_ss1+social_ss2), digits=2),"%(",round(lower_ci(social_ss1+
 cat(round(mean(social_ss3), digits=2),"%(",round(lower_ci(social_ss3), digits=2),",",round(upper_ci(social_ss3), digits=2),")")
 #Distant
 cat(round(mean(social_ss4), digits=2),"%(",round(lower_ci(social_ss4), digits=2),",",round(upper_ci(social_ss4), digits=2),")")
+

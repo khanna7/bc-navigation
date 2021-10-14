@@ -1,0 +1,128 @@
+---
+title: "BCNAV Weds 2/24 Update"
+author: "Bryan Brickman"
+date: "2/23/2021"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+
+Intro:
+
+This document explains the progress I have made since our last meeting. There are two main points:
+  1. I have a method for recording agent-level data about dt completions and expirations
+  2. I have found a modified probability value which matches our diagnostic test completion data to the 2-month completion rate from PNMUA
+  
+It is also worth nothing that the method from 1. can be ported over to work with screening referrals very easily.
+
+
+Loading in data:
+```{r}
+bc_navigation_root <- '/project2/khanna7/bryanb/bc-navigation/dec9_navlength/bc-navigation/'
+#old_referral_data <- read.table(paste0(bc_navigation_root,"1.dtdata"))
+#colnames(old_referral_data)<-c("time","diagnostic_referral_length","expired","within_2_months")
+
+referral_data <- read.table(paste0(bc_navigation_root,"1.dtestdata"))
+colnames(referral_data)<-c("time","diagnostic_referral_length","expired","within_2_months", "symptom_severity")
+
+```
+  
+```{r}
+#old_total <- length(old_referral_data$time)
+new_total <- length(referral_data$time)
+```
+
+DT referral breakdown:
+```{r}
+dt_completions <- filter(referral_data, diagnostic_referral_length > 0)
+hist(dt_completions$diagnostic_referral_length)
+```
+
+
+2 month completion rate :
+```{r}
+length(filter(referral_data, within_2_months == 1)$within_2_months)/new_total
+```
+
+We accomplished this by setting the "probability" (from Micky's Prob.R file) from =0.0034 to =0.01 when the referral length of an agent is 1 or 2. Further increase will probably be able to yield a 2 month completion rate of 75% as desired.
+
+Next we can look at the overall breakdown between expirations and completions. Dividing by the total number of events from earlier, we can figure out what portion of referrals got completed:
+```{r}
+#n_old_completed <- length(which(old_referral_data[2] > 0))
+#n_old_completed
+```
+```{r}
+#old_completion_rate <- n_old_completed/old_total
+#old_completion_rate
+```
+
+```{r}
+n_new_completed <- length(which(referral_data[2] > 0))
+n_new_completed
+```
+```{r}
+new_completion_rate <- n_new_completed/new_total
+new_completion_rate
+```
+
+
+This shows that the original completion rate is 64% and the new is 75%.
+
+We can compare this to other ratios, like the expiration rate (flagged with a length of -1):
+```{r}
+#n_old_expired <- length(which(old_referral_data[2] == -1))
+#n_old_expired
+```
+```{r}
+#old_expiry_rate <- n_old_expired/old_total
+#old_expiry_rate
+```
+```{r}
+n_new_expired <- length(which(referral_data[2] == -1))
+n_new_expired
+```
+```{r}
+new_expiry_rate <- n_new_expired/new_total
+new_expiry_rate
+```
+
+```{r}
+#old_completion_rate + old_expiry_rate
+```
+```{r}
+new_completion_rate + new_expiry_rate
+```
+
+Seems like the numbers all add up!
+
+
+Finally, look at expirations over time as a sanity check. Notice that months 1-12 contain no expirations(as expected):
+```{r}
+#ggplot(data=filter(old_referral_data, diagnostic_referral_length == -1))+
+#  geom_histogram(aes(x=time), bins = 180)
+```
+
+```{r}
+ggplot(data=filter(referral_data, diagnostic_referral_length == -1))+
+  geom_histogram(aes(x=time),bins = 180)
+```
+
+
+```{r}
+diagnosis_data <- filter(referral_data, diagnostic_referral_length != -1)
+ggplot()+
+  geom_histogram(data=diagnosis_data, aes(x=symptom_severity))
+```
+
+
+
+The next step for the above will be to filter for women with cancer, since this data is diluted by the overwhelming number of negative diagnostic results by BC negative women.
+
+This will require adding a column to the dt data for cancer status.
+
+Another thing I wish to check is the number of women who die of cancer (say, what proportion of BC+ women die of cancer with no diagnosis)
+
