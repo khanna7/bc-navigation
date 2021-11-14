@@ -8,6 +8,8 @@ Each scenario will generate 30 runs to balance out the stochasticity of the mode
 Before running `full_run.sh` you will need to tailor the third line of the R scripts `TimeSimulationCotrol.R`, `TimeSimulationNoSocial.R`, and `TimeSimulation.R` to match your cloned directory.
 e.g `setwd("<path-to-cloned-bc-nav-code>")`
 
+###### NOTE: you may also run any one scenario of the model by using `bash model-scripts/<scenario-name>.sh`. Under the hood `full_run.sh` operates by automating the execution of these scenario scripts (and collating the outputs).
+
 
 ## Running on a local machine
 
@@ -28,3 +30,5 @@ The code will begin to execute, outputting data logs in the main `bc-navigation`
   >* `TimeSimulationNoSocial.R` is the clinical navigation scenario. Clinical navigation is added in as a component of the clinical processes for some women.
 
   >* `TimeSimulation.R` is the network navigation scenario. Clinical navigation takes place, and women who are exposed to clinical navigation can have an effect on their network neighbors. 
+
+
