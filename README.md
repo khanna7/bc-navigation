@@ -1,4 +1,4 @@
-# Agnet-Based Modeling of Patient Navigation to Improve Breast Cancer Outcomes 
+# Agent-Based Modeling of Patient Navigation to Improve Breast Cancer Outcomes 
 Breast Cancer R21: UIC-UChicago collaboration
 
 # ABOUT
