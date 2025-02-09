@@ -1,4 +1,4 @@
-# bc-navigation
+# Agnet-Based Modeling of Patient Navigation to Improve Breast Cancer Outcomes 
 Breast Cancer R21: UIC-UChicago collaboration
 
 # ABOUT
@@ -14,28 +14,7 @@ The model is written in R. The slurm scheduler is used to submit jobs on the Mid
 
 # Table of Contents (#TODO links for easy navigation, alongside "back to top")
 
-- [Model](#Model)
-- [Link to Paper](#link-to-paper)
-- [Demo-Preview](#demo-preview)
-- [Table of contents](#table-of-contents)
-- [Installation](#installation)
-- [Usage](#usage)
-- [File Descriptions](#file-descriptions)
-
-# Link to Paper
-[(back to top)](#table-of-contents)
-
-# Model
-[(Back to top)](#table-of-contents)
-
-# ERGM Generation (#TODO Bryan has no idea how this works)
-[(Back to top)](#table-of-contents)
-
-# Installation (#TODO Include Dependencies)
-[(Back to top)](#table-of-contents)
-
-# Usage
-[(Back to top)](#table-of-contents)
+- [Link to Paper]([#link-to-paper](https://link.springer.com/article/10.1007/s11524-022-00669-9))
 
 Burnin- create or specify
 
@@ -62,12 +41,5 @@ e.g.
 ```rstudio```
 open analysis file and update paths to data
 
-# Model Overview (Descriptions of files and how they correspond to conceptual model) 
-[(Back to top)](#table-of-contents)
-
-# File Descriptions
-[(Back to top)](#table-of-contents)
-
-
-
-
+## Funding
+R21 CA 215252
